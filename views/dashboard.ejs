@@ -30,10 +30,30 @@
 
         div.contenty {
             margin-left: 200px;
+             padding: 0;
             height: 1000px;
-        }
+        }  
         div.sideCon{
+            padding: 1px 10px;
+        }
+        @media screen and(max-width: 900px){
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .sidebar a {
+                float: left;
+            }
+
+            div.contenty {
+                margin-left: 0;
+                padding: 0;
+            }
+            .sideCon{
             padding: 1px 16px;
+            }
         }
         @media screen and (max-width: 700px) {
             .sidebar {
@@ -46,28 +66,9 @@
             .sidebar a {
                 float: left;
             }
-
-            div.contenty {
-                margin-left: 0;
-                padding: 0;
-            }
+            
         }
-        @media screen and(max-width: 1400){
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-            }
-
-            .sidebar a {
-                float: left;
-            }
-
-            div.contenty {
-                margin-left: 0;
-                /* padding: 0; */
-            }
-        }
+      
         
 
         @media screen and (max-width: 400px) {
