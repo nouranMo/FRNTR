@@ -1,43 +1,333 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
-    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/coffee.css' rel='stylesheet'>
-    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/edit-fade.css' rel='stylesheet'>
-    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/arrow-left-o.css' rel='stylesheet'>
-    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/maximize.css' rel='stylesheet'>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-  
-      <link rel="stylesheet" href="/public/css/categories.css" />
-  
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    />
+    <link
+      href="https://unpkg.com/css.gg@2.0.0/icons/css/coffee.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/css.gg@2.0.0/icons/css/edit-fade.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/css.gg@2.0.0/icons/css/arrow-left-o.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/css.gg@2.0.0/icons/css/maximize.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+    />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+
+    <link rel="stylesheet" href="/css/categories.css" />
+
     <style>
       .material-symbols-outlined {
-        font-variation-settings:
-          'FILL' 0,
-          'wght' 400,
-          'GRAD' 0,
-          'opsz' 48
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
       }
     </style>
-    <link rel="stylesheet" href="/public/css/style.css">
-    <link rel="stylesheet" href="/public/css/cart.css">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/cart.css" />
     <title>FRNTR</title>
-    <link rel="icon" type="image/x-icon" href="/images/logo.png">
-</head>
-<body>
+    <link rel="icon" type="image/x-icon" href="/images/logo.png" />
+  </head>
+  <body>
     <%- include("./partials/nav.ejs")%>
+    <!-- Image slider start -->
+    <div class="Gcontainer">
+      <div class="Slider">
+        <div class="Slides">
+          <!--Radio buttons start -->
+          <input
+            type="radio"
+            name="radio-btn"
+            id="radio1"
+            onclick="displayImage(0)"
+          />
+          <input
+            type="radio"
+            name="radio-btn"
+            id="radio2"
+            onclick="displayImage(1)"
+          />
+          <input
+            type="radio"
+            name="radio-btn"
+            id="radio3"
+            onclick="displayImage(2)"
+          />
+          <input
+            type="radio"
+            name="radio-btn"
+            id="radio4"
+            onclick="displayImage(3)"
+          />
+          <!--Radio buttons end-->
+          <!-- Slide images start-->
+          <div class="slideimage">
+            <img src="./Images/image1.jpeg" alt="Advertisement 1" />
+          </div>
+          <div class="slideimage">
+            <img src="./Images/image2.jpeg" alt="Advertisement 2" />
+          </div>
+          <div class="slideimage">
+            <img src="./Images/image3.jpeg" alt="Advertisement 3" />
+          </div>
+          <div class="slideimage">
+            <img src="./Images/image4.jpeg" alt="Advertisement 4" />
+          </div>
+          <!-- Slide images end-->
+        </div>
+        <!-- Manual Navigation Start -->
+        <div class="Navigation-manual">
+          <label for="radio1" class="manual-btn"></label>
+          <label for="radio2" class="manual-btn"></label>
+          <label for="radio3" class="manual-btn"></label>
+          <label for="radio4" class="manual-btn"></label>
+        </div>
+        <!-- Manual Navigation End -->
+      </div>
+      <!--End of image slider -->
+    </div>
+
+    <div class="farrah-container">
+      <h3 class="itemName"><span> Furniture</span></h3>
+      <div class="images">
+        <a href="clientProduct"
+          ><img
+            class="pictures"
+            src="./Images/sofas.webp"
+            alt="can't load"
+            width="300px"
+            height="300px"
+        /></a>
+        <a href="clientProduct"
+          ><img
+            class="pictures"
+            src="./Images/beds.webp"
+            alt="can't load"
+            width="300px"
+            height="300px"
+        /></a>
+        <a href="clientProduct"
+          ><img
+            class="pictures"
+            src="./Images/armchairs.webp"
+            alt="can't load"
+            width="300px"
+            height="300px"
+        /></a>
+        <a href="clientProduct"
+          ><img
+            class="pictures"
+            src="./Images/loungesw.webp"
+            alt="can't load"
+            width="300px"
+            height="300px"
+        /></a>
+        <br />
+
+        <a href="clientProduct"
+          ><img
+            class="pictures"
+            src="./Images/benches.webp"
+            alt="can't load"
+            width="300px"
+            height="300px"
+        /></a>
+        <a href="clientProduct"
+          ><img
+            class="pictures"
+            src="./Images/outdoors.webp"
+            alt="can't load"
+            width="300px"
+            height="300px"
+        /></a>
+        <a href="clientProduct"
+          ><img
+            class="pictures"
+            src="./Images/living rooms sets.webp"
+            alt="can't load"
+            width="300px"
+            height="300px"
+        /></a>
+        <a href="clientProduct"
+          ><img
+            class="pictures"
+            src="./Images/space friendly.webp"
+            alt="can't load"
+            width="300px"
+            height="300px"
+        /></a>
+        <br />
+        <p>
+          <a href="clientProduct"
+            ><img
+              class="pictures"
+              src="./Images/kids.webp"
+              alt="can't load"
+              width="300px"
+              height="300px"
+          /></a>
+          <a href="clientProduct"
+            ><img
+              class="pictures"
+              src="./Images/bean bags.webp"
+              alt="can't load"
+              width="300px"
+              height="300px"
+          /></a>
+          <a href="clientProduct"
+            ><img
+              class="pictures"
+              src="./Images/pets.webp"
+              alt="can't load"
+              width="300px"
+              height="300px"
+          /></a>
+        </p>
+
+        <h3 class="itemName"><span> Storage & Display</span></h3>
+        <div class="images2">
+          <a href="clientProduct"
+            ><img
+              class="pictures"
+              src="./Images/dressers.webp"
+              alt="can't load"
+              width="300px"
+              height="300px"
+          /></a>
+          <a href="clientProduct"
+            ><img
+              class="pictures"
+              src="./Images/tv.webp"
+              alt="can't load"
+              width="300px"
+              height="300px"
+          /></a>
+          <a href="clientProduct"
+            ><img
+              class="pictures"
+              src="./Images/consoles.webp"
+              alt="can't load"
+              width="300px"
+              height="300px"
+          /></a>
+          <a href="clientProduct"
+            ><img
+              class="pictures"
+              src="./Images/vanity.webp"
+              alt="can't load"
+              width="300px"
+              height="300px"
+          /></a>
+        </div>
+
+        <h3 class="itemName"><span> Tables </span></h3>
+        <div class="images2">
+          <a href="clientProduct"
+            ><img
+              class="pictures"
+              src="./Images/dining table.webp"
+              alt="can't load"
+              width="300px"
+              height="300px"
+          /></a>
+          <a href="clientProduct"
+            ><img
+              class="pictures"
+              src="./Images/coffe table.webp"
+              alt="can't load"
+              width="300px"
+              height="300px"
+          /></a>
+          <a href="clientProduct"
+            ><img
+              class="pictures"
+              src="./Images/side table.webp"
+              alt="can't load"
+              width="300px"
+              height="300px"
+          /></a>
+          <a href="clientProduct"
+            ><img
+              class="pictures"
+              src="./Images/night stands.webp"
+              alt="can't load"
+              width="300px"
+              height="300px"
+          /></a>
+        </div>
+
+        <h3 class="itemName"><span> Bedding </span></h3>
+        <div class="images2">
+          <a href="clientProduct"
+            ><img
+              class="pictures"
+              src="./Images/mattress.webp"
+              alt="can't load"
+              width="300px"
+              height="300px"
+          /></a>
+          <a href="clientProduct"
+            ><img
+              class="pictures"
+              src="./Images/comfort.webp"
+              alt="can't load"
+              width="300px"
+              height="300px"
+          /></a>
+          <a href="clientProduct"
+            ><img
+              class="pictures"
+              src="./Images/duvets.webp"
+              alt="can't load"
+              width="300px"
+              height="300px"
+          /></a>
+          <a href="clientProduct"
+            ><img
+              class="pictures"
+              src="./Images/protectors.webp"
+              alt="can't load"
+              width="300px"
+              height="300px"
+          /></a>
+        </div>
+      </div>
+    </div>
+
     <%- include("./partials/footer.ejs")%>
-</body>
+  </body>
+  <script src="./JS/handler.js"></script>
 </html>
