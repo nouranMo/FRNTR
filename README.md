@@ -1,5 +1,7 @@
 # FRNTR - Premium Furniture E-commerce Store
 
+![Insert Picture Here](path/to/picture.png)
+
 Welcome to FRNTR, the premium destination for high-quality furniture at affordable prices. Our website is currently static, but we have implemented several front-end features to enhance your shopping experience. Here are some of the unique points that make FRNTR stand out:
 
 ## Shopping Features
@@ -24,11 +26,29 @@ Creating an account with FRNTR is easy and hassle-free. Simply sign up with your
 ### 👨‍💼 Admin Dashboard
 As an admin, you can take control of your store's inventory and products through our dedicated admin dashboard. Login with the email "admin@gmail.com" and the password "admin!.!" to access these features.
 
+## Screenshots
+
+### Home Page
+![Home Page](screenshots/home_page.png)
+
+### Product Listing
+![Product Listing](screenshots/product_listing.png)
+
+### Cart
+![Cart](screenshots/cart.png)
+
+### Admin Panel
+![Admin Panel](screenshots/admin_panel.png)
+
 ## Check Out Our Web Application
 
 Experience the convenience of online furniture shopping through our web application. Click on the following link to check it out:
 
 [https://georgeayy.github.io/Web-Ninjas-El-Cyber](https://georgeayy.github.io/Web-Ninjas-El-Cyber)
+
+## Repository Transfer
+
+Please note that we have transferred from our old repository at [https://github.com/GeorgeAyy/Web-Ninjas-El-Cyber](https://github.com/GeorgeAyy/Web-Ninjas-El-Cyber) to this new repository.
 
 ## Contact Us
 
@@ -41,3 +61,4 @@ Need help or have a question? Feel free to reach out to us!
 [![Farrah Hany](https://img.shields.io/badge/Farrah%20Hany-Contact-blue)](mailto:farah2102625@miuegypt.edu.eg)
 
 Thank you for choosing FRNTR for your furniture needs. We're committed to delivering premium products and exceptional customer service.
+
