@@ -9,8 +9,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<link rel="stylesheet" href="./CSS/cart.css">
-<link rel="stylesheet" href="./CSS/wishlist.css">
+<link rel="stylesheet" href="../CSS/cart.css">
+<link rel="stylesheet" href="../CSS/wishlist.css">
     <title>FRNTR</title>
 </head>
 <body>
@@ -20,16 +20,16 @@
         <div id = "yourWishlist">WISHLIST IS EMPTY.</div>
         <div>You don't have any products in the wishlist yet.</div>
         <div>You will find a lot of interesting products on our "Shop" page.</div>
-        <a href="index.html"><button id = "returnButton">RETURN TO SHOP</button></a>
+        <a href="index"><button id = "returnButton">RETURN TO SHOP</button></a>
     </div>
     
     <div class="fullWishlistContainer">
         <div class="wishlistItemContainer">
             <div class="wishlistImageContainer">
-                <img src="./Images/BlueBed.webp" width="100px" height="100px">
+                <img src="../Images/BlueBed.webp" width="100px" height="100px">
             </div>
             <div class="wishlistTexts">
-                <a href="index.html" id = "websiteLink">Walls Nation</a>
+                <a href="index" id = "websiteLink">Walls Nation</a>
                 <div style="font-weight: bold;">Nova Upholstered Platform Bed</div>
                 <div><s>16,100.00 EGP</s> <span style ="color:red">8,200.00</span></div>
 
@@ -42,6 +42,6 @@
         </div>
     </div>
     <%- include("./partials/footer.ejs")%>
-    <script type="text/javascript"  src="./JS/handler.js"></script>
+    <script type="text/javascript"  src="../JS/handler.js"></script>
 </body>
 </html>
