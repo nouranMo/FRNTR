@@ -51,6 +51,10 @@ app.get('/AddProduct',(req,res)=>{
 app.get('/products',(req,res)=>{
     res.render('products');
 })
+app.get('/SignUp',(req,res)=>{
+    res.render('SignUp');
+})
 app.use((req,res)=>{
     res.status(404).render('404');
 })
+
