@@ -45,6 +45,9 @@ router.get('/customers', function(req, res, next) {
   router.get('/orders', function(req, res, next) {
     res.render('orders');
   });
+  router.get('/offers', function(req, res, next) {
+    res.render('offers');
+  });
 
 
 export default router;
