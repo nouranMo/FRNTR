@@ -10,7 +10,7 @@ router.get('/cart', function(req, res, next) {
   res.render('cart');
 });
 /* GET home page. */
-router.get('./itemPage', function(req, res, next) {
+router.get('/itemPage', function(req, res, next) {
   res.render('itemPage');
 });
 
