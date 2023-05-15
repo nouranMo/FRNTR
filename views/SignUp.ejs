@@ -40,25 +40,27 @@
     </div>
 
     <div class="sign1">
-        <form name="sign-in" action="#" method="get" onsubmit='return validate(this)'>
+        <form name="sign-in" action="/signup" method="post" onsubmit="return validate(this)">
+            <input type="hidden" name="userType" value="client">
             
             <input id="fir" type="text" class="elemen" name="Firstname" placeholder="First Name">
             <div id="first" class="err"></div>
-           
+          
             <input id="las" type="text" class="elemen" name="last" placeholder="Last Name">
             <div id="last" class="err"></div>
-            
+          
             <input id="ema" type="email" class="elemen" name="email" placeholder="Email">
             <div id="em" class="err"></div>
-            
-            <input id="pa" type="Password" class="elemen" name="pas" placeholder="Password">
+          
+            <input id="pa" type="password" class="elemen" name="pas" placeholder="Password">
             <div id="pas" class="err"></div>
-            
-            <input id="pac" type="Password" class="elemen" name="pasconfirm" placeholder="Confirm Password"><br>
+          
+            <input id="pac" type="password" class="elemen" name="pasconfirm" placeholder="Confirm Password"><br>
             <div id="con" class="err"></div>
-
+          
             <input class="subm" type="submit" value="Register"><br>
-        </form>
+          </form>
+          
     </div>
     </div>
     <%- include("./partials/footer.ejs")%>
