@@ -1,7 +1,8 @@
 // ##################  START SLIDE SHOW SCRIPT ######################
 var counter = 1;
-var imageSlide = document.getElementsByClassName("slideimage");
-var buttons = document.getElementsByClassName("manual-btn");
+var imageSlide;
+var buttons;
+
 function displayImage(num) {
   for (var i = 0; i < imageSlide.length; i++) {
     if (i == num) {
@@ -13,17 +14,16 @@ function displayImage(num) {
     }
   }
 }
+
 function displayFirst() {
   imageSlide[0].style.display = "block";
   buttons[0].style.background = "black";
 }
-displayFirst();
+
 function nextSlide() {
   for (var i = 0; i < imageSlide.length; i++) {
-    console.log("first log: " + i);
     if (imageSlide[i].style.display == "block") {
-      if (i === (imageSlide.length - 1)) {
-        console.log(i);
+      if (i === imageSlide.length - 1) {
         imageSlide[i].style.display = "none";
         buttons[i].style.background = "transparent";
         imageSlide[0].style.display = "block";
@@ -31,22 +31,27 @@ function nextSlide() {
       } else {
         imageSlide[i].style.display = "none";
         buttons[i].style.background = "transparent";
-        imageSlide[i+1].style.display = "block";
-        buttons[i+1].style.background = "black";
+        imageSlide[i + 1].style.display = "block";
+        buttons[i + 1].style.background = "black";
       }
       break;
     }
   }
 }
-function automaticImage(){
-  setInterval(function () {
+
+function automaticImage() {
+  setInterval(function() {
     nextSlide();
   }, 8000);
 }
 
-window.onload = function() {
-  automaticImage();  
-  }
+document.addEventListener("DOMContentLoaded", function() {
+  imageSlide = document.getElementsByClassName("slideimage");
+  buttons = document.getElementsByClassName("manual-btn");
+  displayFirst();
+  automaticImage();
+});
+
 // ##################  END SLIDE SHOW SCRIPT ######################
 
 
