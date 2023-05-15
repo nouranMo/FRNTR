@@ -15,10 +15,12 @@ app.use(express.urlencoded({ extended: true }));
 import index_router from "./routes/index.js";
 import product_router from "./routes/Products.js";
 import user_router from "./routes/User.js";
+import admin_router from "./routes/User.js";
 
 app.use('/', index_router);
 app.use('/User', user_router);
 app.use('/Product', product_router);
+app.use('/Admin', admin_router);
 app.use((req,res)=>{
     res.status(404).render('404');
 })
