@@ -1,60 +1,31 @@
-const express = require('express');
-const session = require('express-session');
+import express from 'express';
+import session from 'express-session';
+import * as dotenv from 'dotenv';
+dotenv.config()
+const port = process.env.PORT;
+const URI = process.env.URI;
 //express app
 const app = express();
 app.use(session({secret: 'FYNGZ_KEY'}));
-app.listen(4040);
+app.listen(port);
 app.set('view engine','ejs');
 app.use(express.static('public'));
-app.get('/',(req,res)=>{
-    res.render('index');
-})
-app.get('/clientProduct',(req,res)=>{
-    res.render('clientProduct');
-})
-app.get('/itemPage',(req,res)=>{
-    res.render('itemPage');
-})
-app.get('/wishlist',(req,res)=>{
-    res.render('wishlist');
-})
-app.get('/cart',(req,res)=>{
-    res.render('cart');
-})
-app.get('/dashboard',(req,res)=>{
-    res.render('dashboard');
-})
-app.get('/offers',(req,res)=>{
-    res.render('offers');
-})
-app.get('/orders',(req,res)=>{
-    res.render('orders');
-})
-app.get('/ProductEdit',(req,res)=>{
-    res.render('ProductEdit');
-})
-app.get('/reviews',(req,res)=>{
-    res.render('reviews');
-})
-app.get('/statistics',(req,res)=>{
-    res.render('statistics');
-})
-app.get('/customers',(req,res)=>{
-    res.render('customers');
-})
-app.get('/DeleteProduct',(req,res)=>{
-    res.render('DeleteProduct');
-})
-app.get('/AddProduct',(req,res)=>{
-    res.render('AddProduct');
-})
-app.get('/products',(req,res)=>{
-    res.render('products');
-})
-app.get('/SignUp',(req,res)=>{
-    res.render('SignUp');
-})
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+import index_router from "./routes/index.js";
+import product_router from "./routes/Products.js";
+import user_router from "./routes/User.js";
+
+app.use('/', index_router);
+app.use('/User', user_router);
+app.use('/Product', product_router);
 app.use((req,res)=>{
     res.status(404).render('404');
 })
+//connect to mongodb   
+import mongoose from 'mongoose';
+mongoose.connect(URI,{useNewUrlParser:true,useUnifiedTopology:true})
+.then((result)=>console.log('connected to db'))
+.catch((err)=>console.log(err));
 
+export default app;
