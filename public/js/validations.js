@@ -59,7 +59,7 @@ function signOpen() {
       document.getElementById("pac").style.borderColor = "red";
   
       valid = false;
-    } else if (field1.length != 8) {
+    } else if (field1.length < 8) {
       document.getElementById("pas").innerHTML =
         "Password must be at least 8 characters !";
       document.getElementById("pa").style.borderColor = "red";
@@ -99,19 +99,11 @@ function signOpen() {
         "You must enter a password !";
       document.getElementById("pas1").style.borderColor = "red";
       valid = false;
-    } else if (field1.length != 8) {
+    } else if (field1.length < 8) {
       document.getElementById("passwor").innerHTML =
         "Password must be at least 8 characters !";
       document.getElementById("pas1").style.borderColor = "red";
-    } else if (
-      (field1 != "fyngz!.!" && field2 == "fyngz@gmail.com") ||
-      (field1 != "admin!.!" && field2 == "admin@gmail.com")
-    ) {
-      document.getElementById("passwor").innerHTML = "Wrong password !";
-      document.getElementById("pas1").style.borderColor = "red";
-    } else if (field1 == "admin!.!" && field2 == "admin@gmail.com") {
-      window.location.href = "dashboard";
-    } else {
+    }else {
       document.getElementById("passwor").innerHTML = "";
       document.getElementById("pas1").style.borderColor = "black";
     }
@@ -136,9 +128,6 @@ function signOpen() {
       document.getElementById("em1").innerHTML = "You must enter your email !";
       document.getElementById("ema1").style.borderColor = "red";
       valid = false;
-    } else if (email != "fyngz@gmail.com" && email != "admin@gmail.com") {
-      document.getElementById("em1").innerHTML = "Not registered on this email !";
-      document.getElementById("ema1").style.borderColor = "red";
     } else {
       document.getElementById("em1").innerHTML = "";
       document.getElementById("ema1").style.borderColor = "black";
@@ -163,7 +152,7 @@ function signOpen() {
   }
   
   function validate1(form) {
-    let fail = "";
+    let fail = true;
     fail &= validateEmail1(form.email.value.trim());
     fail &= validatePassword1(form.pas.value, form.email.value.trim());
     if (fail) return true;
