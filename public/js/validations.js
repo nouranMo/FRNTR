@@ -111,7 +111,7 @@ function signOpen() {
   }
   
   function validate(form) {
-    let fail = "";
+    let fail = true;
     fail &= validateFirstName(form.Firstname.value.trim());
     fail &= validateLastName(form.last.value.trim());
     fail &= validateEmail(form.email.value.trim());
