@@ -48,7 +48,7 @@ app.use('/User', user_router);
 app.use('/Product', product_router);
 
 // Handle signup form submission
-app.post('/signup', async (req, res) => {
+app.post('/SignUp', async (req, res) => {
   console.log('Signup request received');
 
   // Extract form data from request body
