@@ -1,140 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <link rel="stylesheet" href="/css/admin.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <head>
+    <link rel="stylesheet" href="/css/admin.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
     <style>
-        body {
-            margin: 0;
-            font-family: "Lato", sans-serif;
-        }
+      body {
+        margin: 0;
+        font-family: "Lato", sans-serif;
+      }
 
+      .sidebar {
+        margin: 0;
+        padding: 0;
+        width: 200px;
+        background-color: #f1f1f1;
+        position: fixed;
+        height: 100%;
+        overflow: auto;
+      }
+
+      .sidebar a {
+        display: block;
+        color: black;
+        padding: 16px;
+        text-decoration: none;
+      }
+
+      div.contenty {
+        margin-left: 200px;
+        padding: 1px 10px;
+        height: 1000px;
+      }
+      div.sideCon {
+        padding: 1px 16px;
+      }
+      @media screen and (max-width: 1000px) {
         .sidebar {
-            margin: 0;
-            padding: 0;
-            width: 200px;
-            background-color: #f1f1f1;
-            position: fixed;
-            height: 100%;
-            overflow: auto;
+          width: 100%;
+          height: auto;
+          position: relative;
         }
 
         .sidebar a {
-            display: block;
-            color: black;
-            padding: 16px;
-            text-decoration: none;
+          float: left;
         }
 
         div.contenty {
-            margin-left: 200px;
-            padding: 1px 10px;
-            height: 1000px;
+          margin-left: 0;
+          padding: 0;
         }
-       div.sideCon{
-            padding: 1px 16px;
+        .sideCon {
+          padding: 1px 16px;
         }
-        @media screen and (max-width: 1000px){
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-              
-            }
-
-            .sidebar a {
-                float: left;
-            }
-
-            div.contenty {
-                margin-left: 0;
-                padding: 0;
-            }
-            .sideCon{
-            padding: 1px 16px;
-            }
-        }
-        @media screen and (max-width: 700px) {
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-                display: flex;
-            }
-
-            .sidebar a {
-                float: left;
-            }
-
-            div.contenty {
-                margin-left: 0;
-                padding: 0;
-            }
-            .sideCon{
-            padding: 1px 16px;
-            }
-        }
-      
-        
-
-        @media screen and (max-width: 400px) 
-        {
-            .sidebar a {
-                text-align: center;
-                float: none;
-            }
-             div.contenty {
-                margin-left: 0;
-                padding: 0;
-                
-            }
-            .sideCon{
-            padding: 1px 16px;
-            }
+      }
+      @media screen and (max-width: 700px) {
+        .sidebar {
+          width: 100%;
+          height: auto;
+          position: relative;
+          display: flex;
         }
 
-        .material-symbols-outlined {
-
-            font-variation-settings:
-                'FILL' 0,
-                'wght' 400,
-                'GRAD' 0,
-                'opsz' 48
+        .sidebar a {
+          float: left;
         }
 
-
-        
-        @media screen and(max-width: 2497){
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-            }
-
-            .sidebar a {
-                float: left;
-            }
-
-            div.contenty {
-                margin-left: 325;
-                padding: 25;
-            }
+        div.contenty {
+          margin-left: 0;
+          padding: 0;
         }
+        .sideCon {
+          padding: 1px 16px;
+        }
+      }
+
+      @media screen and (max-width: 400px) {
+        .sidebar a {
+          text-align: center;
+          float: none;
+        }
+        div.contenty {
+          margin-left: 0;
+          padding: 0;
+        }
+        .sideCon {
+          padding: 1px 16px;
+        }
+      }
+
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
+      }
+
+      @media screen and(max-width: 2497) {
+        .sidebar {
+          width: 100%;
+          height: auto;
+          position: relative;
+        }
+
+        .sidebar a {
+          float: left;
+        }
+
+        div.contenty {
+          margin-left: 325;
+          padding: 25;
+        }
+      }
     </style>
     <title>FRNTR Admin</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="sidebar">
-        <a class="dashboard" href="User/dashboard">Dashboard</a>
-        <a class="products" href="User/products">Products</a>
-        <a class="orders" href="User/orders">Orders</a>
-        <a class="customers" href="User/customers">Customers</a>
-        <a class="stat" href="User/statistics">Statistics</a>
-        <a class="review" href="User/reviews">Reviews</a>
-        <a class="offers" href="User/offers">Hot Offers</a>
+      <a class="dashboard" href="/User/Admin">Dashboard</a>
+      <a class="products" href="/product">Products</a>
+      <a class="orders" href="/User/orders">Orders</a>
+      <a class="customers" href="/User/customers">Customers</a>
+      <a class="stat" href="/User/statistics">Statistics</a>
+      <a class="review" href="/User/reviews">Reviews</a>
+      <a class="offers" href="/User/offers">Hot Offers</a>
     </div>
-    
-</body>
+  </body>
 </html>
