@@ -128,6 +128,15 @@
                 
             </nav>
           </div>
+          <!-- <% if(userr==="" ) {%>
+            <a href='/login'>Login</a>
+            <% }else { %>
+              <a href='/logout'>Logout</a> -->
+      
+              <div class="user">
+                Welcome <%= userr %>
+              </div>
+              <!-- <% } %> -->
         </div>
         <div class="col-3">
 
@@ -161,7 +170,7 @@
  
 </div>
 <div class="sign">
-      <form name="sign-in" action="#" method="post" onsubmit="return validate1(this)">
+      <form name="sign-in" action="/account" method="post" onsubmit="return validate1(this)">
           <input id="ema1" type="email" class="element" name="email" placeholder="Email" >
           <div id="em1" class="err1"></div>
           <input id="pas1"style="margin-top: 10px; margin-bottom: 5px;" type="password" class="element" name="pas" placeholder="Password">
@@ -257,6 +266,7 @@
   </div>
 
 <div class="sign">
+  <!-- /////a7aaaaaaaaaaaa -->
   <div>  <p id="p11">Lost your password? Please enter your email address.
      You will receive a link to create a new password via email.</p></div>
 

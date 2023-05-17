@@ -79,6 +79,25 @@ app.post('/SignUp', async (req, res) => {
   }
 });
 
+app.post('/account', (req, res) => {
+  // req.session.userr = req.body.email;
+  // req.session.pw = req.body.pas;
+
+  var data = {email:req.body.email};
+  User.find(data)
+  .then(result=>{
+    console.log(result[0])
+     
+    req.session.user=result[0];
+    
+  })
+  req.session.x = 'x';
+  res.redirect('/User/SignUp');
+});
+app.get('/logout', (req, res) => {
+  req.session.destroy();
+  res.redirect('/');
+});
 // Handle 404 errors
 app.use((req, res) => {
   res.status(404).render('404');
