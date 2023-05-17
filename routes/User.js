@@ -25,7 +25,8 @@ router.get('/clientProduct', function(req, res, next) {
 
 /* GET Sign Up page. */
 router.get('/SignUp', function(req, res, next) {
-  res.render('SignUp',{ userr: req.session.userr });
+  // res.render('SignUp',{ userr: req.session.userr });
+  res.render('SignUp');
 });
 
 /* GET Wishlist page. */
@@ -62,6 +63,9 @@ router.get('/orders', function(req, res, next) {
 router.get('/offers', function(req, res, next) {
   res.render('offers');
 });
-
+/* GET account page. */
+router.get('/account',function(req,res,next){
+res.render('account');
+});
 // Export the router
 export default router;
