@@ -25,7 +25,7 @@ router.get('/clientProduct', function(req, res, next) {
 
 /* GET Sign Up page. */
 router.get('/SignUp', function(req, res, next) {
-  res.render('SignUp');
+  res.render('SignUp',{ userr: req.session.userr });
 });
 
 /* GET Wishlist page. */
