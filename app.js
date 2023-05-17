@@ -135,20 +135,19 @@ app.post('/furniture', upload.array('photo', 5), async (req, res) => {
 
 
 app.post('/account', (req, res) => {
-   req.session.userr = req.body.email;
+   //req.session.userr = req.body.email;
   // req.session.pw = req.body.pas;
-  console.log(req.session.userr)
-  //da bas 3shan ataked 
-  // var data = {email:req.body.email};
-  // User.find(data)
-  // .then(result=>{
-  //   console.log(result[0])
-     
-  //   req.session.user=result[0];
-    
-  // })
+  
+  var data = {email:req.body.email};
+  User.find(data)
+  .then(result=>{
+    console.log(result[0])
+    console.log(result[0].firstName)
+    req.session.user=result[0];
+    res.render('account',{userP:req.session.user});
+  })
   req.session.x = 'x';
-  res.redirect('/User/account');
+  // res.redirect('/User/account',{userP:result[0]});
 });
 app.get('/logout', (req, res) => {
   req.session.destroy();

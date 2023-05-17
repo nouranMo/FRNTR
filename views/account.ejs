@@ -59,7 +59,7 @@
     </div>
 
     <div class="right-table">
-        <p class="tag"> Hello <strong>nouran mohamed</strong> (not <strong>nouran mohamed</strong>? <a href="">Logout</a>)</p>
+        <p class="tag"> Hello <strong><%=userP.firstName%> <%=userP.lastName%></strong> (not <strong><%=userP.firstName%> <%=userP.lastName%></strong>? <a href="">Logout</a>)</p>
 
         <h2>Order History:</h2>
         <div class="form-message">
@@ -78,11 +78,11 @@
                 <tbody>
                     <tr>
                         <td><strong>Name:</strong></td>
-                        <td>nouran mohamed</td>
+                        <td><%=userP.firstName%> <%=userP.lastName%></td>
                     </tr>
                     <tr>
                         <td><strong>Email:</strong></td>
-                        <td>nnouranmohamed@gmail.com</td>
+                        <td><%=userP.email%></td>
                     </tr>
                     <tr>
                         <td><strong>Address</strong></td>
