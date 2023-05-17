@@ -80,19 +80,20 @@ app.post('/SignUp', async (req, res) => {
 });
 
 app.post('/account', (req, res) => {
-  // req.session.userr = req.body.email;
+   req.session.userr = req.body.email;
   // req.session.pw = req.body.pas;
-
-  var data = {email:req.body.email};
-  User.find(data)
-  .then(result=>{
-    console.log(result[0])
+  console.log(req.session.userr)
+  //da bas 3shan ataked 
+  // var data = {email:req.body.email};
+  // User.find(data)
+  // .then(result=>{
+  //   console.log(result[0])
      
-    req.session.user=result[0];
+  //   req.session.user=result[0];
     
-  })
+  // })
   req.session.x = 'x';
-  res.redirect('/User/SignUp');
+  res.redirect('/User/account');
 });
 app.get('/logout', (req, res) => {
   req.session.destroy();
