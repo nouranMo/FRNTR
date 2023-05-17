@@ -133,6 +133,28 @@ app.post('/furniture', upload.array('photo', 5), async (req, res) => {
   }
 });
 
+
+app.post('/account', (req, res) => {
+   req.session.userr = req.body.email;
+  // req.session.pw = req.body.pas;
+  console.log(req.session.userr)
+  //da bas 3shan ataked 
+  // var data = {email:req.body.email};
+  // User.find(data)
+  // .then(result=>{
+  //   console.log(result[0])
+     
+  //   req.session.user=result[0];
+    
+  // })
+  req.session.x = 'x';
+  res.redirect('/User/account');
+});
+app.get('/logout', (req, res) => {
+  req.session.destroy();
+  res.redirect('/');
+});
+
 // Handle 404 errors
 app.use((req, res) => {
   res.status(404).render('404');

@@ -1,0 +1,210 @@
+* {
+    font-family: "Poppins", sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+  }
+  a{
+    transition: .25s;
+    text-decoration: none;
+  }
+ 
+
+  .page-head{
+    padding: 50px 0;
+    margin-bottom: 50px;
+    background-color:#000 ;
+    opacity: 0.54;
+    width: 100%;
+    height: 100%;
+    text-align: center!important;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-head .page-head-title{
+    z-index: 100;
+    position: relative;
+    width: 100%;
+    padding: 0px 15px;
+  }
+
+  .page-head .page-head-title .title-head{
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 0px;
+    color: #fff;
+    margin-bottom: 0px;
+  }
+  @media screen and (max-width: 767px){
+    .page-head .page-head-title .title-head{
+
+        line-height: 1;
+    }
+  }
+
+  .sectionn{
+    width: 100%;
+    display: block;
+    padding: 0px 15px;
+}
+.AccCon{
+    text-align: left;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    margin-right: -15px;
+    margin-left: -15px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.AccCon .left-table,
+.AccCon .right-table{
+    flex:0 0 auto;
+    width:100%;
+    max-width: 100%;
+    padding: 0px 15px;
+    text-align: left;
+}
+
+@media screen and (min-width: 768px){
+    .AccCon .left-table{
+        flex:0 0 auto;
+        width:25%;
+    }
+
+    .left-table .account-nav{
+        position: sticky;
+        top:20px;
+    }
+
+    .AccCon .right-table{
+        flex:0 0 auto;
+        width:75%;
+    }
+
+}
+
+.left-table .account-nav ul{
+
+    padding: 0;
+    list-style: none;
+    margin-top: 0;
+    line-height: 1.4;
+    border:1px solid #ddd;
+    margin-bottom: 40px;
+    text-align: left;
+}
+
+.left-table .account-nav a{
+    text-decoration: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    color:#878787;
+
+}
+
+.left-table .account-nav a:hover{
+    background-color: #dddddd;
+    color:initial;
+}
+
+.left-table .account-nav li i{
+    position: relative;
+    top: -4px;
+    width: 16px;
+    height: 16px; 
+    margin-right: 10px;  
+}
+
+.left-table .account-nav li:last-child a{
+    border-bottom: 0;
+}
+
+
+.AccCon .right-table .tag{
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+
+
+
+
+.AccCon .right-table .tag strong{
+    font-weight: 600;
+    color: #878787;
+}
+
+.AccCon .right-table h2{
+    font-size: 15px;
+    text-transform: none;
+    margin-bottom: 15px;
+    color:#222222;
+    line-height: 1.4;
+    font-weight: 600;
+}
+
+.AccCon .right-table .form-message{
+    display: flex;
+    flex-wrap: wrap!important;
+    font-size: 16px;
+    line-height: 1;
+    margin-top: 10px;
+    font-weight: 400;
+    align-items: center;
+}
+
+.AccCon .right-table .form-message a{
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.AccCon .right-table .tag a,
+.AccCon .right-table .form-message a{
+    text-decoration: underline;
+    text-underline-offset: 0.3rem;
+    text-decoration-thickness:0.1rem ;
+    color:#878787;
+}
+
+.AccCon .right-table .tag a:hover,
+.AccCon .right-table .form-message a:hover{
+    color:#28323c;
+    }
+
+.AccCon .right-table .form-message span{
+    margin-bottom: 10px;
+} 
+.AccCon .right-table .space{
+    margin-bottom: 60px;
+}
+
+.AccCon .right-table .ttable,
+ td,
+  th{
+    border:1px solid #ddd;
+    vertical-align: middle;
+}
+
+
+.AccCon .right-table .ttable{
+   
+    width: 100%;
+    margin-bottom: 35px;
+    border-collapse: collapse;
+}
+
+td,
+th{
+    padding: 10px;
+    font-weight: 400;
+    vertical-align: middle;
+    text-align: left;
+}
+td{
+    border-width: 0 1px 1px 0;
+}
