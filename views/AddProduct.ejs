@@ -30,7 +30,6 @@
     <title>Admin Add Product</title>
 </head>
 <body>
-    
     <div class="sideCon">
         <%- include("./partials/adminnav.ejs")%>
         <div class="header">
@@ -41,96 +40,91 @@
                 <div class="background">
                     <div class="containerform">
                         <!-- /////////////////delete////////////////// -->
-                        <form class="form" action="Admin" method="get" onsubmit="return validate(this)">
+                        <form class="form" action="/furniture" method="post" onsubmit="return validate(event)" enctype="multipart/form-data">
                             <div class="rowform">
-                                <div class="col-25">
-                                    <label for="productname">Product Name</label>
-                                </div>
-                                <div class="col-75">
-                                    <input type="text" id="productname" name="productname" placeholder="Enter the product name..">
-                                    <div id ="nameid" class="err"></div>
-                                </div>
+                              <div class="col-25">
+                                <label for="productname">Product Name</label>
+                              </div>
+                              <div class="col-75">
+                                <input type="text" id="productname" name="productname" placeholder="Enter the product name..">
+                                <div id="nameid" class="err"></div>
+                              </div>
                             </div>
                             <div class="rowform">
-                                <div class="col-25">
-                                    <label for="ID"> Product ID</label>
-                                </div>
-                                <div class="col-75">
-                                    <input type="text" id="ID" name="ProductID" placeholder="Enter product ID..">
-                                    <div id ="idid" class="err"></div>
-                                </div>
-                            </div>
-                            <!-- ///////////////////////////////////////////// -->
-                            <div class="rowform">
-                                <div class="col-25">
-                                    <label for="category">Category</label>
-                                </div>
-                                <div class="col-75">
-                                    <select id="category" name="category">
-                                        <option value="armchair">Armchair</option>
-                                        <option value="beds">Beds</option>
-                                        <option value="australia">Benches</option>
-                                        <option value="beanbag">Bean Bags</option>
-                                        <option value="clounge">Chaise Lounges</option>
-                                        <option value="usa">Living Room Set</option>
-                                        <option value="kids">Kids Furniture</option>
-                                        <option value="Pet">Pets Furniture</option>
-                                        <option value="space">Space Friendly</option>
-                                    </select>
-                                    <div id="catorgyid" class="err"></div>
-                                </div>
+                              <div class="col-25">
+                                <label for="category">Category</label>
+                              </div>
+                              <div class="col-75">
+                                <select id="category" name="category">
+                                  <option value="armchair">Armchair</option>
+                                  <option value="beds">Beds</option>
+                                  <option value="benches">Benches</option>
+                                  <option value="beanbags">Bean Bags</option>
+                                  <option value="chaise lounges">Chaise Lounges</option>
+                                  <option value="living room set">Living Room Set</option>
+                                  <option value="kids furniture">Kids Furniture</option>
+                                  <option value="pets furniture">Pets Furniture</option>
+                                  <option value="space friendly">Space Friendly</option>
+                                </select>
+                                <div id="categoryid" class="err"></div>
+                              </div>
                             </div>
                             <div class="rowform">
-                                <div class="col-25">
-                                    <label for="subject">Choose the color avalaible</label>
-                                </div>
-                                <div class="col-75">
-                                    <input id="color" name="colorpicker" type="color">
-                                    <div id="colorid" class="err"></div>
-                                </div>
+                              <div class="col-25">
+                                <label for="color">Choose the color available</label>
+                              </div>
+                              <div class="col-75">
+                                <input type="text" id="color" name="color" placeholder="Enter the available color..">
+                                <div id="colorid" class="err"></div>
+                              </div>
                             </div>
                             <div class="rowform">
-                                <div class="col-25">
-            
-                                    <label for="subject">Price</label>
-                                </div>
-                                <div class="col-75">
-                                    <input type="number" min="1" step="any" id="price" name="price" placeholder="Decimals are accepted">
-                                    <div id="priceid" class="err"></div>
-                                </div>
+                              <div class="col-25">
+                                <label for="price">Price</label>
+                              </div>
+                              <div class="col-75">
+                                <input type="number" min="0.01" step="0.01" id="price" name="price" placeholder="Enter the price..">
+                                <div id="priceid" class="err"></div>
+                              </div>
                             </div>
                             <div class="rowform">
-                                <div class="col-25">
-            
-                                    <label for="subject">Quantity</label>
-                                </div>
-                                <div class="col-75">
-                                    <input type="number"min="1" id="quantity" name="quamtity" placeholder="Enter a whole posisitive number ..">
-                                    <div id="quantityid" class="err"></div>
-                                </div>
-                            </div>
-                            
-                            <div class="rowform">
-                                <div class="col-25">
-                                    <label for="subject">Comments</label>
-                                </div>
-                                <div class="col-75">
-                                    <textarea id="subject" name="subject" placeholder="leave down any comments you have about the prodduct you want to add..."
-                                        style="height:200px"></textarea>
-                                </div>
+                              <div class="col-25">
+                                <label for="quantity">Quantity</label>
+                              </div>
+                              <div class="col-75">
+                                <input type="number" min="1" step="1" id="quantity" name="quantity" placeholder="Enter the quantity..">
+                                <div id="quantityid" class="err"></div>
+                              </div>
                             </div>
                             <div class="rowform">
-                                <div class="col-25">
-            
-                                    <label for="subject">Provide Photo of the product</label>
-                                </div>
-                                <div class="col-65">
-                                    <input type="file" id="photo" name="photo">
-                                </div>
-                            <div class="rowform">
-                                <input type="submit" id="submit" value="Submit">
+                              <div class="col-25">
+                                <label for="comments">Comments</label>
+                              </div>
+                              <div class="col-75">
+                                <textarea id="comments" name="comments" placeholder="Leave any comments you have about the product..." style="height:200px"></textarea>
+                              </div>
                             </div>
-                        </form>
+                            <div class="rowform">
+                              <div class="col-25">
+                                <label for="photo">Provide Photo of the product</label>
+                              </div>
+                              <div class="col-65">
+                                <input type="file" id="photo" name="photo" accept=".jpg, .jpeg, .png" multiple onchange="validateImageFiles(this)">
+                                <p id="fileStatus"></p>
+                              </div>
+                            </div>
+                            <div class="rowform">
+                              <input type="submit" id="submitBtn" value="Submit">
+                            </div>
+                            <div class="rowform">
+                              <% if (typeof successMessage !== 'undefined' && successMessage) { %>
+                              <p style="color: green"><%= successMessage %></p>
+                              <% } %>
+                              <% if (typeof failMessage !== 'undefined' && failMessage) { %>
+                              <p style="color:red"><%= failMessage %></p>
+                              <% } %>
+                            </div>
+                          </form>                          
                     </div>
                 </div>
             </div>
