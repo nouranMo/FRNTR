@@ -121,17 +121,19 @@
             <% products.forEach((product) => { %>
             <div class="content">
               <div class="product-image">
+                <% if (product.photo && product.photo.length > 0) { %>
                 <img
-                  src="../Images/Yerevan_11.webp"
+                  src="/product/photo/<%= product.photo[0] %>"
                   class="pic-1"
                   style="width: 100%"
                 />
+               
                 <img
-                  src="<%= product.photo[4] %>"
+                  src="<%= product.photo[0] %>"
                   class="pic-2"
                   style="width: 100%"
                 />
-
+                <% } %>
                 <div class="link">
                   <div class="Icon">
                     <a href="/adminproduct/addproduct"
