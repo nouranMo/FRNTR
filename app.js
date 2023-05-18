@@ -55,8 +55,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // Import routers
 import index_router from "./routes/index.js";
-import product_router from "./routes/Products.js";
-import user_router from "./routes/user.js";
+import product_router from "./routes/products.js";
+import user_router from "./routes/User.js";
 import auth_router from "./routes/auth.route.js";
 import admin_router from "./routes/admin.route.js";
 import adminproduct_router from "./routes/admin.products.route.js";
