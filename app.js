@@ -70,6 +70,39 @@ app.post('/SignUp', async (req, res) => {
   // Extract form data from request body
   const { Firstname, last, email, pas, pasconfirm, userType } = req.body;
 
+  // Backend validation
+  let errors = {};
+
+  if (Firstname.trim() === '') {
+    errors.firstname = 'You must enter your first name!';
+  }
+
+  if (last.trim() === '') {
+    errors.lastname = 'You must enter your last name!';
+  }
+
+  if (email.trim() === '') {
+    errors.email = 'You must enter your email!';
+  }
+  const existingUser = await User.findOne({ email });
+  if (existingUser) {
+    errors.email = 'Email already exists!';
+  }
+  if (pas === '') {
+    errors.password = 'You must enter a password!';
+  } else if (pas.length < 8) {
+    errors.password = 'Password must be at least 8 characters!';
+  }
+
+  if (pas !== pasconfirm) {
+    errors.confirmPassword = 'Password does not match!';
+  }
+
+  if (Object.keys(errors).length > 0) {
+    // Return validation errors to the client
+    return res.render('SignUp', { errors });
+  }
+
   try {
     // Create a new user instance
     const newUser = new User({
@@ -94,6 +127,7 @@ app.post('/SignUp', async (req, res) => {
     res.redirect('/');
   }
 });
+
 
 // Handle POST request to create a new furniture item
 app.post('/furniture', upload.array('photo', 5), async (req, res) => {
@@ -121,7 +155,7 @@ app.post('/furniture', upload.array('photo', 5), async (req, res) => {
     price: parseFloat(price),
     quantity: parseInt(quantity),
     comments: comments,
-    photo: photo
+    photo: imagePaths
   });
 
   // Save the new furniture item to the database
@@ -129,7 +163,9 @@ app.post('/furniture', upload.array('photo', 5), async (req, res) => {
     await newFurniture.save();
     return res.render('AddProduct', { successMessage: 'Successfully added an item' });
   } catch (error) {
+    console.log(error);
     return res.render('AddProduct', { failMessage: 'Failed to add item' });
+    
   }
 });
 
