@@ -3,6 +3,11 @@ import { Router } from 'express';
 var router = Router();
 
 /* GET Admin page. */
+router.get('/', function(req, res, next) {
+    res.render('dashboard');
+  });
+
+/* GET Admin page. */
 router.get('/dashboard', function(req, res, next) {
     res.render('dashboard');
   });

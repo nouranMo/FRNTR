@@ -1,19 +1,22 @@
-import { Router } from 'express';
+import { Router } from "express";
 // Create a new router instance
 var router = Router();
 
 /* GET products page. */
-router.get('/', function(req, res, next) {
-    res.render('products');
-  });
-  /* GET AddProduct page. */
-  router.get('/AddProduct', function(req, res, next) {
-    res.render('AddProduct');
-  });
-  /* GET EditProduct page. */
-  router.get('/EditProduct', function(req, res, next) {
-    res.render('EditProduct');
-  });
+router.get("/", function (req, res, next) {
+  res.render("products");
+});
+/* GET addproduct page. */
+router.get("/addproduct", function (req, res, next) {
+  res.render("addproduct");
+});
+router.get("/deleteproduct", function (req, res, next) {
+  res.render("deleteproduct");
+});
+/* GET EditProduct page. */
+router.get("/productedit", function (req, res, next) {
+  res.render("productedit");
+});
 
 // Export the router
 export default router;
