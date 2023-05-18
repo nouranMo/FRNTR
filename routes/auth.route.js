@@ -8,9 +8,9 @@ router.get('/', function(req, res, next) {
   });
   
 /* GET Sign Up page. */
-router.get('/SignUp', function(req, res, next) {
-    // res.render('SignUp',{ userr: req.session.userr });
-    res.render('SignUp');
+router.get('/signup', function(req, res, next) {
+  const errors = {};
+    res.render('signup',{errors});
   });
 
 // Export the router

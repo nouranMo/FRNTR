@@ -4,12 +4,15 @@ var router = Router();
 // view all lel user , 
 
 /* GET item page. */
+router.get('/', function(req, res, next) {
+  res.render('products');
+});
 router.get('/itemPage', function(req, res, next) {
-  res.render('itemPage');
+  res.render('itempage');
 });
 
 /* GET client Product page. */
 router.get('/clientProduct', function(req, res, next) {
-  res.render('clientProduct');
+  res.render('clientproduct');
 });
 export default router;
