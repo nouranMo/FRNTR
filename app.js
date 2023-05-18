@@ -70,20 +70,82 @@ app.use("/adminproduct", adminproduct_router);
 
 
 
-app.post("/account", (req, res) => {
-  //req.session.userr = req.body.email;
-  // req.session.pw = req.body.pas;
+// app.post("/account", (req, res) => {
+//   //req.session.userr = req.body.email;
+//   // req.session.pw = req.body.pas;
+//   let errors={};
 
-  var data = { email: req.body.email };
-  User.find(data).then((result) => {
-    console.log(result[0]);
-    console.log(result[0].firstName);
-    req.session.user = result[0];
-    res.render("account", { userP: req.session.user });
-  });
-  req.session.x = "x";
-  // res.redirect('/User/account',{userP:result[0]});
+//   var data = { email: req.body.email };
+//   User.find(data)
+  
+//   .then((result) => {
+//     console.log(result[0]);
+//     console.log(result[0].firstName);
+//     req.session.user = result[0];
+//     if (req.body.email.trim() === "") {
+//       errors.email = "You must enter your email!";
+//     }
+  
+  
+//     if(result[0].password!=req.body.pas){
+//         errors.password="incoorect password !"
+//     }
+
+//   });
+  
+
+//   if (Object.keys(errors).length > 0) {
+//     // Return validation errors to the client
+//     return res.status(400).json({ errors });
+//   }
+//   res.render("account", { userP: req.session.user });
+//   req.session.x = "x";
+//   // res.redirect('/User/account',{userP:result[0]});
+// });
+
+
+
+app.post("/account",  (req, res) => {
+  console.log("Login request received");
+
+  const { email, pas } = req.body;
+
+  if (email === 'admin@gmail.com' && pas === 'admin!.!') {
+    // Render the dashboard
+    return res.render("dashboard");
+  }
+
+  try {
+    // Find the user in the database by email
+   User.findOne({ email })
+.then((result)=>{
+
+  if (!result) {
+    // User not found, display error message
+    return res.status(401).json({ error: "Invalid email " });
+  }
+
+
+  if (result.password!=pas) {
+    // Password does not match, display error message
+    console.log("error");
+    return res.status(401).json({ error: "Invalid  password" });
+  }
+
+
+
+  // Password matches, render the account page with user data
+  return res.render("account", { userP:result});
 });
+   
+  } catch (error) {
+    console.error("Error during login:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+
+
 app.get("/logout", (req, res) => {
   req.session.destroy();
   res.redirect("/");
