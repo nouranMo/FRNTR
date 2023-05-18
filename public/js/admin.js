@@ -97,7 +97,7 @@ function validate(event) {
   validatePrice();
   
   validateQuantity();
-  
+  console.log('test')
   if(!validateProductName() || !validateColor() || !validatePrice() || !validateQuantity()){  
     return false
 
