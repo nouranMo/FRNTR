@@ -1,12 +1,12 @@
 import { Router } from 'express';
+import productsController from "../controllers/adminviewprodController.js";
 var router = Router();
 
 // view all lel user , 
 
 /* GET item page. */
-router.get('/', function(req, res, next) {
-  res.render('products');
-});
+router.get('/', productsController.viewAllProducts);
+
 router.get('/itempage', function(req, res, next) {
   res.render('itempage');
 });
