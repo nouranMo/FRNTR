@@ -26,7 +26,8 @@ router.get('/clientProduct', function(req, res, next) {
 /* GET Sign Up page. */
 router.get('/SignUp', function(req, res, next) {
   // res.render('SignUp',{ userr: req.session.userr });
-  res.render('SignUp');
+  const errors = {};
+  res.render('SignUp',{ errors });
 });
 
 /* GET Wishlist page. */
