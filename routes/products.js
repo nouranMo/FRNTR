@@ -1,9 +1,7 @@
 import { Router } from 'express';
+import multer from "multer";
 import productsController from "../controllers/adminviewprodController.js";
 var router = Router();
-
-// view all lel user , 
-
 /* GET item page. */
 router.get('/', productsController.viewAllProducts);
 
