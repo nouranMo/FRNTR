@@ -118,10 +118,11 @@
         </div>
         <div class="gallery">
           <div class="row">
+            <% products.forEach((product) => { %>
             <div class="content">
               <div class="product-image">
                 <img
-                  src="../Images/Yerevan_11.webp"
+                  src="<%= product.photo[0] %>"
                   class="pic-1"
                   style="width: 100%"
                 />
@@ -153,7 +154,7 @@
                 </div>
               </div>
               <div class="container">
-                <h4><b>Malia Vanity Stool Chair</b></h4>
+                <h4><b><%= product.productName %></b></h4>
                 <p>Hover function</p>
               </div>
             </div>
@@ -313,6 +314,7 @@
                 <p>Hover function</p>
               </div>
             </div>
+            <% }) %>
           </div>
         </div>
       </div>
