@@ -111,6 +111,10 @@ function signOpen() {
   }
   
   function validate(form) {
+    document.addEventListener('submit', event => {
+      event.preventDefault();
+    })
+
     let fail = true;
     fail &= validateFirstName(form.Firstname.value.trim());
     fail &= validateLastName(form.last.value.trim());
