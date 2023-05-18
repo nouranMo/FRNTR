@@ -113,17 +113,20 @@ function signOpen() {
   function validate(form) {
     document.addEventListener('submit', event => {
       event.preventDefault();
-    })
-
+    
     let fail = true;
     fail &= validateFirstName(form.Firstname.value.trim());
     fail &= validateLastName(form.last.value.trim());
     fail &= validateEmail(form.email.value.trim());
     fail &= validatePassword(form.pas.value, form.pasconfirm.value);
-    if (fail) return true;
+    if (fail) {
+      event.target.submit();
+    }
     else {
       return false;
+
     }
+  })
   }
   
   function validateEmail1(email) {
