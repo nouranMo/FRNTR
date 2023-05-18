@@ -21,7 +21,8 @@ router.get("/", function (req, res, next) {
 });
 /* GET addproduct page. */
 router.get("/addproduct", function (req, res, next) {
-  res.render("addproduct");
+  const errors = {};
+  res.render("addproduct", { errors });
 });
 router.get("/deleteproduct", function (req, res, next) {
   res.render("deleteproduct");
