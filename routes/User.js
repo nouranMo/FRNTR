@@ -65,7 +65,9 @@ router.get('/offers', function(req, res, next) {
 });
 /* GET account page. */
 router.get('/account',function(req,res,next){
-res.render('account');
+  const userP = {};
+res.render('account',{userP});
 });
 // Export the router
 export default router;
+;
