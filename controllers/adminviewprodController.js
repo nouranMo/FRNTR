@@ -13,7 +13,7 @@ const productsController = {
 
         products.forEach((product) => {
           if (product.photo && product.photo.length > 0) {
-            product.imagePath = product.photo[0].replace(/\\/g, '/').replace('public/','');
+            product.imagePath = product.photo.map((photo)=>photo.replace(/\\/g, '/').replace('public/',''));
           }
         });
   
