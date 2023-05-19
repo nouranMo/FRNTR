@@ -34,6 +34,14 @@ function signOpen() {
   }
 
   //
+  function filterOn() {
+    document.getElementById("filter-button1").style.display = "block";
+  }
+  
+  function filterClose() {
+    document.getElementById("filter-button1").style.display = "none";
+  }
+  
 
   function validateFirstName(field) {
     if (field == "") {
