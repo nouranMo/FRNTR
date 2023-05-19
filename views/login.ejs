@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/login.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <style>
+    .material-symbols-outlined {
+      position: relative;
+      top: 1px;
+      font-variation-settings:
+        'FILL' 0,
+        'wght' 200,
+        'GRAD' -25,
+        'opsz' 24
+    }
+  </style>
+    <title>FRNTR</title>
+</head>
+<body>
+    <%- include("./partials/nav.ejs")%>
+    <div class="MaIN">
+    <div class="page-header">
+<div class="page-header-title">
+    <h1 class="title-header">LOGIN </h1>
+</div>
+</div>
+<section class="ssection">
+    <div class="FORM">
+<div class="error"></div>
+<div class="logIn">
+<form action="/login" method="post">
+    <input type="hidden">
+    <div class="input1">
+        <input type="email" name="email">
+        <label for="customerEmail">
+            Email
+            <span class="required"></span>
+        </label>
+    </div>
+    <div class="input2">
+        <input type="password" name="password">
+        <label for="customerEmail">
+            Password
+            <span class="required"></span>
+        </label>
+    </div>
+   <a href="#" class="forgetpas">Forget your password?</a>
+   <div class="btnsignup">
+    <input type="submit" value="Sign in">
+   </div>
+   <a href="#" class="create">New customer? Create your account</a>
+</form>
+</div>
+    </div>
+</section>
+    </div>
+<%- include("./partials/chat.ejs")%>
+<%- include("./partials/footer.ejs")%>
+</body>
+</html>
