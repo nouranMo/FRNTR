@@ -123,13 +123,13 @@
               <div class="product-image">
                 <% if (product.photo && product.photo.length > 0) { %>
                 <img
-                  src="/product/photo/<%= product.photo[0] %>"
+                  src="<%= imagePath %>"
                   class="pic-1"
                   style="width: 100%"
                 />
                
                 <img
-                  src="<%= product.photo[0] %>"
+                  src="<%= imagePath %>"
                   class="pic-2"
                   style="width: 100%"
                 />
@@ -157,7 +157,7 @@
               </div>
               <div class="container">
                 <h4><b><%= product.productName %></b></h4>
-                <p>Hover function</p>
+                <p><%= product.category %></p>
               </div>
             </div>
             <div class="content">
