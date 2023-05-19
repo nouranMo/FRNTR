@@ -111,28 +111,28 @@
               <% products.forEach((product)=> { %>
                 <div class="content">
                   <div class="product-image">
-                    <% if (product.imagePath && product.imagePath.length > 0) { %>
-                      <% product.imagePath.forEach((path) => { %>
-                      <img src="<%= path %>" class="pic-1" style="width: 100%" />
+                    <% if (product.imagePath && product.imagePath.length> 0) { %>
+                      <% product.imagePath.forEach((path)=> { %>
+                        <img src="<%= path %>" class="pic-1" style="width: 100%" />
 
-                      <% console.log("hello Image Path:", path); %>
-                      <img src="<%= path %>" class="pic-2" style="width: 100%" />
+                        <% console.log("hello Image Path:", path); %>
+                          <img src="<%= path %>" class="pic-2" style="width: 100%" />
 
-                      <% }); %>
-                      <div class="link">
-                        <div class="Icon">
-                          <a href="/adminproduct/addproduct"><i class="fa-solid fa-plus"></i></a>
-                          <span class="tooltiptext">Add Product</span>
-                        </div>
-                        <div class="Icon">
-                          <a href="/adminproduct/deleteproduct"><i class="fa-solid fa-trash"></i></a>
-                          <span class="tooltiptext">Delete Product</span>
-                        </div>
-                        <div class="Icon">
-                          <a href="/adminproduct/productedit"><i class="fa-solid fa-pen-to-square"></i></a>
-                          <span class="tooltiptext">Edit Product</span>
-                        </div>
-                      </div>
+                          <% }); %>
+                            <div class="link">
+                              <div class="Icon">
+                                <a href="/adminproduct/addproduct"><i class="fa-solid fa-plus"></i></a>
+                                <span class="tooltiptext">Add Product</span>
+                              </div>
+                              <div class="Icon">
+                                <a href="/adminproduct/deleteproduct"><i class="fa-solid fa-trash"></i></a>
+                                <span class="tooltiptext">Delete Product</span>
+                              </div>
+                              <div class="Icon">
+                                <a href="/adminproduct/productedit"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <span class="tooltiptext">Edit Product</span>
+                              </div>
+                            </div>
                   </div>
                   <div class="container">
                     <h4><b>
@@ -141,106 +141,6 @@
                     <p>
                       <%= product.category %>
                     </p>
-                  </div>
-                </div>
-                <div class="content">
-                  <div class="product-image">
-                    <img src="../Images/malia_5.webp" class="pic-1" style="width: 100%" />
-                    <img src="../Images/malia_3.webp" class="pic-2" style="width: 100%" />
-
-                    <div class="link">
-                      <div class="Icon">
-                        <a href="/adminproduct/addproduct"><i class="fa-solid fa-plus"></i></a>
-                        <span class="tooltiptext">Add Product</span>
-                      </div>
-                      <div class="Icon">
-                        <a href="/adminproduct/deleteproduct"><i class="fa-solid fa-trash"></i></a>
-                        <span class="tooltiptext">Delete Product</span>
-                      </div>
-                      <div class="Icon">
-                        <a href="/adminproduct/productedit"><i class="fa-solid fa-pen-to-square"></i></a>
-                        <span class="tooltiptext">Edit Product</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="container">
-                    <h4><b>Malia Vanity Stool Chair</b></h4>
-                    <p>Hover function</p>
-                  </div>
-                </div>
-                <div class="content">
-                  <div class="product-image">
-                    <img src="../Images/NylaBabyBlue2.webp" class="pic-1" style="width: 100%" />
-                    <img src="../Images/NylaBabyBlue3.webp" class="pic-2" style="width: 100%" />
-
-                    <div class="link">
-                      <div class="Icon">
-                        <a href="/adminproduct/addproduct"><i class="fa-solid fa-plus"></i></a>
-                        <span class="tooltiptext">Add Product</span>
-                      </div>
-                      <div class="Icon">
-                        <a href="/adminproduct/deleteproduct"><i class="fa-solid fa-trash"></i></a>
-                        <span class="tooltiptext">Delete Product</span>
-                      </div>
-                      <div class="Icon">
-                        <a href="/adminproduct/productedit"><i class="fa-solid fa-pen-to-square"></i></a>
-                        <span class="tooltiptext">Edit Product</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="container">
-                    <h4><b>Malia Vanity Stool Chair</b></h4>
-                    <p>Hover function</p>
-                  </div>
-                </div>
-                <div class="content">
-                  <div class="product-image">
-                    <img src="../Images/Corinne_25.6_Wide_Wingback_Chair.webp" class="pic-1" style="width: 100%" />
-                    <img src="../Images/Corinne_25.6_Wide_Wingback_Chair_11.jpg" class="pic-2" style="width: 100%" />
-
-                    <div class="link">
-                      <div class="Icon">
-                        <a href="/adminproduct/addproduct"><i class="fa-solid fa-plus"></i></a>
-                        <span class="tooltiptext">Add Product</span>
-                      </div>
-                      <div class="Icon">
-                        <a href="/adminproduct/deleteproduct"><i class="fa-solid fa-trash"></i></a>
-                        <span class="tooltiptext">Delete Product</span>
-                      </div>
-                      <div class="Icon">
-                        <a href="/adminproduct/productedit"><i class="fa-solid fa-pen-to-square"></i></a>
-                        <span class="tooltiptext">Edit Product</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="container">
-                    <h4><b>Malia Vanity Stool Chair</b></h4>
-                    <p>Hover function</p>
-                  </div>
-                </div>
-                <div class="content">
-                  <div class="product-image">
-                    <img src="../Images/Corinne_25.6_Wide_Wingback_Chair.webp" class="pic-1" style="width: 100%" />
-                    <img src="../Images/Corinne_25.6_Wide_Wingback_Chair_11.jpg" class="pic-2" style="width: 100%" />
-
-                    <div class="link">
-                      <div class="Icon">
-                        <a href="/adminproduct/addproduct"><i class="fa-solid fa-plus"></i></a>
-                        <span class="tooltiptext">Add Product</span>
-                      </div>
-                      <div class="Icon">
-                        <a href="/adminproduct/deleteproduct"><i class="fa-solid fa-trash"></i></a>
-                        <span class="tooltiptext">Delete Product</span>
-                      </div>
-                      <div class="Icon">
-                        <a href="/adminproduct/productedit"><i class="fa-solid fa-pen-to-square"></i></a>
-                        <span class="tooltiptext">Edit Product</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="container">
-                    <h4><b>Malia Vanity Stool Chair</b></h4>
-                    <p>Hover function</p>
                   </div>
                 </div>
                 <% } %>
