@@ -2,7 +2,7 @@ import { Router } from 'express';
 import multer from "multer";
 import productsController from "../controllers/adminviewprodController.js";
 var router = Router();
-/* GET item page. */
+
 router.get('/', productsController.viewAllProducts);
 
 router.get('/itempage', function(req, res, next) {
