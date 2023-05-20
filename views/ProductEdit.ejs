@@ -125,15 +125,17 @@
                     <div class="background">
                         <div class="containerform">
                             <!-- //////////////////update///////////////// -->
-                            <form class="form" action="Admin" method="get" onsubmit="return validate1(this)">
+                            <form class="form" action="/adminproduct/edit" method="post" onsubmit="return validateEditForm(event)" enctype="multipart/form-data">
                                 <div class="rowform">
                                     <div class="col-25">
                                         <label for="productname">Product Name</label>
                                     </div>
                                     <div class="col-75">
                                         <input type="text" id="upproductname" name="upproductname"
-                                            placeholder="Enter the product name..">
-                                        <div id="upnameid" class="err"></div>
+                                            placeholder="Enter the product name.." value="<%= product ? product.productName : '' %>">
+                                        <div id="upnameid" class="err" ><% if (errors && errors.upproductname) { %>
+                                            <%= errors.upproductname %>
+                                          <% } %></div>
                                     </div>
                                 </div>
                                 <div class="rowform">
@@ -141,8 +143,10 @@
                                         <label for="ID"> Product ID</label>
                                     </div>
                                     <div class="col-75">
-                                        <input type="text" id="upID" name="upProductID" placeholder="Enter product ID..">
-                                        <div id="upidid" class="err"></div>
+                                        <input type="text" id="upID" name="upProductID" placeholder="Enter product ID.." value="<%= product ? product._id : '' %>">
+                                        <div id="upidid" class="err"><% if (errors && errors.upProductID) { %>
+                                            <%= errors.upProductID %>
+                                          <% } %></div>
                                     </div>
                                 </div>
                                 <div class="rowform">
@@ -151,15 +155,17 @@
                                     </div>
                                     <div class="col-75">
                                         <select id="category" name="category">
-                                            <option value="armchair">Armchair</option>
-                                            <option value="beds">Beds</option>
-                                            <option value="australia">Benches</option>
-                                            <option value="beanbag">Bean Bags</option>
-                                            <option value="clounge">Chaise Lounges</option>
-                                            <option value="usa">Living Room Set</option>
-                                            <option value="kids">Kids Furniture</option>
-                                            <option value="Pet">Pets Furniture</option>
-                                            <option value="space">Space Friendly</option>
+                                                <option value="armchair" <%= product && product.category === 'armchair' ? 'selected' : '' %>>Armchair</option>
+                                                <option value="beds" <%= product && product.category === 'beds' ? 'selected' : '' %>>Beds</option>
+                                                <option value="benches" <%= product && product.category === 'benches' ? 'selected' : '' %>>Benches</option>
+                                                <option value="beanbags" <%= product && product.category === 'beanbags' ? 'selected' : '' %>>Bean Bags</option>
+                                                <option value="chaise lounges" <%= product && product.category === 'chaise lounges' ? 'selected' : '' %>>Chaise Lounges</option>
+                                                <option value="living room set" <%= product && product.category === 'living room set' ? 'selected' : '' %>>Living Room Set</option>
+                                                <option value="kids furniture" <%= product && product.category === 'kids furniture' ? 'selected' : '' %>>Kids Furniture</option>
+                                                <option value="pets furniture" <%= product && product.category === 'pets furniture' ? 'selected' : '' %>>Pets Furniture</option>
+                                                <option value="space friendly" <%= product && product.category === 'space friendly' ? 'selected' : '' %>>Space Friendly</option>
+                                            
+                                            
                                         </select>
                                         <div id="catorgyid" class="err"></div>
                                     </div>
@@ -169,8 +175,10 @@
                                         <label for="subject">Choose diffrent color</label>
                                     </div>
                                     <div class="col-75">
-                                        <input id="color" name="colorpicker" type="color">
-                                        <div id="colorid" class="err"></div>
+                                        <input id="color" name="colorpicker" type="text" value="<%= product ? product.color : '' %>">
+                                        <div id="colorid" class="err"><% if (errors && errors.color) { %>
+                                            <%= errors.color %>
+                                          <% } %></div>
                                     </div>
                                 </div>
                                 <div class="rowform">
@@ -180,8 +188,10 @@
                                     </div>
                                     <div class="col-75">
                                         <input type="number" min="1" step="any" id="price" name="price"
-                                            placeholder="Decimals are accepted">
-                                        <div id="priceid" class="err"></div>
+                                            placeholder="Decimals are accepted" value="<%= product ? product.price : '' %>">
+                                        <div id="priceid" class="err"><% if (errors && errors.price) { %>
+                                            <%= errors.price %>
+                                          <% } %></div>
                                     </div>
                                 </div>
                                 <div class="rowform">
@@ -190,11 +200,22 @@
                                         <label for="subject">Update the quantity</label>
                                     </div>
                                     <div class="col-75">
-                                        <input type="number" min="1" id="quantity" name="quamtity"
-                                            placeholder="Enter a whole posisitive number ..">
-                                        <div id="quantityid" class="err"></div>
+                                        <input type="number" min="1" id="quantity" name="quantity"
+                                            placeholder="Enter a whole posisitive number .."  value="<%= product ? product.quantity : '' %>">
+                                        <div id="quantityid" class="err"><% if (errors && errors.quantity) { %>
+                                            <%= errors.quantity %>
+                                          <% } %></div>
                                     </div>
                                 </div>
+                                <div class="rowform">
+                                    <div class="col-25">
+                                      <label for="comments">Comments</label>
+                                    </div>
+                                    <div class="col-75">
+                                      <textarea id="comments" name="comments" placeholder="Leave any comments you have about the product..." style="height:200px"><% if (product && product.comments) { %><%= product.comments %><% } %>
+                                    </textarea>
+                                    </div>
+                                  </div>
                                 <div class="rowform">
                                     <div class="col-25">
     
@@ -204,8 +225,16 @@
                                         <input type="file" id="photo" name="photo">
                                     </div>
                                     <div class="rowform">
-                                        <input type="submit" id="submit" value="Submit">
+                                        <input type="submit" id="submitButton" value="Submit">
                                     </div>
+                                    <div class="rowform">
+                                        <% if (typeof successMessage !== 'undefined' && successMessage) { %>
+                                          <p style="color: green"><%= successMessage %></p>
+                                        <% } %>
+                                        <% if (typeof failMessage !== 'undefined' && failMessage) { %>
+                                          <p style="color:red"><%= failMessage %></p>
+                                        <% } %>
+                                      </div>
                             </form>
                         </div>
                     </div>

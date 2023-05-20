@@ -178,36 +178,122 @@ function validate(event) {
 event.target.submit();
 }
 
-function upvalidateProductName(field) {
-  if (field == "") {
-    document.getElementById("upnameid").innerHTML =
-      "You must enter the products name !";
-    document.getElementById("upproductname").style.borderColor = "red";
+function validateEditProductName() {
+  const field = document.getElementById("upproductname").value.trim();
+  const nameError = document.getElementById("upnameid");
+  const nameInput = document.getElementById("upproductname");
+
+  if (field === "") {
+    nameError.innerHTML = "You must enter the product name!";
+    nameInput.style.borderColor = "red";
     return false;
-  } else {
-    document.getElementById("upnameid").innerHTML = "";
-    document.getElementById("upproductname").style.borderColor = "black";
-    return true;
   }
+  nameError.innerHTML = "";
+  nameInput.style.borderColor = "black";
+  return true;
 }
 
+function validateEditColor() {
+  const field = document.getElementById("color").value.trim();
+  const colorError = document.getElementById("colorid");
+  const colorInput = document.getElementById("color");
+
+  if (field === "") {
+    colorError.innerHTML = "You must choose an available color!";
+    colorInput.style.borderColor = "red";
+    return false;
+  }
+  colorError.innerHTML = "";
+  colorInput.style.borderColor = "black";
+  return true;
+}
+
+function validateEditPrice() {
+  const field = document.getElementById("price").value;
+  const priceError = document.getElementById("priceid");
+  const priceInput = document.getElementById("price");
+
+  if (isNaN(field) || parseFloat(field) <= 0 || !/^\d+(\.\d{1,2})?$/.test(field)) {
+    priceError.innerHTML = "Please enter a valid price (up to 2 decimal places).";
+    priceInput.style.borderColor = "red";
+    return false;
+  }
+  priceError.innerHTML = "";
+  priceInput.style.borderColor = "black";
+  return true;
+}
+
+function validateEditQuantity() {
+  const field = document.getElementById("quantity").value;
+  const quantityError = document.getElementById("quantityid");
+  const quantityInput = document.getElementById("quantity");
+
+  if (isNaN(field) || !Number.isInteger(parseFloat(field)) || parseInt(field) <= 0) {
+    quantityError.innerHTML = "Please enter a valid quantity (a positive whole number).";
+    quantityInput.style.borderColor = "red";
+    return false;
+  }
+  quantityError.innerHTML = "";
+  quantityInput.style.borderColor = "black";
+  return true;
+}
+function validateEditID() {
+  const field = document.getElementById("upID").value.trim();
+  const idError = document.getElementById("upidid");
+  const idInput = document.getElementById("upID");
+
+  if (field === "") {
+    idError.innerHTML = "Product ID is required!";
+    idInput.style.borderColor = "red";
+    return false;
+  }
+  
+  // Additional validation logic for the ID field, if needed
+
+  idError.innerHTML = "";
+  idInput.style.borderColor = "black";
+  return true;
+}
+function validateEditForm(event) {
+  event.preventDefault();
+
+  const isProductNameValid = validateEditProductName();
+  const isColorValid = validateEditColor();
+  const isPriceValid = validateEditPrice();
+  const isQuantityValid = validateEditQuantity();
+  const isIDValid = validateEditID();
+
+  if (!isProductNameValid || !isColorValid || !isPriceValid || !isQuantityValid || !isIDValid) {
+    return false;
+  }
+
+  event.target.submit();
+}
 function upvalidateProductID(field) {
-  if (field == "") {
-    document.getElementById("upidid").innerHTML = "You must enter an ID !";
-    document.getElementById("upID").style.borderColor = "red";
+  const idError = document.getElementById("productID");
+  const idInput = document.getElementById("upproductID");
+  if(field === "") {
+    idError.innerHTML = "Product ID is required!";
+    idInput.style.borderColor = "red";
     return false;
-  } else {
-    document.getElementById("upidid").innerHTML = "";
-    document.getElementById("upID").style.borderColor = "black";
-    return true;
   }
+  idError.innerHTML = "";
+  idInput.style.borderColor = "black";
+  return true;
 }
-
-function validate1(form) {
-  let fail = "";
-  fail &= upvalidateProductName(form.upproductname.value.trim());
-  if (fail) return true;
+function checkID(form) {
+  document.addEventListener('submit', event => {
+    event.preventDefault();
+  
+  let fail = true;
+  fail &= upvalidateProductID(form.upproductID.value.trim());
+  
+  if (fail) {
+    event.target.submit();
+  }
   else {
     return false;
+
   }
+})
 }
