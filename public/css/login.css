@@ -74,6 +74,15 @@
     }
   }
 
+  .FORM  ul{
+    padding-left: 44px;
+    text-align: left;
+    margin-bottom: 40px;
+    list-style: disc;
+    margin-top: 15px;
+    color: #000;
+  }
+
   .FORM .logIn{
     width: 100%;
     text-align: left;
@@ -103,7 +112,9 @@
     background: 0 0;
   }
   .input1 input:focus,
-  .input2 input:focus{
+  .input1 input:not(:placeholder-shown),
+  .input2 input:focus,
+  .input2 input:not(:placeholder-shown){
     padding: 18px 14px 6px;
   }
   .input1 label,
@@ -120,8 +131,13 @@
     height: 100%;
   }
   .input1 input:focus~label,
-  .input2 input:focus~label{
+  .input1 input:not(:placeholder-shown)~label,
+  .input2 input:focus~label,
+  .input2 input:not(:placeholder-shown)~label{
     transform: translateY(-6px) scale(.8);
+  }
+  input::placeholder{
+    color: transparent;
   }
 
 .logIn a{

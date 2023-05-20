@@ -36,24 +36,30 @@
 </div>
 <section class="ssection">
     <div class="FORM">
-<div class="error"></div>
+<div class="err">
+    <ul>
+        <li> <%= errors ? errors : '' %> </li>
+    </ul>
+</div>
 <div class="logIn">
-<form action="/login" method="post">
+<form action="/account" method="post">
     <input type="hidden">
     <div class="input1">
-        <input type="email" name="email">
+        <input type="email" name="email" placeholder="Email">
         <label for="customerEmail">
             Email
             <span class="required"></span>
         </label>
     </div>
+    <!-- <div class="error"><%= errors && errors.email ? errors.email : '' %></div> -->
     <div class="input2">
-        <input type="password" name="password">
+        <input type="password" name="pass" placeholder="password">
         <label for="customerEmail">
             Password
             <span class="required"></span>
         </label>
     </div>
+    <!-- <div class="error" style="margin-top: 50px;"><%= errors && errors.password ? errors.password : '' %></div>  -->
    <a href="#" class="forgetpas">Forget your password?</a>
    <div class="btnsignup">
     <input type="submit" value="Sign in">

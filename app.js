@@ -108,12 +108,11 @@ app.use("/adminproduct", adminproduct_router);
 app.post("/account",  (req, res) => {
   console.log("Login request received");
 
-  const { email, pas } = req.body;
+  const { email, pass } = req.body;
 
-  if (email === 'admin@gmail.com' && pas === 'admin!.!') {
-    // Render the dashboard
-    return res.render("dashboard");
-  }
+ 
+
+ 
 
   try {
     // Find the user in the database by email
@@ -122,14 +121,20 @@ app.post("/account",  (req, res) => {
 
   if (!result) {
     // User not found, display error message
-    return res.status(401).json({ error: "Invalid email " });
+    //return res.status(401).json({ error: "Invalid email " });
+  
+  return res.render("login",{errors:"Invalid email or password"});
+    // return res.redirect('/auth/login',{errors:"Invalid email or password"});
   }
 
 
-  if (result.password!=pas) {
+   if (result.password!=pass) {
     // Password does not match, display error message
     console.log("error");
-    return res.status(401).json({ error: "Invalid  password" });
+    // return res.status(401).json({ error: "Invalid  password" });
+   
+
+    return res.render("login",{errors:"Invalid email or password"})
   }
 
 
@@ -144,9 +149,7 @@ app.post("/account",  (req, res) => {
   }
 });
 
-app.get("/login",(req,res) => {
-res.render("login");
-});
+
 
 
 app.get("/logout", (req, res) => {
