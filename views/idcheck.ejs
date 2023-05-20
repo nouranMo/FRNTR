@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../CSS/admin.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        body {
+            margin: 0;
+            font-family: "Lato", sans-serif;
+        }
+
+        .sidebar {
+            margin: 0;
+            padding: 0;
+            width: 200px;
+            background-color: #f1f1f1;
+            position: fixed;
+            height: 100%;
+            overflow: auto;
+        }
+
+        .sidebar a {
+            display: block;
+            color: black;
+            padding: 16px;
+            text-decoration: none;
+        }
+
+        div.contenty {
+            margin-left: 200px;
+            padding: 1px 16px;
+            height: 1000px;
+        }
+
+        @media screen and (max-width: 700px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                display: flex;
+            }
+
+            .sidebar a {
+                float: left;
+            }
+
+            div.contenty {
+                margin-left: 0;
+                padding: 0;
+            }
+        }
+        @media screen and(max-width: 1400){
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .sidebar a {
+                float: left;
+            }
+
+            div.contenty {
+                margin-left: 0;
+                /* padding: 0; */
+            }
+        }
+        
+
+        @media screen and (max-width: 400px) {
+            .sidebar a {
+                text-align: center;
+                float: none;
+            }
+        }
+
+        .material-symbols-outlined {
+
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 48
+        }
+
+
+        .sidebar a.dashboard {
+            background-color: black;
+            color: white;
+        }
+
+        .sidebar a:hover:not(.dashboard) {
+            background-color: #555;
+            color: white;
+        }
+        @media screen and(max-width: 2497){
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                
+            }
+
+            .sidebar a {
+                float: left;
+            }
+
+            div.contenty {
+                margin-left: 325;
+                padding: 25;
+            }
+        }
+    </style>
+    <title>Admin Product Edit</title>
+</head>
+<body>
+    <div class="barpage">
+        <div class="sideCon">
+            <%- include("./partials/adminnav.ejs")%>
+            <div class="header"> <h2>Edit in Item</h2> </div>
+            <div class="gallery">
+                <div class="row">
+                    <div class="background">
+                        <div class="containerform">
+                            <!-- //////////////////update///////////////// -->
+                            <form class="form" action="/adminproduct/idcheck" method="post" onsubmit="return checkID(this)">
+                                <div class="rowform">
+                                    <div class="col-25">
+                                        <label for="productname">Product ID</label>
+                                    </div>
+                                    <div class="col-75">
+                                        <input type="text" id="upproductID" name="upproductID"
+                                            placeholder="Enter the product ID">
+                                        <div id="productID" class="err">
+                                            <% if (errors && errors.productname) { %>
+                                                <%= errors.productname %>
+                                              <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="rowform">
+                                    <div class="col-25">
+                                        <label for="ID">Submit: </label>
+                                    </div>
+                                    <div class="col-75">
+                                        <input type="submit" id="submitButton" name="submitButton" placeholder="Click Here">
+                                        <div id="submitErr" class="err"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="rowform">
+                                    
+                               
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+           <h3 id="subhead">Recently Edited</h3>
+            <div class="row">
+                <div class="content">
+                    <section class="hoveringimgs">
+                        <div class="box">
+                            <img src="../Images/malia_5.webp" class="hoveredimg" alt="Avatar" style="width:100%">
+                            <img src="../Images/malia_3.webp" alt="texture" class="hover_img" style="width:100%">
+                        </div>
+                        <div class="container">
+                            <h4><b>Malia Vanity Stool Chair</b></h4>
+                            <p>Hover function</p>
+                        </div>
+                    </section>
+                </div>
+                <div class="content">
+                    <section class="hoveringimgs">
+                        <div class="box">
+                            <img src="../Images/NylaBabyBlue2.webp" class="hoveredimg" alt="Avatar" style="width:100%">
+                            <img src="../Images/NylaBabyBlue3.webp" alt="texture" class="hover_img" style="width:100%">
+                        </div>
+                        <div class="container">
+                            <h4><b>Nyla Baby Blue</b></h4>
+                            <p>19200 EGP</p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../JS/admin.js"></script>
+
+</body>
+</html>
