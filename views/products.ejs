@@ -1,154 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/admin.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      body {
+        margin: 0;
+        font-family: "Lato", sans-serif;
+      }
 
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="../CSS/admin.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <style>
-    body {
-      margin: 0;
-      font-family: "Lato", sans-serif;
-    }
-
-    .sidebar {
-      margin: 0;
-      padding: 0;
-      width: 200px;
-      background-color: #f1f1f1;
-      position: fixed;
-      height: 100%;
-      overflow: auto;
-    }
-
-    .sidebar a {
-      display: block;
-      color: black;
-      padding: 16px;
-      text-decoration: none;
-    }
-
-    div.contenty {
-      margin-left: 200px;
-      padding: 1px 16px;
-      height: 1000px;
-    }
-
-    @media screen and (max-width: 700px) {
       .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-      }
-
-      .sidebar a {
-        float: left;
-      }
-
-      div.contenty {
-        margin-left: 0;
+        margin: 0;
         padding: 0;
-      }
-    }
-
-    @media screen and(max-width: 1400) {
-      .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
+        width: 200px;
+        background-color: #f1f1f1;
+        position: fixed;
+        height: 100%;
+        overflow: auto;
       }
 
       .sidebar a {
-        float: left;
+        display: block;
+        color: black;
+        padding: 16px;
+        text-decoration: none;
       }
 
       div.contenty {
-        margin-left: 0;
-        /* padding: 0; */
+        margin-left: 200px;
+        padding: 1px 16px;
+        height: 1000px;
       }
-    }
 
-    @media screen and (max-width: 400px) {
-      .sidebar a {
-        text-align: center;
-        float: none;
+      @media screen and (max-width: 700px) {
+        .sidebar {
+          width: 100%;
+          height: auto;
+          position: relative;
+        }
+
+        .sidebar a {
+          float: left;
+        }
+
+        div.contenty {
+          margin-left: 0;
+          padding: 0;
+        }
       }
-    }
 
-    .material-symbols-outlined {
-      font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
-    }
+      @media screen and(max-width: 1400) {
+        .sidebar {
+          width: 100%;
+          height: auto;
+          position: relative;
+        }
 
-    .sidebar a.products {
-      background-color: black;
-      color: white;
-    }
+        .sidebar a {
+          float: left;
+        }
 
-    .sidebar a:hover:not(.products) {
-      background-color: #555;
-      color: white;
-    }
-  </style>
-  <title>Admin Products</title>
-</head>
+        div.contenty {
+          margin-left: 0;
+          /* padding: 0; */
+        }
+      }
 
-<body>
-  <%- include("./partials/adminsidebar.ejs")%>
+      @media screen and (max-width: 400px) {
+        .sidebar a {
+          text-align: center;
+          float: none;
+        }
+      }
+
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
+      }
+
+      .sidebar a.products {
+        background-color: black;
+        color: white;
+      }
+
+      .sidebar a:hover:not(.products) {
+        background-color: #555;
+        color: white;
+      }
+    </style>
+    <title>Admin Products</title>
+  </head>
+
+  <body>
+    <%- include("./partials/adminsidebar.ejs")%>
     <div class="contenty">
       <%- include("./partials/adminnav.ejs")%>
-        <div class="sideCon">
-          <div class="header">
-            <h2>All Store Products</h2>
-          </div>
-          <div class="gallery">
-            <div class="row">
-              <% products.forEach((product)=> { %>
-                <div class="content">
-                  <div class="product-image">
-                    <% if (product.imagePath && product.imagePath.length> 0) { %>
-                      <% product.imagePath.forEach((path)=> { %>
-                        <img src="<%= path %>" class="pic-1" style="width: 100%" />
+      <div class="sideCon">
+        <div class="header">
+          <h2>All Store Products</h2>
+        </div>
+        <div class="gallery">
+          <div class="row">
+            <% products.forEach((product)=> { %>
+            <div class="content">
+              <div class="product-image">
+                <% if (product.imagePath && product.imagePath.length> 0) { %> <%
+                product.imagePath.forEach((path)=> { %>
+                <img src="<%= path %>" class="pic-1" style="width: 100%" />
 
-                        <% console.log("hello Image Path:", path); %>
-                          <img src="<%= path %>" class="pic-2" style="width: 100%" />
+                <% console.log("hello Image Path:", path); %>
+                <img src="<%= path %>" class="pic-2" style="width: 100%" />
 
-                          <% }); %>
-                            <div class="link">
-                              <div class="Icon">
-                                <a href="/adminproduct/addproduct"><i class="fa-solid fa-plus"></i></a>
-                                <span class="tooltiptext">Add Product</span>
-                              </div>
-                              <div class="Icon">
-                                <a href="/adminproduct/deleteproduct"><i class="fa-solid fa-trash"></i></a>
-                                <span class="tooltiptext">Delete Product</span>
-                              </div>
-                              <div class="Icon">
-                                <a href="/adminproduct/productedit"><i class="fa-solid fa-pen-to-square"></i></a>
-                                <span class="tooltiptext">Edit Product</span>
-                              </div>
-                            </div>
+                <% }); %>
+                <div class="link">
+                  <div class="Icon">
+                    <a href="/adminproduct/addproduct"
+                      ><i class="fa-solid fa-plus"></i
+                    ></a>
+                    <span class="tooltiptext">Add Product</span>
                   </div>
-                  <div class="container">
-                    <h4><b>
-                        <%= product.productName %>
-                      </b></h4>
-                    <p>
-                      <%= product.category %>
-                    </p>
+                  <div class="Icon">
+                    <a href="/adminproduct/deleteproduct"
+                      ><i class="fa-solid fa-trash"></i
+                    ></a>
+                    <span class="tooltiptext">Delete Product</span>
+                  </div>
+                  <div class="Icon">
+                    <a href="/adminproduct/productedit"
+                      ><i class="fa-solid fa-pen-to-square"></i
+                    ></a>
+                    <span class="tooltiptext">Edit Product</span>
                   </div>
                 </div>
-                <% } %>
-                  <% }) %>
+              </div>
+              <div class="container">
+                <h4><b> <%= product.productName %> </b></h4>
+                <p><%= product.category %></p>
+              </div>
             </div>
+            <% } %> <% }) %>
           </div>
         </div>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>

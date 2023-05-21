@@ -1,105 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../CSS/account.css">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/account.css" />
 
-    <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-  <style>
-    .material-symbols-outlined {
-      position: relative;
-      top: 1px;
-      font-variation-settings:
-        'FILL' 0,
-        'wght' 200,
-        'GRAD' -25,
-        'opsz' 24
-    }
-  </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <style>
+      .material-symbols-outlined {
+        position: relative;
+        top: 1px;
+        font-variation-settings: "FILL" 0, "wght" 200, "GRAD" -25, "opsz" 24;
+      }
+    </style>
     <title>FRNTR</title>
-</head>
-<body>
+  </head>
+  <body>
     <%- include("./partials/nav.ejs")%>
     <div class="MAIN">
-    <div class="page-head">
-<div class="page-head-title">
-    <h1 class="title-head">MY ACCOUNT </h1>
-</div>
-    </div>
-<section class="sectionn">
-<div class="AccCon">
-    <div class="left-table">
-        <nav class="account-nav">
-            <ul>
-                <li><a href="#"><i class="material-symbols-outlined">
-                    grid_view
-                  </i> Dashboard</a></li>
-
-                  <li><a href="#"><i class="material-symbols-outlined">
-                    location_on
-                  </i> Addresses (1)</a></li>
-
-                  <li><a href="/User/wishlist"><i class="material-symbols-outlined">
-                    favorite
-                  </i> Wishlist (0)</a></li>
-
-                  <li><a href="/logout"><i class="material-symbols-outlined">
-                    logout
-                  </i> Logout</a></li>
-            </ul>
-        </nav>
-    </div>
-
-    <div class="right-table">
-        <p class="tag"> Hello <strong><%=userP.firstName%> <%=userP.lastName%></strong> (not <strong><%=userP.firstName%> <%=userP.lastName%></strong>? <a href="/logout">Logout</a>)</p>
-
-        <h2>Order History:</h2>
-        <div class="form-message">
-            <a href="#">Make your first order</a>
-            <span>You haven't placed any orders yet.</span>
+      <div class="page-head">
+        <div class="page-head-title">
+          <h1 class="title-head">MY ACCOUNT</h1>
         </div>
-        <div class="space"></div>
-        <h2>Account details :</h2>
-        <p class="tag">
-            nouran mohamed
-            <br>
-            Egypt
-        </p>
-        <div class="Table">
-            <table class="ttable">
+      </div>
+      <section class="sectionn">
+        <div class="AccCon">
+          <div class="left-table">
+            <nav class="account-nav">
+              <ul>
+                <li>
+                  <a href="#"
+                    ><i class="material-symbols-outlined"> grid_view </i>
+                    Dashboard</a
+                  >
+                </li>
+
+                <li>
+                  <a href="#"
+                    ><i class="material-symbols-outlined"> location_on </i>
+                    Addresses (1)</a
+                  >
+                </li>
+
+                <li>
+                  <a href="/User/wishlist"
+                    ><i class="material-symbols-outlined"> favorite </i>
+                    Wishlist (0)</a
+                  >
+                </li>
+
+                <li>
+                  <a href="/logout"
+                    ><i class="material-symbols-outlined"> logout </i> Logout</a
+                  >
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+          <div class="right-table">
+            <p class="tag">
+              Hello
+              <strong><%=userP.firstName%> <%=userP.lastName%></strong> (not
+              <strong><%=userP.firstName%> <%=userP.lastName%></strong>?
+              <a href="/logout">Logout</a>)
+            </p>
+
+            <h2>Order History:</h2>
+            <div class="form-message">
+              <a href="#">Make your first order</a>
+              <span>You haven't placed any orders yet.</span>
+            </div>
+            <div class="space"></div>
+            <h2>Account details :</h2>
+            <p class="tag">
+              nouran mohamed
+              <br />
+              Egypt
+            </p>
+            <div class="Table">
+              <table class="ttable">
                 <tbody>
-                    <tr>
-                        <td><strong>Name:</strong></td>
-                        <td><%=userP.firstName%> <%=userP.lastName%></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Email:</strong></td>
-                        <td><%=userP.email%></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Address</strong></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Address2</strong></td>
-                        <td></td>
-                    </tr>
+                  <tr>
+                    <td><strong>Name:</strong></td>
+                    <td><%=userP.firstName%> <%=userP.lastName%></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Email:</strong></td>
+                    <td><%=userP.email%></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Address</strong></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Address2</strong></td>
+                    <td></td>
+                  </tr>
                 </tbody>
-            </table>
+              </table>
+            </div>
+          </div>
         </div>
+      </section>
     </div>
-</div>
-</section>
-</div>
-<%- include("./partials/chat.ejs")%>
-<%- include("./partials/footer.ejs")%>
-</body>
+    <%- include("./partials/chat.ejs")%> <%- include("./partials/footer.ejs")%>
+  </body>
 </html>

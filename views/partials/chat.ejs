@@ -1,32 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
     <link rel="stylesheet" href=".../css/style.css" />
-</head>
-<body>
-    
-   <div id="chat-button">
-    <button  class="open-button" onclick="openForm()"><i style="margin:0px;" id="chat1" class="material-icons">chat</i></button>
-  </div>
-   <div class="chat-popup" id="myForm">
+  </head>
+  <body>
+    <div id="chat-button">
+      <button class="open-button" onclick="openForm()">
+        <i style="margin: 0px" id="chat1" class="material-icons">chat</i>
+      </button>
+    </div>
+    <div class="chat-popup" id="myForm">
       <form action="#" class="form-container">
         <div class="chat-pop">
-         <span class="log1">CHAT</span>
-         <button class="side-btn2"><i class="material-icons" onclick="closeForm()">close</i></button>
+          <span class="log1">CHAT</span>
+          <button class="side-btn2">
+            <i class="material-icons" onclick="closeForm()">close</i>
+          </button>
         </div>
-           <div style="margin-top:90%; position:sticky; width: 93%; margin-left: 10px;" class="form-cont">
-  
-          <div style="z-index: 1000;"class="form">
+        <div
+          style="
+            margin-top: 90%;
+            position: sticky;
+            width: 93%;
+            margin-left: 10px;
+          "
+          class="form-cont"
+        >
+          <div style="z-index: 1000" class="form">
             <div class="form-cont">
-  
               <div class="inputt">
-                <input type="text" class="email-input" name="message" placeholder="type your message..." required>
+                <input
+                  type="text"
+                  class="email-input"
+                  name="message"
+                  placeholder="type your message..."
+                  required
+                />
               </div>
-  
+
               <div class="btn-sub">
                 <button type="submit" class="button-style">Send</button>
               </div>
@@ -35,6 +53,6 @@
         </div>
       </form>
     </div>
-</body>
+  </body>
 </html>
-<script src="../JS/validations.js"></script>
+<script src="../js/validations.js"></script>
