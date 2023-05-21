@@ -16,7 +16,7 @@ router.get('/signup', function(req, res, next) {
     res.render('signup',{errors});
   });
 // Handle signup form submission
-router.post("/SignUp", signupController.signup);
+router.post("/signup", signupController.signup);
 
 
 router.get('/login',function(req,res,next){
