@@ -1,48 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<link rel="stylesheet" href="../CSS/cart.css">
-<link rel="stylesheet" href="../CSS/wishlist.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <link rel="stylesheet" href="../CSS/cart.css" />
+    <link rel="stylesheet" href="../CSS/wishlist.css" />
     <title>FRNTR</title>
-</head>
-<body>
+  </head>
+  <body>
     <%- include("./partials/nav.ejs")%>
-    <div class = "emptyWishlistContainer">
-        <i class="material-icons" id = "emptyWishlist">heart_broken</i>
-        <div id = "yourWishlist">WISHLIST IS EMPTY.</div>
-        <div>You don't have any products in the wishlist yet.</div>
-        <div>You will find a lot of interesting products on our "Shop" page.</div>
-        <a href="index"><button id = "returnButton">RETURN TO SHOP</button></a>
+    <div class="emptyWishlistContainer">
+      <i class="material-icons" id="emptyWishlist">heart_broken</i>
+      <div id="yourWishlist">WISHLIST IS EMPTY.</div>
+      <div>You don't have any products in the wishlist yet.</div>
+      <div>You will find a lot of interesting products on our "Shop" page.</div>
+      <a href="index"><button id="returnButton">RETURN TO SHOP</button></a>
     </div>
-    
+
     <div class="fullWishlistContainer">
-        <div class="wishlistItemContainer">
-            <div class="wishlistImageContainer">
-                <img src="../Images/BlueBed.webp" width="100px" height="100px">
-            </div>
-            <div class="wishlistTexts">
-                <a href="index" id = "websiteLink">FRNTR</a>
-                <div style="font-weight: bold;">Nova Upholstered Platform Bed</div>
-                <div><s>16,100.00 EGP</s> <span style ="color:red">8,200.00</span></div>
-
-                <div id="insideInfo"><p style="font-size: 10px;">This bed is uniquie, the headboard is in glam deco style, with velvety panels rising in an arching pattern, giving it a new take on traitional channel tufting. Product...</p></div>
-            </div>
-            <div class="buttonContainer">
-                <button id="viewButton"><span id="viewMessage">View</span><span class="material-symbols-outlined" id="eyeIcon">visibility</span></button>
-            </div>
-
+      <div class="wishlistItemContainer">
+        <div class="wishlistImageContainer">
+          <img src="../images/BlueBed.webp" width="100px" height="100px" />
         </div>
+        <div class="wishlistTexts">
+          <a href="index" id="websiteLink">FRNTR</a>
+          <div style="font-weight: bold">Nova Upholstered Platform Bed</div>
+          <div>
+            <s>16,100.00 EGP</s> <span style="color: red">8,200.00</span>
+          </div>
+
+          <div id="insideInfo">
+            <p style="font-size: 10px">
+              This bed is uniquie, the headboard is in glam deco style, with
+              velvety panels rising in an arching pattern, giving it a new take
+              on traitional channel tufting. Product...
+            </p>
+          </div>
+        </div>
+        <div class="buttonContainer">
+          <button id="viewButton">
+            <span id="viewMessage">View</span
+            ><span class="material-symbols-outlined" id="eyeIcon"
+              >visibility</span
+            >
+          </button>
+        </div>
+      </div>
     </div>
-    <%- include("./partials/chat.ejs")%>
-    <%- include("./partials/footer.ejs")%>
-    <script type="text/javascript"  src="../JS/handler.js"></script>
-</body>
+    <%- include("./partials/chat.ejs")%> <%- include("./partials/footer.ejs")%>
+    <script type="text/javascript" src="../JS/handler.js"></script>
+  </body>
 </html>
