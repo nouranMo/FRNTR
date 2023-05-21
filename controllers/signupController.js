@@ -1,4 +1,5 @@
 // signupController.js
+import bcrypt from 'bcryptjs'
 import User from "../models/user.js";
 
 const signupController = {};
@@ -45,12 +46,16 @@ signupController.signup = async (req, res) => {
   }
 
   try {
+    // Password hashing
+    const saltRounds=10;
+    const hashedPassword = await bcrypt.hash(pas, saltRounds);
+
     // Create a new user instance
     const newUser = new User({
       firstName: Firstname,
       lastName: last,
       email,
-      password: pas,
+      password: hashedPassword,
       passwordConfirm: pasconfirm,
       userType,
     });
