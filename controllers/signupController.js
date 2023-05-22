@@ -1,7 +1,20 @@
 // signupController.js
+import bcrypt from 'bcryptjs'
 import User from "../models/user.js";
 
 const signupController = {};
+
+// RegEx  Regular Expression
+
+function validatePassword(password)
+{
+  var uppercasePattern = /[A-Z]/;
+  var digitPattern = /[0-9]/;
+  var pattern = /[\u0021-\u002F\u003A-\u0040\u005B-\u0060\u007B-\u007E$#&().|\\[\]{}]/;
+// Characters:  ! to /, : to @, [ to `, { to ~, $, #, &, (, ), |, \, ], }
+
+  return uppercasePattern.test(password) && digitPattern.test(password) && pattern.test(password);
+}
 
 signupController.signup = async (req, res) => {
   console.log("Signup request received");
@@ -33,6 +46,9 @@ signupController.signup = async (req, res) => {
     errors.password = "You must enter a password!";
   } else if (pas.length < 8) {
     errors.password = "Password must be at least 8 characters!";
+  } else if (!validatePassword(pas))
+  {
+    errors.password= "Password must contain at least one number, one special character, and one uppercase letter!"
   }
 
   if (pas !== pasconfirm) {
@@ -45,12 +61,16 @@ signupController.signup = async (req, res) => {
   }
 
   try {
+    // Password hashing
+    const saltRounds=10;
+    const hashedPassword = await bcrypt.hash(pas, saltRounds);
+
     // Create a new user instance
     const newUser = new User({
       firstName: Firstname,
       lastName: last,
       email,
-      password: pas,
+      password: hashedPassword,
       passwordConfirm: pasconfirm,
       userType,
     });

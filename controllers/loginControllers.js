@@ -1,4 +1,5 @@
 // loginController.js
+import bcrypt from "bcryptjs"
 import User from "../models/user.js";
 const loginController = {};
 
@@ -25,18 +26,33 @@ loginController.login =  (req, res) => {
     
       return res.render("login",{errors:"Invalid email or password"});
     }
+
   
   
      if (result.password!=pass) {
+
+
+    // Comparing the entered password with the hashed one.
+
+     bcrypt.compare(pas,result.password).then((isPasValid)=>{
+
+           if (!isPasValid) {
+
       // Password does not match, display error message
       console.log("error");
       // return res.status(401).json({ error: "Invalid  password" });
      
   
-      return res.render("login",{errors:"Invalid email or password"})
+      return res.render("login",{errors:"Invalid email or password"});
     }
+
   
   req.session.user=result;
+
+  });
+
+  
+
   
     // Password matches, render the account page with user data
     // return res.render("account", { userP:result});
