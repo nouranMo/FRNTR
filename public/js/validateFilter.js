@@ -36,3 +36,10 @@ rangeInput.forEach(input =>{
         }
     });
 });
+document.addEventListener("DOMContentLoaded_filter", function() {
+    const addToCartButton_filter = document.querySelector(".add-to-cart_243");
+
+    addToCartButton.addEventListener("click", function() {
+        alert("Item added to cart!");
+    });
+});
