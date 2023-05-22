@@ -149,7 +149,9 @@ app.post("/account",  (req, res) => {
   }
 });
 
-
+// app.get('/account',function(req,res){
+//  res.render("account",{userP:req.session.user===undefined?"":req.session.user});
+// });
 
 
 app.get("/logout", (req, res) => {
