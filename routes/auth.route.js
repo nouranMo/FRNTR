@@ -24,6 +24,10 @@ router.get('/login',function(req,res,next){
   res.render('login',{errors});
 });
 
+router.get('/account',function(req,res,next){
+res.render("account",{userP:req.session.user===undefined?"":req.session.user});
+});
+
 router.post("/login", loginController.login);
 
 // Export the router

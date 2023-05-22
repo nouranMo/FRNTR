@@ -6,11 +6,11 @@ const loginController = {};
 loginController.login =  (req, res) => {
     console.log("Login request received");
   
-    const { email, pas } = req.body;
+    const { email, pass } = req.body;
   
    
   
-    if (email === 'admin@gmail.com' && pas === 'admin!.!') {
+    if (email === 'admin@gmail.com' && pass === 'admin!.!') {
       // Render the dashboard
       return res.render("dashboard");
     }
@@ -27,11 +27,17 @@ loginController.login =  (req, res) => {
       return res.render("login",{errors:"Invalid email or password"});
     }
 
+  
+  
+     if (result.password!=pass) {
+
+
     // Comparing the entered password with the hashed one.
 
      bcrypt.compare(pas,result.password).then((isPasValid)=>{
 
            if (!isPasValid) {
+
       // Password does not match, display error message
       console.log("error");
       // return res.status(401).json({ error: "Invalid  password" });
@@ -39,12 +45,18 @@ loginController.login =  (req, res) => {
   
       return res.render("login",{errors:"Invalid email or password"});
     }
+
+  
+  req.session.user=result;
+
   });
 
   
+
   
     // Password matches, render the account page with user data
-    return res.render("account", { userP:result});
+    // return res.render("account", { userP:result});
+    return res.redirect('/auth/account')
   });
      
     } catch (error) {
