@@ -167,7 +167,7 @@ i {
   border: none;
 
   text-align: center;
-  font-family: "Poppins", sans-serif;
+ 
   background-color: inherit;
   font-family: inherit;
   margin: 0 0 0 15px;
@@ -816,17 +816,18 @@ input[type="text"]:focus {
   margin: 0;
   display: flex;
   flex-direction: column;
+  
 }
 
 .topmain {
   margin-top: auto;
-  font-family: "Poppins", sans-serif;
+
   top: 100%;
 }
 
 footer {
-  font-family: "Poppins", sans-serif;
   position: sticky;
+  
   width: 100%;
   background-color: #f6f6f8;
 }
@@ -866,10 +867,7 @@ footer {
   width: 250px;
 }
 
-/* .content1,.content2,.content3,.content4
-{
- 
-} */
+
 .icon1,
 .icon2,
 .icon3,
@@ -903,10 +901,15 @@ margin: auto; */
   margin-left: 15px;
   font-size: 14px;
 }
+.contact1 p{
+  text-align: left!important;
+}
+
 
 .contact1 p i {
   font-size: 14px;
   margin-right: 10px;
+  
 }
 
 .contact h3 {
@@ -987,7 +990,6 @@ text-decoration: none;
 .button .icon i {
   color: black;
   font-size: 30px;
-
   /* line-height: 70px;
 font-weight:400 ; */
 }
@@ -1043,8 +1045,6 @@ font-weight:400 ; */
 }
 .form-cont .inputt{
    flex: 1 0 0%; 
-   width: 100%;
-   max-width: 100%; 
 }
 .form-cont .email-input{
   line-height: 24px;
@@ -1056,11 +1056,16 @@ font-weight:400 ; */
   max-width: 100%;
   background-color: transparent;
   padding: 8px 10px;
-  border: none;
+   border-color: transparent; 
+  border-style: none;
   text-overflow: ellipsis;
   white-space: nowrap;
   border-radius: 46px;
 }
+input[type="email"]:focus {
+  border-style: none;
+}
+
 .btn-sub{
   max-width: 33.33%;
     min-width: 111px;
@@ -1104,7 +1109,6 @@ font-weight:400 ; */
   padding: 20px 0px 5px 25px;
   font-size: 14px;
   color: #878787;
-  font-family: inherit;
   display: inline-flex;
 }
 
