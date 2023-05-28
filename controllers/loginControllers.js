@@ -10,11 +10,6 @@ loginController.login = async(req, res) => {
 
 
 
-  if (email === 'admin@gmail.com' && pass === 'admin!.!') {
-    // Render the dashboard
-    return res.render("dashboard");
-  }
-
   try {
     // Find the user in the database by email
     const result= await User.findOne({email});

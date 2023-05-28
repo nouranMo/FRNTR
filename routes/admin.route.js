@@ -2,10 +2,28 @@ import { Router } from 'express';
 // Create a new router instance
 var router = Router();
 
+// Authentication, securing the admin dashboard.
+router.use((req,res,next)=>{
+
+  if(req.session.user!==undefined && req.session.user.userType==="admin")
+  {
+    
+    next();
+
+  }
+  else
+  {
+
+  res.render('404');
+  
+  }
+  });
+
 /* GET Admin page. */
 router.get('/', function(req, res, next) {
     res.render('dashboard');
   });
+
 
 /* GET Admin page. */
 router.get('/dashboard', function(req, res, next) {
