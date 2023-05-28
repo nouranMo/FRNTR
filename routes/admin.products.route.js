@@ -18,6 +18,24 @@ const upload = multer({ storage });
 // Create a new router instance
 var router = Router();
 
+// Authentication, securing the admin dashboard.
+
+router.use((req,res,next)=>{
+
+  if(req.session.user!==undefined && req.session.user.userType==="admin")
+  {
+    
+    next();
+
+  }
+  else
+  {
+
+  res.render('404');
+  
+  }
+  });
+
 /* GET products page. */
 router.get("/", function (req, res, next) {
   res.render("products");
