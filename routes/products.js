@@ -31,5 +31,4 @@ router.use((req,res,next)=>{
   });
 router.get('/', productsController.viewAllProducts);
 
-
 export default router;

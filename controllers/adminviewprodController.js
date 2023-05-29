@@ -27,6 +27,28 @@ const productsController = {
         res.render("error", { message: "Failed to retrieve products" });
       }
     },
+    LowInStock: async (req, res) => {
+      try {
+        console.log("Inside viewAllProducts");
+    
+        // Retrieve products with quantities less than 10 from the database
+        const lowStock = await Furniture.find({ quantity: { $lt: 10 } });
+    
+        console.log("Retrieved low stock products from the database:", lowStock);
+    
+        lowStock.forEach((product) => {
+          if (product.photo && product.photo.length > 0) {
+            product.imagePath = product.photo.map((photo) => photo.replace(/\\/g, '/').replace('public/', ''));
+          }
+        });
+    
+        res.render("dashboard", { lowStock, imagePath: lowStock[0].imagePath });
+      } catch (error) {
+        // Handle error if retrieval fails
+        console.error("Error retrieving low stock products:", error);
+        res.render("error", { message: "Failed to retrieve low stock products" });
+      }
+    },
     viewAllUsers: async(req,res)=>{
       try{
         console.log(" inside viewAllUsers");
