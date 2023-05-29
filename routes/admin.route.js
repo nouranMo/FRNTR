@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import productsController from "../controllers/adminviewprodController.js";
 // Create a new router instance
 var router = Router();
 
@@ -31,10 +32,7 @@ router.get('/orders', function(req, res, next) {
   router.get('/offers', function(req, res, next) {
     res.render('offers');
   });
-
+  router.get('/customers', productsController.viewAllUsers);
   /* GET customers page. */
-router.get('/customers', function(req, res, next) {
-    res.render('customers');
-  });
 // Export the router
 export default router;
