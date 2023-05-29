@@ -223,14 +223,82 @@ function validateEditPrice() {
   return true;
 }
 
-function confirmChangeUserToAdmin()
-{
-  return confirm('Are you sure you want to change this user to an admin?');
-}
-function confirmChangeUserToClient(){
-  return confirm('Are you sure you want to change this user to a client?');
+// function confirmChangeUserToAdmin()
+// {
+//   return confirm('Are you sure you want to change this user to an admin?');
+// }
+// function confirmChangeUserToClient(){
+//   return confirm('Are you sure you want to change this user to a client?');
 
+// }
+// confirmation.js
+
+
+function showConfirmationModal(message, callback) {
+  const modalContainer = document.createElement('div');
+  modalContainer.classList.add('confirmation-modal');
+
+  const modalContent = document.createElement('div');
+  modalContent.classList.add('confirmation-modal-content');
+
+  const messageParagraph = document.createElement('p');
+  messageParagraph.textContent = message;
+
+  const yesButton = document.createElement('button');
+  yesButton.textContent = 'Yes';
+  yesButton.classList.add('btn', 'btn-confirmation-yes');
+
+  const noButton = document.createElement('button');
+  noButton.textContent = 'No';
+  noButton.classList.add('btn', 'btn-confirmation-no');
+
+  modalContent.appendChild(messageParagraph);
+  modalContent.appendChild(yesButton);
+  modalContent.appendChild(noButton);
+
+  modalContainer.appendChild(modalContent);
+  document.body.appendChild(modalContainer);
+
+  yesButton.addEventListener('click', () => {
+    callback(true);
+    closeModal();
+  });
+
+  noButton.addEventListener('click', () => {
+    callback(false);
+    closeModal();
+  });
+
+  function closeModal() {
+    document.body.removeChild(modalContainer);
+  }
 }
+
+function confirmChangeUserToAdmin(userId) {
+  showConfirmationModal('Are you sure you want to change this user to an admin?', (confirmed) => {
+    if (confirmed) {
+      // Proceed with the link action
+      window.location.href = `/admin/beAdmin/${userId}`;
+    }
+  });
+
+  return false; // Prevent the default link action
+}
+
+function confirmChangeUserToClient(userId) {
+  showConfirmationModal('Are you sure you want to change this user to a client?', (confirmed) => {
+    if (confirmed) {
+      // Proceed with the link action
+      window.location.href = `/admin/beClient/${userId}`;
+    }
+  });
+
+  return false; // Prevent the default link action
+}
+
+
+
+
 
 function validateEditQuantity() {
   const field = document.getElementById("quantity").value;
