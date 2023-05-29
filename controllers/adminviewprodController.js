@@ -1,4 +1,5 @@
 import Furniture from "../models/furniture.js";
+import user from "../models/user.js";
 console.log("Retrieved products from the database:");
 const productsController = {
 
@@ -26,6 +27,21 @@ const productsController = {
         res.render("error", { message: "Failed to retrieve products" });
       }
     },
+    viewAllUsers: async(req,res)=>{
+      try{
+        console.log(" inside viewAllUsers");
+        const Users = await user.find();
+        console.log("Retrived User from database: ", Users);
+    
+        res.render('customers',{Users});
+
+      }
+      catch (error) {
+        // Handle error if retrieval fails
+        console.error("Error retrieving products:", error);
+        res.render("error", { message: "Failed to retrieve products" });
+      }
+    }
   };
   
   export default productsController;

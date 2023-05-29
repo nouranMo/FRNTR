@@ -716,6 +716,17 @@ display: inline-flex;
   display: inline-flex;
   margin: 15px;
 }
+@media screen and (max-width:500px)
+{
+  .fullrev{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    width: 55%;
+    margin-left: 15px;
+    display: inline-table;
+    margin: 15px;
+  }
+}
 .content .link{
   color:#000;
 background: #fff;
