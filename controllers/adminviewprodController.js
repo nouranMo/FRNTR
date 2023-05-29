@@ -29,7 +29,7 @@ const productsController = {
     },
     LowInStock: async (req, res) => {
       try {
-        console.log("Inside viewAllProducts");
+        console.log("Inside LowInStock");
     
         // Retrieve products with quantities less than 10 from the database
         const lowStock = await Furniture.find({ quantity: { $lt: 10 } });
@@ -38,11 +38,22 @@ const productsController = {
     
         lowStock.forEach((product) => {
           if (product.photo && product.photo.length > 0) {
-            product.imagePath = product.photo.map((photo) => photo.replace(/\\/g, '/').replace('public/', ''));
+            product.imagePath = product.photo.map((photo) =>
+              photo.replace(/\\/g, "/").replace("public/", "")
+            );
           }
         });
     
-        res.render("dashboard", { lowStock, imagePath: lowStock[0].imagePath });
+        // Check if the route is /admin/dashboard
+        if (req.originalUrl === "/admin/dashboard") {
+          res.render("dashboard", { lowStock });
+        } else {
+          // For other routes under /admin, render the same view but pass the lowStock and imagePath
+          res.render("dashboard", {
+            lowStock,
+            imagePath: lowStock[0].imagePath,
+          });
+        }
       } catch (error) {
         // Handle error if retrieval fails
         console.error("Error retrieving low stock products:", error);

@@ -36,23 +36,6 @@ router.get('/', async(req, res, next) =>{
   }
   });
 
-
-/* GET Admin page. */
-router.get('/dashboard', async (req, res, next) => {
-  try {
-    // Retrieve low stock products from the controller
-    const products = await productsController.LowInStock(req, res, next);
-    const lowStock = products.products;
-
-    // Render the "dashboard" view and pass the low stock products data
-    res.render('dashboard', { lowStock });
-  } catch (error) {
-    // Handle error if retrieval fails
-    console.error("Error retrieving low stock products:", error);
-    res.render("error", { message: "Failed to retrieve low stock products" });
-  }
-});
-
   /* GET statistics page. */
 router.get('/statistics', function(req, res, next) {
     res.render('statistics');
