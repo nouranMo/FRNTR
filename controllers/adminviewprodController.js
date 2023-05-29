@@ -44,24 +44,42 @@ const productsController = {
     },
     beAdmin: async(req,res)=>{
       try {
+        const userId = req.params.id;
+        const targetUser = await user.findById(userId);
+        if (!targetUser) {
+          return res.render("error", { message: "User not found" });
+        }
+        if (targetUser.userType === 'admin') {
+          return res.render("error", { message: "User is already an admin" });
+        }
         console.log(req.params.id);
         await user.findByIdAndUpdate(req.params.id, { userType: 'admin' });
         res.redirect('/admin/customers');
       } catch (error) {
         console.error("Error changing the user:", error);
-        res.render("error", { message: "Failed to change the user" });
+        res.render("404", { message: "Failed to change the user" });
       }
       
     },
     beClient: async(req,res)=>{
-      user.findByIdAndUpdate(req.params.id,{userType: 'client'})
       try {
+        //add verifcation that the one changing from clien to admina nd vice versa is an admin
+        const userId = req.params.id;
+        const targetUser = await user.findById(userId);
+    
+    if (!targetUser) {
+      return res.render("error", { message: "User not found" });
+    }
+    
+    if (targetUser.userType === 'client') {
+      return res.render("error", { message: "User is already a client" });
+    }
         console.log(req.params.id);
         await user.findByIdAndUpdate(req.params.id, { userType: 'client' });
         res.redirect('/admin/customers');
       } catch (error) {
         console.error("Error changing the user:", error);
-        res.render("error", { message: "Failed to change the user" });
+        res.render("404", { message: "Failed to change the user" });
       }
     
   },
