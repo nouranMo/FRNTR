@@ -45,11 +45,10 @@
             <nav class="account-nav">
               <ul>
                 <li>
-                  <a href="#"
-                    ><i class="material-symbols-outlined"> grid_view </i>
-                    Dashboard</a
-                  >
-                </li>
+                  <a <% if (userP.userType === "admin") { %> href="/admin/dashboard" <% } else { %> href="/" <% } %>>
+                    <i class="material-symbols-outlined"> grid_view </i>
+                    Dashboard
+                  </a>
 
                 <li>
                   <a href="#"
