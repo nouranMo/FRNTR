@@ -22,14 +22,17 @@ var router = Router();
 router.get("/", function (req, res, next) {
   res.render("products");
 });
+
 /* GET addproduct page. */
 router.get("/addproduct", function (req, res, next) {
   const errors = {};
   res.render("addproduct", { errors });
 });
+
 router.get("/deleteproduct", function (req, res, next) {
   res.render("deleteproduct");
 });
+
 /* GET EditProduct page. */
 router.get("/productedit", async function (req, res, next) {
   const errors = {};
@@ -51,11 +54,13 @@ router.get("/productedit", async function (req, res, next) {
     res.status(500).send('Internal Server Error');
   }
 });
+
 /* GET EditProduct page. */
 router.get("/idcheck", function (req, res, next) {
   const errors={};
   res.render("idcheck",{errors});
 });
+
 // Handle POST request to create a new furniture item
 router.post("/furniture", upload.array("photo", 5), furnitureController.createFurniture);
 router.post("/edit",upload.array("photo", 5), editfurnitureController.editFurniture);

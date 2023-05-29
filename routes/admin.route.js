@@ -33,6 +33,8 @@ router.get('/orders', function(req, res, next) {
     res.render('offers');
   });
   router.get('/customers', productsController.viewAllUsers);
+  router.get('/beAdmin/:id',productsController.beAdmin);
+  router.get('/beClient/:id',productsController.beClient);
   /* GET customers page. */
 // Export the router
 export default router;

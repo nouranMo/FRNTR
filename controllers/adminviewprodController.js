@@ -41,7 +41,30 @@ const productsController = {
         console.error("Error retrieving products:", error);
         res.render("error", { message: "Failed to retrieve products" });
       }
-    }
+    },
+    beAdmin: async(req,res)=>{
+      try {
+        console.log(req.params.id);
+        await user.findByIdAndUpdate(req.params.id, { userType: 'admin' });
+        res.redirect('/admin/customers');
+      } catch (error) {
+        console.error("Error changing the user:", error);
+        res.render("error", { message: "Failed to change the user" });
+      }
+      
+    },
+    beClient: async(req,res)=>{
+      user.findByIdAndUpdate(req.params.id,{userType: 'client'})
+      try {
+        console.log(req.params.id);
+        await user.findByIdAndUpdate(req.params.id, { userType: 'client' });
+        res.redirect('/admin/customers');
+      } catch (error) {
+        console.error("Error changing the user:", error);
+        res.render("error", { message: "Failed to change the user" });
+      }
+    
+  },
   };
   
   export default productsController;

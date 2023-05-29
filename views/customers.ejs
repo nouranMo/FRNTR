@@ -145,6 +145,15 @@
                 <div class="container-z">
                   <p><%= Users.email%>
                   <br> <%= Users.userType%></p>
+                 <div class ="status">
+                  <p>
+                    <% if (Users.userType==='client' ){ %>
+                      <a href="/admin/beAdmin/<%= Users.id %>">Make Admin</a>
+                      <% } else{ %>
+                        <a href="/admin/beClient/<%= Users.id %>">Make Client</a>
+                        <% } %>
+                  </p>
+                 </div>
                 </div>
               </div>
             </div>
