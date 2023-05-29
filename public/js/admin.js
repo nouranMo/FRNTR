@@ -223,6 +223,15 @@ function validateEditPrice() {
   return true;
 }
 
+function confirmChangeUserToAdmin()
+{
+  return confirm('Are you sure you want to change this user to an admin?');
+}
+function confirmChangeUserToClient(){
+  return confirm('Are you sure you want to change this user to a client?');
+
+}
+
 function validateEditQuantity() {
   const field = document.getElementById("quantity").value;
   const quantityError = document.getElementById("quantityid");
