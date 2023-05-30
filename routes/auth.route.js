@@ -1,7 +1,9 @@
 import { Router } from 'express';
 import User from "../models/user.js";
+import VerificationToken from"../models/token.js";
 import signupController from '../controllers/signupController.js';
 import loginController from '../controllers/loginControllers.js';
+import verifiyController from'../controllers/verifiyController.js';
 // Create a new router instance
 var router = Router();
 
@@ -18,6 +20,15 @@ router.get('/signup', function(req, res, next) {
 // Handle signup form submission
 router.post("/signup", signupController.signup);
 
+router.get("/verifiy",function(req,res,next){
+  const errors = '';
+  const message=''
+res.render("verifiy",{errors,message});
+});
+router.get('/verify/:token',verifiyController.active);
+
+
+router.post("/verifiy",verifiyController.verifiy);
 
 router.get('/login',function(req,res,next){
   const errors = '';
