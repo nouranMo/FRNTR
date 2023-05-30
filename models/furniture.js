@@ -7,7 +7,7 @@ const furnitureSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    enum: ['armchair', 'beds', 'benches', 'beanbags', 'chaise lounges', 'living room set', 'kids furniture', 'pets furniture', 'space friendly'],
+    enum: ['armchair', 'beds', 'benches','sofas', 'beanbags', 'chaise lounges', 'living room set', 'kids furniture', 'pets furniture', 'space friendly'],
     required: true
   },
   color: {
@@ -18,6 +18,10 @@ const furnitureSchema = new mongoose.Schema({
     type: Number,
     required: true,
     min: 1
+  },
+  offer: {
+    type: Number,
+    required: false,
   },
   quantity: {
     type: Number,

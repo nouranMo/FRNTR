@@ -197,6 +197,19 @@
                                 <div class="rowform">
                                     <div class="col-25">
     
+                                        <label for="subject">Add an offer</label>
+                                    </div>
+                                    <div class="col-75">
+                                        <input type="number" min="1" step="any" id="price" name="price"
+                                            placeholder="Decimals are accepted" value="<%= product ? product.price : '' %>">
+                                        <div id="priceid" class="err"><% if (errors && errors.price) { %>
+                                            <%= errors.price %>
+                                          <% } %></div>
+                                    </div>
+                                </div>
+                                <div class="rowform">
+                                    <div class="col-25">
+    
                                         <label for="subject">Update the quantity</label>
                                     </div>
                                     <div class="col-75">
