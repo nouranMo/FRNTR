@@ -35,7 +35,20 @@ router.get('/', async(req, res, next) =>{
     res.render("error", { message: "Failed to retrieve low stock products" });
   }
   });
-
+  router.get('/offers', async(req, res, next) =>{
+    try {
+      // Retrieve low stock products from the controller
+      const products = await productsController.Offers(req, res, next);
+      const offer = products.products;
+  
+      // Render the "dashboard" view and pass the low stock products data
+      res.render('offer', { offer });
+    } catch (error) {
+      // Handle error if retrieval fails
+      console.error("Error retrieving low stock products:", error);
+      res.render("error", { message: "Failed to retrieve low stock products" });
+    }
+    });
   /* GET statistics page. */
 router.get('/statistics', function(req, res, next) {
     res.render('statistics');
@@ -51,14 +64,11 @@ router.get('/orders', function(req, res, next) {
     res.render('orders');
   });
   
-  /* GET offers page. */
-  router.get('/offers', function(req, res, next) {
-    res.render('offers');
-  });
   router.get('/customers', productsController.viewAllUsers);
   router.get('/beAdmin/:id',productsController.beAdmin);
   router.get('/beClient/:id',productsController.beClient);
   router.get('/lowInStock', productsController.LowInStock);
+  router.get('/offers',productsController.Offers);
 
   /* GET customers page. */
 // Export the router
