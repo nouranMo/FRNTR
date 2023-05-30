@@ -23,32 +23,21 @@ router.use((req,res,next)=>{
 /* GET Admin page. */
 router.get('/', async(req, res, next) =>{
   try {
-    // Retrieve low stock products from the controller
+    // // Retrieve low stock products from the controller
     const products = await productsController.LowInStock(req, res, next);
     const lowStock = products.products;
 
-    // Render the "dashboard" view and pass the low stock products data
-    res.render('dashboard', { lowStock });
+    // // Render the "dashboard" view and pass the low stock products data
+     res.render('dashboard', { lowStock });
+    console.log("hi in try");
   } catch (error) {
     // Handle error if retrieval fails
     console.error("Error retrieving low stock products:", error);
-    res.render("error", { message: "Failed to retrieve low stock products" });
+    res.render("404", { message: "Failed to retrieve low stock products" });
   }
   });
-  router.get('/offers', async(req, res, next) =>{
-    try {
-      // Retrieve low stock products from the controller
-      const products = await productsController.Offers(req, res, next);
-      const offer = products.products;
-  
-      // Render the "dashboard" view and pass the low stock products data
-      res.render('offer', { offer });
-    } catch (error) {
-      // Handle error if retrieval fails
-      console.error("Error retrieving low stock products:", error);
-      res.render("error", { message: "Failed to retrieve low stock products" });
-    }
-    });
+
+    
   /* GET statistics page. */
 router.get('/statistics', function(req, res, next) {
     res.render('statistics');
@@ -68,7 +57,7 @@ router.get('/orders', function(req, res, next) {
   router.get('/beAdmin/:id',productsController.beAdmin);
   router.get('/beClient/:id',productsController.beClient);
   router.get('/lowInStock', productsController.LowInStock);
-  router.get('/offers',productsController.Offers);
+  router.get('/offer',productsController.Offers);
 
   /* GET customers page. */
 // Export the router
