@@ -40,21 +40,17 @@ const productsController = {
           if (product.photo && product.photo.length > 0) {
             product.imagePath = product.photo.map((photo) =>
               photo.replace(/\\/g, "/").replace("public/", "")
+              
             );
+            console.log(product.photo)
           }
         });
-    
-        // Check if the route is /admin/dashboard
-        if (req.originalUrl === "/admin/dashboard") {
-          res.render("dashboard", { lowStock });
-        } else {
+      
           // For other routes under /admin, render the same view but pass the lowStock and imagePath
-          res.render("dashboard", {
-            lowStock,
-            imagePath: lowStock[0].imagePath,
-          });
-        }
-      } catch (error) {
+          res.render("dashboard", {lowStock, imagePath: lowStock[0].imagePath,});  
+     
+        } 
+        catch (error) {
         // Handle error if retrieval fails
         console.error("Error retrieving low stock products:", error);
         res.render("error", { message: "Failed to retrieve low stock products" });
@@ -72,16 +68,18 @@ const productsController = {
         offers.forEach((product) => {
           if (product.photo && product.photo.length > 0) {
             product.imagePath = product.photo.map((photo) =>
-              photo.replace(/\\/g, "/").replace("public/", "")
+              photo.replace(/\\/g, "/").replace("public/", "../")
             );
+            console.log( "offer", product.photo);
           }
         });
     
-        res.render("offers", {  offers, imagePath: offers[0].imagePath  });
+        res.render("offers", {  offers , imagePath: offers[0].imagePath,});
       } catch (error) {
         // Handle error if retrieval fails
         console.error("Error retrieving products with offers:", error);
-        res.render("404", { message: "Failed to retrieve products with offers" });
+        res.status(500).render("404", { message: "Failed to retrieve products with offers" });
+ 
       }
     },
     viewAllUsers: async(req,res)=>{
