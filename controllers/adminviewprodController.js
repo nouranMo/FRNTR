@@ -60,6 +60,30 @@ const productsController = {
         res.render("error", { message: "Failed to retrieve low stock products" });
       }
     },
+    Offers: async (req, res) => {
+      try {
+        console.log("Inside offers");
+    
+        // Retrieve products with quantities less than 10 from the database
+        const offers = await Furniture.find({ offer: { $exists: true, $ne: null } });
+    
+        console.log("Retrieved products with offers from the database:", offers);
+    
+        offers.forEach((product) => {
+          if (product.photo && product.photo.length > 0) {
+            product.imagePath = product.photo.map((photo) =>
+              photo.replace(/\\/g, "/").replace("public/", "")
+            );
+          }
+        });
+    
+        res.render("offers", {  offers, imagePath: offers[0].imagePath  });
+      } catch (error) {
+        // Handle error if retrieval fails
+        console.error("Error retrieving products with offers:", error);
+        res.render("404", { message: "Failed to retrieve products with offers" });
+      }
+    },
     viewAllUsers: async(req,res)=>{
       try{
         console.log(" inside viewAllUsers");
