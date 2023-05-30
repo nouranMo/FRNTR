@@ -24,7 +24,7 @@ const productsController = {
       catch (error) {
         // Handle error if retrieval fails
         console.error("Error retrieving products:", error);
-        res.render("error", { message: "Failed to retrieve products" });
+        res.render("404", { message: "Failed to retrieve products" });
       }
     },
     LowInStock: async (req, res) => {
@@ -53,7 +53,7 @@ const productsController = {
         catch (error) {
         // Handle error if retrieval fails
         console.error("Error retrieving low stock products:", error);
-        res.render("error", { message: "Failed to retrieve low stock products" });
+        res.render("404", { message: "Failed to retrieve low stock products" });
       }
     },
     Offers: async (req, res) => {
@@ -94,7 +94,7 @@ const productsController = {
       catch (error) {
         // Handle error if retrieval fails
         console.error("Error retrieving products:", error);
-        res.render("error", { message: "Failed to retrieve products" });
+        res.render("404", { message: "Failed to retrieve products" });
       }
     },
     beAdmin: async(req,res)=>{
@@ -102,10 +102,10 @@ const productsController = {
         const userId = req.params.id;
         const targetUser = await user.findById(userId);
         if (!targetUser) {
-          return res.render("error", { message: "User not found" });
+          return res.render("404", { message: "User not found" });
         }
         if (targetUser.userType === 'admin') {
-          return res.render("error", { message: "User is already an admin" });
+          return res.render("404", { message: "User is already an admin" });
         }
         console.log(req.params.id);
         await user.findByIdAndUpdate(req.params.id, { userType: 'admin' });
@@ -123,11 +123,11 @@ const productsController = {
         const targetUser = await user.findById(userId);
     
     if (!targetUser) {
-      return res.render("error", { message: "User not found" });
+      return res.render("404", { message: "User not found" });
     }
     
     if (targetUser.userType === 'client') {
-      return res.render("error", { message: "User is already a client" });
+      return res.render("404", { message: "User is already a client" });
     }
         console.log(req.params.id);
         await user.findByIdAndUpdate(req.params.id, { userType: 'client' });
