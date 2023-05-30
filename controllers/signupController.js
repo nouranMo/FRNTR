@@ -77,10 +77,11 @@ signupController.signup = async (req, res) => {
 
     // Save the new user to the database
     await newUser.save();
+    req.session.person=newUser;
     console.log("User saved:", newUser);
 
     // Redirect to the home page
-    res.redirect("/");
+    res.redirect("/auth/verifiy");
   } catch (error) {
     console.error("Error saving user:", error);
 

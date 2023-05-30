@@ -21,6 +21,9 @@ loginController.login = async(req, res) => {
           return res.render("login", { errors: "Invalid email or password" });
         }
        // Comparing the entered password with the hashed one.
+       if(!result.verified){
+        return res.render("login", { errors: "Sorry This Email is not Verified Please check yot email" });
+       }
         const isPasValid= await bcrypt.compare(pass,result.password);
 
             if (!isPasValid) {
