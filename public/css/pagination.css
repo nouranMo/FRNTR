@@ -37,7 +37,7 @@
     height: 45px;
     border-radius: 50%;
     text-align: center;
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 45px;
     line-height: 35px;
     cursor: pointer;
@@ -56,7 +56,7 @@
 .pag_btn2 , .pag_btn1{
     display: inline-flex;
     align-items:center;
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 500;
     color: #383838;
     background: transparent;
