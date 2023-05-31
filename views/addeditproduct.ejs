@@ -220,7 +220,11 @@
                                     </div>
                                     <div class="col-75">
                                         <% if (product && product != "add") { %>
-                                        <input id="color" name="colorpicker" type="text" value="<%= product ? product.color : '' %>">
+                                        <input id="color" style="width: 100%;
+                                        padding: 12px;
+                                        border: 1px solid #ccc;
+                                        border-radius: 4px;
+                                        resize: vertical;" name="colorpicker" type="text" value="<%= product ? product.color : '' %>">
                                         <% } else { %>
                                             <input type="text" style="width: 100%;
                                             padding: 12px;
