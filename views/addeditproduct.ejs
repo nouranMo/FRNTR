@@ -114,38 +114,52 @@
         }
     </style>
     <title>Admin Product Edit</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.6/min/dropzone.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.6/min/dropzone.min.css" />
+
+
+
+
+
+
 </head>
 <body>
     <div class="barpage">
         <div class="sideCon">
             <%- include("./partials/adminnav.ejs")%>
-            <div class="header"> <h2>Edit in Item</h2> </div>
+            <% console.log("test") %>
+            <div class="header"> <h2> <% if (product && product != "add") { %> Edit a Product  <% }else{ %> Add a Product <% }%> </h2> </div>
             <div class="gallery">
                 <div class="row">
                     <div class="background">
                         <div class="containerform">
                             <!-- //////////////////update///////////////// -->
-                            <form class="form" action="/adminproduct/edit" method="post" onsubmit="return validateEditForm(event)" enctype="multipart/form-data">
+                            <% if (product && product != "add") { %>
+                                
+                                <form class="form" action="/adminproduct/edit" method="post" onsubmit="return validateEditForm(event)" enctype="multipart/form-data">
+                                
+                              <% } else { %>
+                                
+                                <form id = "product-form" class="form" action="/adminproduct/furniture" method="post"  enctype="multipart/form-data">
+                                 
+                                
+                              <% } %>
+                        
                                 <div class="rowform">
                                     <div class="col-25">
                                         <label for="productname">Product Name</label>
                                     </div>
                                     <div class="col-75">
-                                        <input type="text" id="upproductname" name="upproductname"
+                                        <% if (product && product != "add") { %>
+                                            <input type="text" id="upproductname" name="upproductname"
                                             placeholder="Enter the product name.." value="<%= product ? product.productName : '' %>">
-                                        <div id="nameid" class="err" ><% if (errors && errors.upproductname) { %>
-                                            <%= errors.upproductname %>
-                                          <% } %></div>
-                                    </div>
-                                </div>
-                                <div class="rowform">
-                                    <div class="col-25">
-                                        <label for="ID"> Product ID</label>
-                                    </div>
-                                    <div class="col-75">
-                                        <input type="text" id="upID" name="upProductID" placeholder="Enter product ID.." value="<%= product ? product._id : '' %>">
-                                        <div id="upidid" class="err"><% if (errors && errors.upProductID) { %>
-                                            <%= errors.upProductID %>
+                                            
+                                        <% } else { %>
+                                            <input type="text" id="productname" name="productname" placeholder="Enter the product name..">
+                                        <% } %>
+                                        <div id="nameid" class="err" ><% if (errors && errors.productname) { %>
+                                            <%= errors.productname %>
                                           <% } %></div>
                                     </div>
                                 </div>
@@ -154,6 +168,7 @@
                                         <label for="category">Category</label>
                                     </div>
                                     <div class="col-75">
+                                        <% if (product && product != "add") { %>
                                         <select id="category" name="category">
                                                 <option value="armchair" <%= product && product.category === 'armchair' ? 'selected' : '' %>>Armchair</option>
                                                 <option value="beds" <%= product && product.category === 'beds' ? 'selected' : '' %>>Beds</option>
@@ -167,6 +182,19 @@
                                             
                                             
                                         </select>
+                                        <% } else { %>
+                                            <select id="category" name="category">
+                                                <option value="armchair">Armchair</option>
+                                                <option value="beds">Beds</option>
+                                                <option value="benches">Benches</option>
+                                                <option value="beanbags">Bean Bags</option>
+                                                <option value="chaise lounges">Chaise Lounges</option>
+                                                <option value="living room set">Living Room Set</option>
+                                                <option value="kids furniture">Kids Furniture</option>
+                                                <option value="pets furniture">Pets Furniture</option>
+                                                <option value="space friendly">Space Friendly</option>
+                                              </select>
+                                        <% } %>
                                         <div id="catorgyid" class="err"></div>
                                     </div>
                                 </div>
@@ -175,7 +203,11 @@
                                         <label for="subject">Choose diffrent color</label>
                                     </div>
                                     <div class="col-75">
+                                        <% if (product && product != "add") { %>
                                         <input id="color" name="colorpicker" type="text" value="<%= product ? product.color : '' %>">
+                                        <% } else { %>
+                                            <input type="text" id="color" name="color" placeholder="Enter the available color..">
+                                        <% } %>
                                         <div id="colorid" class="err"><% if (errors && errors.color) { %>
                                             <%= errors.color %>
                                           <% } %></div>
@@ -187,34 +219,44 @@
                                         <label for="subject">Update the price</label>
                                     </div>
                                     <div class="col-75">
+                                        <% if (product && product != "add") { %>
                                         <input type="number" min="1" step="any" id="price" name="price"
                                             placeholder="Decimals are accepted" value="<%= product ? product.price : '' %>">
+                                        <% } else { %>
+                                            <input type="number" min="0.01" step="0.01" id="price" name="price" placeholder="Enter the price..">
+                                        <% } %>
                                         <div id="priceid" class="err"><% if (errors && errors.price) { %>
                                             <%= errors.price %>
                                           <% } %></div>
                                     </div>
                                 </div>
+                                <% if (product && product != "add") { %>
                                 <div class="rowform">
                                     <div class="col-25">
-    
+                                        
                                         <label for="subject">Add an offer</label>
                                     </div>
                                     <div class="col-75">
                                         <input type="number" min="1" step="any" id="price" name="price"
-                                            placeholder="Decimals are accepted" value="<%= product ? product.price : '' %>">
+                                            placeholder="Decimals are accepted" value="<%= product ? product.offer : '' %>">
                                         <div id="priceid" class="err"><% if (errors && errors.price) { %>
                                             <%= errors.price %>
                                           <% } %></div>
                                     </div>
                                 </div>
+                                <% } %>
                                 <div class="rowform">
                                     <div class="col-25">
     
                                         <label for="subject">Update the quantity</label>
                                     </div>
                                     <div class="col-75">
+                                        <% if (product && product != "add") { %>
                                         <input type="number" min="1" id="quantity" name="quantity"
                                             placeholder="Enter a whole posisitive number .."  value="<%= product ? product.quantity : '' %>">
+                                        <% } else { %>
+                                            <input type="number" min="1" step="1" id="quantity" name="quantity" placeholder="Enter the quantity..">
+                                        <% } %>
                                         <div id="quantityid" class="err"><% if (errors && errors.quantity) { %>
                                             <%= errors.quantity %>
                                           <% } %></div>
@@ -225,8 +267,12 @@
                                       <label for="comments">Comments</label>
                                     </div>
                                     <div class="col-75">
+                                        <% if (product && product != "add") { %>
                                       <textarea id="comments" name="comments" placeholder="Leave any comments you have about the product..." style="height:200px"><% if (product && product.comments) { %><%= product.comments %><% } %>
                                     </textarea>
+                                    <% } else { %>
+                                        <textarea id="comments" name="comments" placeholder="Leave any comments you have about the product..." style="height:200px"></textarea>
+                                    <% } %>
                                     </div>
                                   </div>
                                 <div class="rowform">
@@ -234,9 +280,21 @@
     
                                         <label for="subject">Update Photo of the product</label>
                                     </div>
+                                    <% if (product && product != "add") { %>
                                     <div class="col-65">
                                         <input type="file" id="photo" name="photo">
+                                        
                                     </div>
+                                    <% } else{%>
+                                    <div class="col-75">
+                                        <!-- <input type="file" id="photo" name="photo" accept=".jpg, .jpeg, .png" multiple onchange="validateImageFiles(this)">
+                                        <p id="fileStatus"></p>
+                                        <div id="photoContainer"></div> -->
+                                        <div id="my-dropzone" class="dropzone"></div>
+                                        <div id="preview"></div>
+                                      </div>
+                                    <% } %>
+                                    
                                     <div class="rowform">
                                         <input type="submit" id="submitButton" value="Submit">
                                     </div>
@@ -249,6 +307,7 @@
                                         <% } %>
                                       </div>
                             </form>
+                            
                         </div>
                     </div>
                 </div>
@@ -283,6 +342,8 @@
             </div>
         </div>
     </div>
+    
+    <script src="jquery-3.6.4.min.js"></script>
     <script src="../js/admin.js"></script>
 
 </body>

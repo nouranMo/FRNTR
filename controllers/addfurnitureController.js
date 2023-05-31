@@ -4,7 +4,9 @@ const furnitureController = {};
 furnitureController.createFurniture = async (req, res) => {
     // Extract data from the request body
     const { productname, category, color, price, quantity, comments } = req.body;
-  
+    
+    const uploadedImagePaths = JSON.parse(req.body.uploadedImagePaths);
+    
     // Backend validation
     let errors = {};
   
@@ -30,29 +32,16 @@ furnitureController.createFurniture = async (req, res) => {
   
     if (Object.keys(errors).length > 0) {
       // Return validation errors to the client
-      return res.render("addproduct", { errors });
+      return res.render("addeditproduct", { errors,product:"add" });
     }
   
-    let imagePaths = [];
-  
-    // Check if files were uploaded
-    if (req.files) {
-        const maxImageCount = 5;
-      
-        if (req.files.length > maxImageCount) {
-          errors.photo = `Maximum ${maxImageCount} images allowed`;
-          return res.render("addproduct", { errors });
-        }
-      
-        imagePaths = req.files.map((file) => file.path);
-      }      
-  
+   
     try {
       // Check if the product already exists
       const existingProduct = await Furniture.findOne({ productName: productname });
       if (existingProduct) {
         errors.productname = "Product already exists";
-        return res.render("addproduct", { errors });
+        return res.render("addeditproduct", { errors,product:"add" });
       }
   
       // Create a new furniture object
@@ -63,21 +52,29 @@ furnitureController.createFurniture = async (req, res) => {
         price: parseFloat(price),
         quantity: parseInt(quantity),
         comments: comments,
-        photo: imagePaths,
+        photo: uploadedImagePaths,
       });
   
       // Save the new furniture item to the database
       await newFurniture.save();
       console.log("New furniture item:", newFurniture);
   
-      return res.render("addproduct", { successMessage: "Successfully added an item" });
+      return res.render("addeditproduct", { errors, successMessage: "Successfully added an item" ,product:"add"});
     } catch (error) {
       console.error("Error saving furniture item:", error);
       errors.general = "Failed to add item";
-      return res.render("addproduct", { errors });
+      return res.render("addeditproduct", { errors,successMessage,product:"add" });
     }
   };
   
+  furnitureController.uploadImage = async (req, res) => {
+    if (!req.file) {
+      return res.status(400).json({ message: 'No file received' });
+    }
+  
+    // File was successfully uploaded
+    return res.status(200).json({ message: 'File uploaded successfully' });
+  };
 // ...
 export default furnitureController;
 
