@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="../css/itempage.css">
+  <link rel="stylesheet" href="/../css/itempage.css">
   <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
     integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
@@ -25,7 +25,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../css/cartsidebar.css">
+  <link rel="stylesheet" href="/../css/cartsidebar.css">
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <style>
@@ -50,15 +50,15 @@
               <nav class="naav">
                 <a href="/">Home</a>
                 <i class="fa fa-chevron-right"></i>
-                <a href="/product/clientproduct">Sofas</a>
+                <a href="/product/clientproduct/<%=product.category%>"><%=product.category%></a>
                 <i class="fa fa-chevron-right"></i>
-                <span>Dijon Chesterfield 2S. Sofa/Majlis Linen Upholstery</span>
+                <span><%= product.productName%></span>
               </nav>
             </div>
     
             <div class="rightnav">
     
-              <a href="/product/clientproduct"><i class="material-symbols-outlined">
+              <a href="/product/clientproduct/sofas"><i class="material-symbols-outlined">
                   grid_view
                 </i></a>
     
@@ -73,16 +73,11 @@
           <div class="left-side">
             <div class="left-img">
               <div class="images">
-                <img src="../images/Laussat_Modular_Sectional_1.webp" alt="pic-1" width="700" height="700">
-              </div>
-              <div class="images">
-                <img src="../images/Laussat_Modular_Sectional.webp" alt="pic2" width="700" height="700">
-              </div>
-              <div class="images">
-                <img src="../images/Laussat_Modular_Sectional_2.webp" alt="pic-3" width="700" height="700">
-              </div>
-              <div class="images">
-                <img src="../images/DijonSofa.webp" alt="pic-4" width="700" height="700">
+                <% if (product.photo && product.photo.length> 0) { %> <% product.photo.forEach((path)=>
+                  { %>
+                <img src="<%= path %>" alt="pic-1" width="700" height="700">
+                <% }); %>
+                <% } %>
               </div>
             </div>
     
@@ -92,11 +87,11 @@
           <div class="right-side">
             <div class="right">
               <div class="h1-price">
-                <h1>Dijon Chesterfield 2S. Sofa/Majlis Linen Upholstery</h1>
+                <h1><%=product.productName%></h1>
                 <div class="price">
                   <del>10,080.00 EGP</del>
-                  <ins>7,810.00 EGP</ins>
-                  <span>SAVE 23%</span>
+                  <ins><%=product.price%> EGP</ins>
+                  <span>SAVE <%=product.offer%>%</span>
                 </div>
               </div>
               <div class="tabbyPromo">
@@ -196,7 +191,7 @@
                   Overall Product Weight: 51.55 Kilograms.
                 </p>
                 <p>
-                  <img src="../images/Dijon_Sofa_480x480.webp" alt="" class="images" width="705" height="602">
+                  <img src="<%=product.photo[0]%>" alt="" class="images" width="705" height="602">
                 </p>
               </div>
     
@@ -294,8 +289,8 @@
                 <div class="products">
                   <div class="product-image">
                     <a href="" class="images">
-                      <img src="../images/Bilski_50_22_Square_Arm_Loveseat_3.jpg" alt="" class="pic-1">
-                      <img src="../images/Bilski_50_22_Square_Arm_Loveseat_4.jpg" alt="" class="pic-2">
+                      <img src="/../images/Bilski_50_22_Square_Arm_Loveseat_3.jpg" alt="" class="pic-1">
+                      <img src="/../images/Bilski_50_22_Square_Arm_Loveseat_4.jpg" alt="" class="pic-2">
                     </a>
                     <span class="discount">-26%</span>
     
@@ -333,8 +328,8 @@
                 <div class="products">
                   <div class="product-image">
                     <a href="" class="images">
-                      <img src="../images/TriviaSofa_1.webp" alt="" class="pic-1">
-                      <img src="../images/TriviaSofa_4.webp" alt="" class="pic-2">
+                      <img src="/../images/TriviaSofa_1.webp" alt="" class="pic-1">
+                      <img src="/../images/TriviaSofa_4.webp" alt="" class="pic-2">
                     </a>
                     <span class="discount">-18%</span>
     
@@ -388,8 +383,8 @@
                 <div class="products">
                   <div class="product-image">
                     <a href="" class="images">
-                      <img src="../images/Nova_Velvet_Upholstered_Platform_Bed_10.webp" alt="" class="pic-1">
-                      <img src="../images/Nova_Velvet_Upholstered_Platform_Bed_6.webp" alt="" class="pic-2">
+                      <img src="/../images/Nova_Velvet_Upholstered_Platform_Bed_10.webp" alt="" class="pic-1">
+                      <img src="/../images/Nova_Velvet_Upholstered_Platform_Bed_6.webp" alt="" class="pic-2">
                     </a>
                     <span class="discount">-53%</span>
     
@@ -430,8 +425,8 @@
                 <div class="products">
                   <div class="product-image">
                     <a href="" class="images">
-                      <img src="../images/rumi_4.webp" alt="" class="pic-1">
-                      <img src="../images/rumi_6.webp" alt="" class="pic-2">
+                      <img src="/../images/rumi_4.webp" alt="" class="pic-1">
+                      <img src="/../images/rumi_6.webp" alt="" class="pic-2">
                     </a>
                     <div class="links">
                       <div class="Icon">
@@ -464,7 +459,7 @@
           </div>
         </div>
       </div>
-      <script src="../js/itemPage.js"></script>
+      <script src="/../js/itemPage.js"></script>
       <%- include("./partials/chat.ejs")%>
       <%- include("./partials/footer.ejs")%>
 </body>
