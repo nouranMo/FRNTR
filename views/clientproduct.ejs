@@ -87,8 +87,8 @@
           <div class="col-md-3">
             <div class="products">
               <div class="product-image">
-                <% if (products.imagePath && products.imagePath.length > 0) { %>
-                  <% products.imagePath.forEach((path) => { %>
+                <% if (products.photo && products.photo.length > 0) { %>
+                  <% products.photo.forEach((path) => { %>
                     <a href="/product/itemPage" class="images">
                       <img src="<%= path %>" class="pic-1" style="width: 100%" />
                       

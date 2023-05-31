@@ -11,14 +11,14 @@ const userviewproduct ={
         product.forEach((products) => {
             if (products.photo && products.photo.length > 0) {
                 console.log("hello");
-              products.imagePath = products.photo.map((photo)=>photo.replace(/\\/g, '/').replace('public/','/'));
+              products.photo = products.photo.map((photo)=>photo.replace(/\\/g, '/').replace('public/','/'));
             }
           });
           
     }
     console.log(product);
 
-res.render("clientproduct",{product,imagePath: product[0].imagePath });
+res.render("clientproduct",{product});
     },
 };
 export default userviewproduct;
