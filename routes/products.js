@@ -1,15 +1,15 @@
 import { Router } from 'express';
 import multer from "multer";
 import productsController from "../controllers/adminviewprodController.js";
+import userviewproduct from "../controllers/userproductController.js";
 var router = Router();
 router.get('/itempage', function(req, res, next) {
   res.render('itempage');
 });
 
 /* GET client Product page. */
-router.get('/clientproduct', function(req, res, next) {
-  res.render('clientproduct');
-});
+router.get('/clientproduct/:category', userviewproduct.userview);
+
 
 
 // Authentication, securing the admin dashboard.
