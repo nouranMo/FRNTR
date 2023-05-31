@@ -2,90 +2,12 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/cartsidebar.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
-        body {
-            margin: 0;
-            font-family: "Lato", sans-serif;
-        }
-
-        .sidebar {
-            margin: 0;
-            padding: 0;
-            width: 200px;
-            background-color: #f1f1f1;
-            position: fixed;
-            height: 100%;
-            overflow: auto;
-        }
-
-        .sidebar a {
-            display: block;
-            color: black;
-            padding: 16px;
-            text-decoration: none;
-        }
-
-        div.contenty {
-            margin-left: 200px;
-            padding: 1px 16px;
-            height: 1000px;
-        }
-
-        @media screen and (max-width: 700px) {
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-                display: flex;
-            }
-
-            .sidebar a {
-                float: left;
-            }
-
-            div.contenty {
-                margin-left: 0;
-                padding: 0;
-            }
-        }
-        @media screen and(max-width: 1400){
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-            }
-
-            .sidebar a {
-                float: left;
-            }
-
-            div.contenty {
-                margin-left: 0;
-                /* padding: 0; */
-            }
-        }
         
-
-        @media screen and (max-width: 400px) {
-            .sidebar a {
-                text-align: center;
-                float: none;
-            }
-        }
-
-        .material-symbols-outlined {
-
-            font-variation-settings:
-                'FILL' 0,
-                'wght' 400,
-                'GRAD' 0,
-                'opsz' 48
-        }
-
-
         .sidebar a.dashboard {
             background-color: black;
             color: white;
@@ -95,23 +17,7 @@
             background-color: #555;
             color: white;
         }
-        @media screen and(max-width: 2497){
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-                
-            }
-
-            .sidebar a {
-                float: left;
-            }
-
-            div.contenty {
-                margin-left: 325;
-                padding: 25;
-            }
-        }
+       
     </style>
     <title>Admin Product Edit</title>
 </head>
@@ -131,7 +37,11 @@
                                         <label for="productname">Product Name</label>
                                     </div>
                                     <div class="col-75">
-                                        <input type="text" id="upproductname" name="upproductname"
+                                        <input type="text" style="width: 100%;
+                                        padding: 12px;
+                                        border: 1px solid #ccc;
+                                        border-radius: 4px;
+                                        resize: vertical;" id="upproductname" name="upproductname"
                                             placeholder="Enter the product name.." value="<%= product ? product.productName : '' %>">
                                         <div id="nameid" class="err" ><% if (errors && errors.upproductname) { %>
                                             <%= errors.upproductname %>
@@ -143,7 +53,11 @@
                                         <label for="ID"> Product ID</label>
                                     </div>
                                     <div class="col-75">
-                                        <input type="text" id="upID" name="upProductID" placeholder="Enter product ID.." value="<%= product ? product._id : '' %>">
+                                        <input type="text"style="width: 100%;
+                                        padding: 12px;
+                                        border: 1px solid #ccc;
+                                        border-radius: 4px;
+                                        resize: vertical;"  id="upID" name="upProductID" placeholder="Enter product ID.." value="<%= product ? product._id : '' %>">
                                         <div id="upidid" class="err"><% if (errors && errors.upProductID) { %>
                                             <%= errors.upProductID %>
                                           <% } %></div>
@@ -154,7 +68,11 @@
                                         <label for="category">Category</label>
                                     </div>
                                     <div class="col-75">
-                                        <select id="category" name="category">
+                                        <select id="category" style="width: 100%;
+                                        padding: 12px;
+                                        border: 1px solid #ccc;
+                                        border-radius: 4px;
+                                        resize: vertical;" name="category">
                                                 <option value="armchair" <%= product && product.category === 'armchair' ? 'selected' : '' %>>Armchair</option>
                                                 <option value="beds" <%= product && product.category === 'beds' ? 'selected' : '' %>>Beds</option>
                                                 <option value="benches" <%= product && product.category === 'benches' ? 'selected' : '' %>>Benches</option>
@@ -225,7 +143,11 @@
                                       <label for="comments">Comments</label>
                                     </div>
                                     <div class="col-75">
-                                      <textarea id="comments" name="comments" placeholder="Leave any comments you have about the product..." style="height:200px"><% if (product && product.comments) { %><%= product.comments %><% } %>
+                                      <textarea id="comments" style="width: 100%;
+                                      padding: 12px;
+                                      border: 1px solid #ccc;
+                                      border-radius: 4px;
+                                      resize: vertical;" name="comments" placeholder="Leave any comments you have about the product..." style="height:200px"><% if (product && product.comments) { %><%= product.comments %><% } %>
                                     </textarea>
                                     </div>
                                   </div>

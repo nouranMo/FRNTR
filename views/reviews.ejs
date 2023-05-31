@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <link rel="stylesheet" href="../css/admin.css" />
+    <link rel="stylesheet" href="../css/cartsidebar.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
@@ -12,79 +13,6 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
     />
     <style>
-      body {
-        margin: 0;
-        font-family: "Lato", sans-serif;
-      }
-
-      .sidebar {
-        margin: 0;
-        padding: 0;
-        width: 200px;
-        background-color: #f1f1f1;
-        position: fixed;
-        height: 100%;
-        overflow: auto;
-      }
-
-      .sidebar a {
-        display: block;
-        color: black;
-        padding: 16px;
-        text-decoration: none;
-      }
-
-      div.contenty {
-        margin-left: 200px;
-        padding: 1px 16px;
-        height: 1000px;
-      }
-
-      @media screen and (max-width: 700px) {
-        .sidebar {
-          width: 100%;
-          height: auto;
-          position: relative;
-          display: flex;
-        }
-
-        .sidebar a {
-          float: left;
-        }
-
-        div.contenty {
-          margin-left: 0;
-          padding: 0;
-        }
-      }
-      @media screen and(max-width: 1400) {
-        .sidebar {
-          width: 100%;
-          height: auto;
-          position: relative;
-        }
-
-        .sidebar a {
-          float: left;
-        }
-
-        div.contenty {
-          margin-left: 0;
-          /* padding: 0; */
-        }
-      }
-
-      @media screen and (max-width: 400px) {
-        .sidebar a {
-          text-align: center;
-          float: none;
-        }
-      }
-
-      .material-symbols-outlined {
-        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
-      }
-
       .sidebar a.review {
         background-color: black;
         color: white;
@@ -94,22 +22,7 @@
         background-color: #555;
         color: white;
       }
-      @media screen and(max-width: 2497) {
-        .sidebar {
-          width: 100%;
-          height: auto;
-          position: relative;
-        }
-
-        .sidebar a {
-          float: left;
-        }
-
-        div.contenty {
-          margin-left: 325;
-          padding: 25;
-        }
-      }
+  
       .row {
         justify-content: center;
         align-items: center;
