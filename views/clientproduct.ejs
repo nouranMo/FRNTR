@@ -88,15 +88,15 @@
             <div class="products">
               <div class="product-image">
                 <% if (products.photo && products.photo.length > 0) { %>
-                  <% products.photo.forEach((path) => { %>
+                 
                     <a href="/product/itemPage" class="images">
-                      <img src="<%= path %>" class="pic-1" style="width: 100%" />
+                      <img src="<%= products.photo[0]%>" class="pic-1" style="width: 100%" />
                       
-                        <% console.log("hello Image Path:", path); %>
-                          <img src="<%= path %>" class="pic-2" style="width: 100%" />
+                       
+                          <img src="<%= products.photo[1] %>" class="pic-2" style="width: 100%" />
                      
                     </a>
-                  <% }); %>
+                  
                 <% } %>
                 <span class="discount">-26%</span>
                 <div class="links">
