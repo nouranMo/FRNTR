@@ -87,9 +87,10 @@
           <div class="col-md-3">
             <div class="products">
               <div class="product-image">
+                <a href="/product/itemPage/<%=products._id%>" class="images">
                 <% if (products.photo && products.photo.length > 0) { %>
                  
-                    <a href="/product/itemPage" class="images">
+                   
                       <img src="<%= products.photo[0]%>" class="pic-1" style="width: 100%" />
                       
                        
@@ -119,7 +120,7 @@
                   <%= products.productName %>
                 </h3>
                 <del>10,680.00 EGP</del>
-                <ins class="in"><%= products.price %></ins>
+                <ins class="in"><%= products.price %>EGP</ins>
               </div>
             </div>
           </div>
