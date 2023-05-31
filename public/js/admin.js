@@ -1,3 +1,149 @@
+Dropzone.autoDiscover = false;
+var uploadedImagePaths = [];
+$(document).ready(function() {
+  // Initialize Dropzone
+  var myDropzone = new Dropzone("#my-dropzone", {
+    // Configuration options for Dropzone
+    paramName: "file", // The name that will be used to transfer the file
+    url: "/adminproduct/upload", // The URL where the file should be uploaded
+    maxFilesize: 5, // Maximum file size in megabytes
+    acceptedFiles: ".jpg,.png,.gif", // Allowed file types
+    autoProcessQueue: true,
+    // Customized initialization function
+    init: function() {
+      var previewElement = document.getElementById("preview");
+
+      this.on("addedfile", function(file) {
+        // Action to be performed when a file is added
+        console.log("File added: " + file.name);
+        // Display the file thumbnail
+        // You can replace this with your own desired action
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          var thumbnail = document.createElement("div");
+          thumbnail.classList.add("thumbnail");
+          thumbnail.setAttribute("data-dz-name", file.name); // Add a custom attribute with the file name
+          thumbnail.setAttribute("data-file-id", file.upload.uuid); // Add a custom attribute with the file ID
+          thumbnail.innerHTML = '<img src="' + e.target.result + '" style="max-width: 100px;" />' +
+            '<button type = "button" class="remove-btn">Remove</button>';
+          previewElement.appendChild(thumbnail);
+        };
+        reader.readAsDataURL(file);
+      });
+
+      this.on("success", function(file, response) {
+        console.log("File uploaded successfully: " + file.name);
+        console.log("Server response: " + response);
+        var imagePath = "public/images/" + file.name;
+        uploadedImagePaths.push(imagePath);
+        console.log(uploadedImagePaths[0]);
+        // Update the preview element based on the server's response
+      });
+
+      this.on("error", function(file, errorMessage) {
+        console.log("Error uploading file: " + file.name);
+        console.log("Error message: " + errorMessage);
+        // Update the preview element to indicate the error
+        var errorText = document.createElement("p");
+        errorText.innerHTML = "Upload Error: " + errorMessage;
+        errorText.style.color = "red"; // Adjust the style as needed
+        previewElement.appendChild(errorText);
+      });
+
+
+      // Attach event listener to the remove button
+      previewElement.addEventListener("click", function(e) {
+        if (e.target.classList.contains("remove-btn")) {
+          e.stopPropagation(); // Stop event propagation to prevent triggering the parent click event
+          var thumbnail = e.target.parentNode;
+          var filename = thumbnail.getAttribute("data-dz-name");
+          var fileId = thumbnail.getAttribute("data-file-id");
+
+          // Make an AJAX request to delete the file from the server
+          $.ajax({
+            url: "/adminproduct/delete",
+            type: "POST",
+            data: { filename: filename },
+            success: function(response) {
+              console.log("File deleted successfully: " + filename);
+              console.log("Server response: " + response);
+              // Find the file object by file ID
+              uploadedImagePaths.splice(uploadedImagePaths.indexOf("public/images/"+filename), 1);
+              var fileObject = myDropzone.files.find(function(file) {
+                return file.upload.uuid === fileId;
+              });
+              if (fileObject) {
+                myDropzone.removeFile(fileObject); // Remove the file from Dropzone
+              }
+              thumbnail.remove(); // Remove the thumbnail from the preview element
+            },
+            error: function(xhr, status, error) {
+              console.log("Error deleting file: " + filename);
+              console.log("Error message: " + error);
+            }
+          });
+        }
+      });
+      // Function to validate the uploaded images
+      function validateImages() {
+        if (uploadedImagePaths.length === 0) {
+          var imagesError = document.getElementById("images-error");
+          imagesError.innerHTML = "Please upload at least one image";
+          return false;
+        }
+        return true;
+      }
+      
+      // Rest of the code...
+      
+      // Submit the form with AJAX
+      $('#product-form').submit(function(event) {
+        event.preventDefault();
+        var isProductNameValid = validateProductName();
+        var isColorValid = validateColor();
+        var isPriceValid = validatePrice();
+        var isQuantityValid = validateQuantity();
+        var isImagesValid = validateImages();
+
+        if (
+          !isProductNameValid ||
+          !isColorValid ||
+          !isPriceValid ||
+          !isQuantityValid ||
+          !isImagesValid
+        ) {
+          return false;
+        }
+
+        var form = $(this);
+        var url = form.attr('action');
+        var formData = new FormData(form[0]);
+        // Append the uploadedImagePaths to the form data
+        formData.append('uploadedImagePaths', JSON.stringify(uploadedImagePaths));
+
+        $.ajax({
+          type: 'POST',
+          url: "/adminproduct/furniture",
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function(response) {
+            console.log("Form submitted successfully");
+            console.log("Server response: " + response);
+            // Handle success response
+          },
+          error: function(xhr, status, error) {
+            console.log("Error submitting form");
+            console.log("Error message: " + error);
+            // Handle error response
+          }
+        });
+
+        return false;
+      });
+    }
+  });
+});
 function validateProductName() {
   const field = document.getElementById("productname").value.trim();
   const nameError = document.getElementById("nameid");
@@ -66,121 +212,19 @@ function validateQuantity() {
   quantityInput.style.borderColor = "black";
   return true;
 }
-// Function to add an image preview and remove button
-function addImagePreview(file) {
-  var reader = new FileReader();
-  reader.onload = function (e) {
-    var imgSrc = e.target.result;
-    var imagePreview = document.createElement('div');
-    var imageElement = document.createElement('img');
-    var removeButton = document.createElement('button');
-
-    // Set the maximum dimensions for the image
-    imageElement.style.maxWidth = '200px';
-    imageElement.style.maxHeight = '200px';
-
-    imageElement.src = imgSrc;
-    removeButton.textContent = 'Remove';
-    removeButton.type = 'button';
-    removeButton.classList.add('remove-image');
-    removeButton.addEventListener('click', function () {
-      removeImage(this);
-    });
-
-    imagePreview.classList.add('image-preview');
-    imagePreview.appendChild(imageElement);
-    imagePreview.appendChild(removeButton);
-
-    document.getElementById('photoContainer').appendChild(imagePreview);
-  };
-  reader.readAsDataURL(file);
-}
-
-
-// Function to remove an image preview and update selected files
-function removeImage(button) {
-  var imageContainer = button.parentNode;
-  var imagePath = imageContainer.querySelector('img').src;
-
-  // Remove the image preview from the page
-  imageContainer.remove();
-
-  // Get the selected files input element
-  var input = document.getElementById("photo");
-
-  // Clear the file input
-  input.value = '';
-
-  // Re-add the remaining files
-  var remainingFiles = Array.from(input.files).filter(function(file) {
-    return file.previewImage !== imagePath;
-  });
-
-  remainingFiles.forEach(function(file) {
-    addImagePreview(file);
-  });
-}
-
-
-
-// Helper function to extract the file name from the image path
-function getImageFileName(imagePath) {
-  var startIndex = imagePath.lastIndexOf('/') + 1;
-  var endIndex = imagePath.lastIndexOf('.');
-  return imagePath.substring(startIndex, endIndex);
-}
-
-// Function to handle file selection and display previews
-function validateImageFiles(input) {
-  const files = input.files;
-  const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
-  const fileStatus = document.getElementById('fileStatus');
-
-  for (let i = 0; i < files.length; i++) {
-    const file = files[i];
-    if (!allowedExtensions.test(file.name)) {
-      fileStatus.style.color = 'red';
-      fileStatus.textContent = 'Please select valid image files (JPEG, JPG, or PNG).';
-      input.value = '';
-      var container = document.getElementById("photoContainer");
-      container.innerHTML = '';
-      return;
-    }
+function validateImages() {
+  if (uploadedImagePaths.length === 0) {
+    var imagesError = document.getElementById("images-error");
+    imagesError.innerHTML = "Please upload at least one image";
+    return false;
   }
-
-  fileStatus.style.color = 'green';
-  fileStatus.textContent = 'Files are valid. You can proceed.';
-
-  var container = document.getElementById("photoContainer");
-  container.innerHTML = '';
-  for (let i = 0; i < files.length; i++) {
-    addImagePreview(files[i]);
-  }
+  return true;
 }
 
-
-
-function validate(event) {
-
-  event.preventDefault();
-  validateProductName();
- 
-  validateColor();
- 
-  validatePrice();
-  
-  validateQuantity();
-  console.log('test')
-  if(!validateProductName() || !validateColor() || !validatePrice() || !validateQuantity()){  
-    return false
-
-}
-event.target.submit();
-}
 
 function validateEditProductName() {
   const field = document.getElementById("upproductname").value.trim();
-  const nameError = document.getElementById("upnameid");
+  const nameError = document.getElementById("nameid");
   const nameInput = document.getElementById("upproductname");
 
   if (field === "") {
@@ -213,8 +257,13 @@ function validateEditPrice() {
   const priceError = document.getElementById("priceid");
   const priceInput = document.getElementById("price");
 
-  if (isNaN(field) || parseFloat(field) <= 0 || !/^\d+(\.\d{1,2})?$/.test(field)) {
-    priceError.innerHTML = "Please enter a valid price (up to 2 decimal places).";
+  if (
+    isNaN(field) ||
+    parseFloat(field) <= 0 ||
+    !/^\d+(\.\d{1,2})?$/.test(field)
+  ) {
+    priceError.innerHTML =
+      "Please enter a valid price (up to 2 decimal places).";
     priceInput.style.borderColor = "red";
     return false;
   }
@@ -233,24 +282,23 @@ function validateEditPrice() {
 // }
 // confirmation.js
 
-
 function showConfirmationModal(message, callback) {
-  const modalContainer = document.createElement('div');
-  modalContainer.classList.add('confirmation-modal');
+  const modalContainer = document.createElement("div");
+  modalContainer.classList.add("confirmation-modal");
 
-  const modalContent = document.createElement('div');
-  modalContent.classList.add('confirmation-modal-content');
+  const modalContent = document.createElement("div");
+  modalContent.classList.add("confirmation-modal-content");
 
-  const messageParagraph = document.createElement('p');
+  const messageParagraph = document.createElement("p");
   messageParagraph.textContent = message;
 
-  const yesButton = document.createElement('button');
-  yesButton.textContent = 'Yes';
-  yesButton.classList.add('btn', 'btn-confirmation-yes');
+  const yesButton = document.createElement("button");
+  yesButton.textContent = "Yes";
+  yesButton.classList.add("btn", "btn-confirmation-yes");
 
-  const noButton = document.createElement('button');
-  noButton.textContent = 'No';
-  noButton.classList.add('btn', 'btn-confirmation-no');
+  const noButton = document.createElement("button");
+  noButton.textContent = "No";
+  noButton.classList.add("btn", "btn-confirmation-no");
 
   modalContent.appendChild(messageParagraph);
   modalContent.appendChild(yesButton);
@@ -259,12 +307,12 @@ function showConfirmationModal(message, callback) {
   modalContainer.appendChild(modalContent);
   document.body.appendChild(modalContainer);
 
-  yesButton.addEventListener('click', () => {
+  yesButton.addEventListener("click", () => {
     callback(true);
     closeModal();
   });
 
-  noButton.addEventListener('click', () => {
+  noButton.addEventListener("click", () => {
     callback(false);
     closeModal();
   });
@@ -275,38 +323,45 @@ function showConfirmationModal(message, callback) {
 }
 
 function confirmChangeUserToAdmin(userId) {
-  showConfirmationModal('Are you sure you want to change this user to an admin?', (confirmed) => {
-    if (confirmed) {
-      // Proceed with the link action
-      window.location.href = `/admin/beAdmin/${userId}`;
+  showConfirmationModal(
+    "Are you sure you want to change this user to an admin?",
+    (confirmed) => {
+      if (confirmed) {
+        // Proceed with the link action
+        window.location.href = `/admin/beAdmin/${userId}`;
+      }
     }
-  });
+  );
 
   return false; // Prevent the default link action
 }
 
 function confirmChangeUserToClient(userId) {
-  showConfirmationModal('Are you sure you want to change this user to a client?', (confirmed) => {
-    if (confirmed) {
-      // Proceed with the link action
-      window.location.href = `/admin/beClient/${userId}`;
+  showConfirmationModal(
+    "Are you sure you want to change this user to a client?",
+    (confirmed) => {
+      if (confirmed) {
+        // Proceed with the link action
+        window.location.href = `/admin/beClient/${userId}`;
+      }
     }
-  });
+  );
 
   return false; // Prevent the default link action
 }
-
-
-
-
 
 function validateEditQuantity() {
   const field = document.getElementById("quantity").value;
   const quantityError = document.getElementById("quantityid");
   const quantityInput = document.getElementById("quantity");
 
-  if (isNaN(field) || !Number.isInteger(parseFloat(field)) || parseInt(field) <= 0) {
-    quantityError.innerHTML = "Please enter a valid quantity (a positive whole number).";
+  if (
+    isNaN(field) ||
+    !Number.isInteger(parseFloat(field)) ||
+    parseInt(field) <= 0
+  ) {
+    quantityError.innerHTML =
+      "Please enter a valid quantity (a positive whole number).";
     quantityInput.style.borderColor = "red";
     return false;
   }
@@ -324,7 +379,7 @@ function validateEditID() {
     idInput.style.borderColor = "red";
     return false;
   }
-  
+
   // Additional validation logic for the ID field, if needed
 
   idError.innerHTML = "";
@@ -340,7 +395,13 @@ function validateEditForm(event) {
   const isQuantityValid = validateEditQuantity();
   const isIDValid = validateEditID();
 
-  if (!isProductNameValid || !isColorValid || !isPriceValid || !isQuantityValid || !isIDValid) {
+  if (
+    !isProductNameValid ||
+    !isColorValid ||
+    !isPriceValid ||
+    !isQuantityValid ||
+    !isIDValid
+  ) {
     return false;
   }
 
@@ -349,7 +410,7 @@ function validateEditForm(event) {
 function upvalidateProductID(field) {
   const idError = document.getElementById("productID");
   const idInput = document.getElementById("upproductID");
-  if(field === "") {
+  if (field === "") {
     idError.innerHTML = "Product ID is required!";
     idInput.style.borderColor = "red";
     return false;
@@ -359,20 +420,18 @@ function upvalidateProductID(field) {
   return true;
 }
 function checkID(form) {
-  document.addEventListener('submit', event => {
+  document.addEventListener("submit", (event) => {
     event.preventDefault();
-  
-  let fail = true;
-  fail &= upvalidateProductID(form.upproductID.value.trim());
-  
-  if (fail) {
-    event.target.submit();
-  }
-  else {
-    return false;
 
-  }
-})
+    let fail = true;
+    fail &= upvalidateProductID(form.upproductID.value.trim());
+
+    if (fail) {
+      event.target.submit();
+    } else {
+      return false;
+    }
+  });
 }
 //sidebars
 function signOpen() {
