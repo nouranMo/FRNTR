@@ -75,3 +75,13 @@
     margin-left: 15px;
     transform: rotate(180deg);
 }
+
+.pag_btn1 img:hover {
+    transform: scale(1.1);
+  }
+
+.pag_btn2 img:hover{
+    transform: scale(1.1) rotate(180deg);
+   
+
+  }  
