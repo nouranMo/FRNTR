@@ -24,7 +24,7 @@
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-  <link rel="stylesheet" href="../css/categories.css" />
+  <link rel="stylesheet" href="/../css/categories.css" />
 
   <style>
     .material-symbols-outlined {
@@ -49,13 +49,13 @@
     }
 
   </style>
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../css/cartsidebar.css">
-  <link rel="stylesheet" href="../css/categories.css" />
-  <link rel="stylesheet" href="../css/furniture.css" />
-  <link rel="stylesheet" href="../css/cartsidebar.css">
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../css/itempage.css">
+  <link rel="stylesheet" href="/../css/style.css">
+  <link rel="stylesheet" href="/../css/cartsidebar.css">
+  <link rel="stylesheet" href="/../css/categories.css" />
+  <link rel="stylesheet" href="/../css/furniture.css" />
+  <link rel="stylesheet" href="/../css/cartsidebar.css">
+  <link rel="stylesheet" href="/../css/style.css">
+  <link rel="stylesheet" href="/../css/itempage.css">
   <!-- Font Awesome Icon Library -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
@@ -68,7 +68,7 @@
     <%- include("./partials/nav.ejs")%>
     <div style="text-align: center;" data-mce-fragment="1" data-mce-style="text-align: center;">
     <div class="mainPicFarrah">
-      <img class="sofaMainFarrah" src="../images/Image1.webp">
+      <img class="sofaMainFarrah" src="/../images/Image1.webp">
     </div>
 
   </div>
@@ -83,16 +83,22 @@
       </div>
       <div class="viewproduct">
         <div class="row">
-          <div class="col-md-3">  
+          <% product.forEach((products) => { %>
+          <div class="col-md-3">
             <div class="products">
               <div class="product-image">
-                <a href="/product/itemPage" class="images">
-                  <img src="../images/Bilski_50_22_Square_Arm_Loveseat_3.jpg" alt="" class="pic-1">
-                  <img src="../images/Bilski_50_22_Square_Arm_Loveseat_4.jpg" alt="" class="pic-2">
-                </a>
+                <% if (products.imagePath && products.imagePath.length > 0) { %>
+                  <% products.imagePath.forEach((path) => { %>
+                    <a href="/product/itemPage" class="images">
+                      <img src="<%= path %>" class="pic-1" style="width: 100%" />
+                      
+                        <% console.log("hello Image Path:", path); %>
+                          <img src="<%= path %>" class="pic-2" style="width: 100%" />
+                     
+                    </a>
+                  <% }); %>
+                <% } %>
                 <span class="discount">-26%</span>
-
-
                 <div class="links">
                   <div class="Icon">
                     <a href=""><i class="fa-regular fa-heart"></i></a>
@@ -103,33 +109,32 @@
                     <span class="tooltiptext">Quick view</span>
                   </div>
                   <div class="Icon">
-                    <a href=""><i class="fa-solid fa-cart-plus" ></i></a>
+                    <a href=""><i class="fa-solid fa-cart-plus"></i></a>
                     <span class="tooltiptext">Add To Cart</span>
                   </div>
-
                 </div>
-
               </div>
               <div class="Content">
                 <h3 class="product-title">
-                  Leonie Design Sofa / 125 x 94 CM Linen Upholstery
+                  <%= products.productName %>
                 </h3>
                 <del>10,680.00 EGP</del>
-                <ins class="in">7,920.00 EGP</ins>
+                <ins class="in"><%= products.price %></ins>
               </div>
             </div>
-          
           </div>
-        
+          <% }) %>
+        </div>
+      </div>
+      
 
 
-
-          <div class="col-md-3">
+          <!-- <div class="col-md-3">
             <div class="products">
               <div class="product-image">
                 <a href="" class="images">
-                  <img src="../images/TriviaSofa_1.webp" alt="" class="pic-1">
-                  <img src="../images/TriviaSofa_4.webp" alt="" class="pic-2">
+                  <img src="/../images/TriviaSofa_1.webp" alt="" class="pic-1">
+                  <img src="/../images/TriviaSofa_4.webp" alt="" class="pic-2">
                 </a>
                 <span class="discount">-18%</span>
 
@@ -166,8 +171,8 @@
             <div class="products">
               <div class="product-image">
                 <a href="" class="images">
-                  <img src="../images/Bilski_50_22_Square_Arm_Loveseat_3.jpg" alt="" class="pic-1">
-                  <img src="../images/Bilski_50_22_Square_Arm_Loveseat_4.jpg" alt="" class="pic-2">
+                  <img src="/../images/Bilski_50_22_Square_Arm_Loveseat_3.jpg" alt="" class="pic-1">
+                  <img src="/../images/Bilski_50_22_Square_Arm_Loveseat_4.jpg" alt="" class="pic-2">
                 </a>
                 <span class="discount">-26%</span>
 
@@ -202,8 +207,8 @@
             <div class="products">
               <div class="product-image">
                 <a href="" class="images">
-                  <img src="../images/Bilski_50_22_Square_Arm_Loveseat_3.jpg" alt="" class="pic-1">
-                  <img src="../images/Bilski_50_22_Square_Arm_Loveseat_4.jpg" alt="" class="pic-2">
+                  <img src="/../images/Bilski_50_22_Square_Arm_Loveseat_3.jpg" alt="" class="pic-1">
+                  <img src="/../images/Bilski_50_22_Square_Arm_Loveseat_4.jpg" alt="" class="pic-2">
                 </a>
                 <span class="discount">-26%</span>
 
@@ -238,8 +243,8 @@
             <div class="products">
               <div class="product-image">
                 <a href="" class="images">
-                  <img src="../images/Bilski_50_22_Square_Arm_Loveseat_3.jpg" alt="" class="pic-1">
-                  <img src="../images/Bilski_50_22_Square_Arm_Loveseat_4.jpg" alt="" class="pic-2">
+                  <img src="/../images/Bilski_50_22_Square_Arm_Loveseat_3.jpg" alt="" class="pic-1">
+                  <img src="/../images/Bilski_50_22_Square_Arm_Loveseat_4.jpg" alt="" class="pic-2">
                 </a>
                 <span class="discount">-26%</span>
 
@@ -274,8 +279,8 @@
             <div class="products">
               <div class="product-image">
                 <a href="" class="images">
-                  <img src="../images/Bilski_50_22_Square_Arm_Loveseat_3.jpg" alt="" class="pic-1">
-                  <img src="../images/Bilski_50_22_Square_Arm_Loveseat_4.jpg" alt="" class="pic-2">
+                  <img src="/../images/Bilski_50_22_Square_Arm_Loveseat_3.jpg" alt="" class="pic-1">
+                  <img src="/../images/Bilski_50_22_Square_Arm_Loveseat_4.jpg" alt="" class="pic-2">
                 </a>
                 <span class="discount">-26%</span>
 
@@ -310,8 +315,8 @@
             <div class="products">
               <div class="product-image">
                 <a href="" class="images">
-                  <img src="../images/Bilski_50_22_Square_Arm_Loveseat_3.jpg" alt="" class="pic-1">
-                  <img src="../images/Bilski_50_22_Square_Arm_Loveseat_4.jpg" alt="" class="pic-2">
+                  <img src="/../images/Bilski_50_22_Square_Arm_Loveseat_3.jpg" alt="" class="pic-1">
+                  <img src="/../images/Bilski_50_22_Square_Arm_Loveseat_4.jpg" alt="" class="pic-2">
                 </a>
                 <span class="discount">-26%</span>
 
@@ -346,8 +351,8 @@
             <div class="products">
               <div class="product-image">
                 <a href="" class="images">
-                  <img src="../images/Bilski_50_22_Square_Arm_Loveseat_3.jpg" alt="" class="pic-1">
-                  <img src="../images/Bilski_50_22_Square_Arm_Loveseat_4.jpg" alt="" class="pic-2">
+                  <img src="/../images/Bilski_50_22_Square_Arm_Loveseat_3.jpg" alt="" class="pic-1">
+                  <img src="/../images/Bilski_50_22_Square_Arm_Loveseat_4.jpg" alt="" class="pic-2">
                 </a>
                 <span class="discount">-26%</span>
 
@@ -381,11 +386,11 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <!-- <div class="gallery">
 
     <div class="contentContainer">
-      <a href="/product/itempage"><img class="productImage" src="../images/pic1.webp" alt="">
+      <a href="/product/itempage"><img class="productImage" src="/../images/pic1.webp" alt="">
         <h3 class="sofa">Beige Sofa</h3>
         <p class="description">Dijon Chesterfield 2S. Sofa/Majlis Linen Upholstery </p>
 
@@ -402,7 +407,7 @@
     </div>
 
     <div class="contentContainer">
-      <a href="/product/itempage"><img class="productImage" src="../images/pic2.jpeg" alt="">
+      <a href="/product/itempage"><img class="productImage" src="/../images/pic2.jpeg" alt="">
         <h3 class="sofa">Grey Sofa</h3>
         <p class="description">Leonie Design Sofa / 125 x 94 CM Linen Upholstery. </p>
 
@@ -421,7 +426,7 @@
 
 
     <div class="contentContainer">
-      <a href="/product/itempage"><img class="productImage" src="../images/pic3.webp" alt="">
+      <a href="/product/itempage"><img class="productImage" src="/../images/pic3.webp" alt="">
         <h3 class="sofa">Pink Sofa Sofa</h3>
         <p class="description">Dijon Chesterfield 2S. Sofa/Majlis Linen Upholstery </p>
 
@@ -439,7 +444,7 @@
 
 
     <div class="contentContainer">
-      <a href="/product/itempage"><img class="productImage" src="../images/pic4.webp" alt="">
+      <a href="/product/itempage"><img class="productImage" src="/../images/pic4.webp" alt="">
         <h3 class="sofa">Green Sofa</h3>
         <p class="description">Akira 2S. Sofa / Jade Finish 140 L x 65 D CM</p>
 
@@ -457,7 +462,7 @@
 
 
     <div class="contentContainer">
-      <a href="/product/itempage"><img class="productImage" src="../images/pic1.webp" alt="">
+      <a href="/product/itempage"><img class="productImage" src="/../images/pic1.webp" alt="">
         <h3 class="sofa">Beige Sofa</h3>
         <p class="description">Dijon Chesterfield 2S. Sofa/Majlis Linen Upholstery </p>
 
@@ -476,7 +481,7 @@
 
 
     <div class="contentContainer">
-      <a href="/product/itempage"><img class="productImage" src="../images/pic1.webp" alt="">
+      <a href="/product/itempage"><img class="productImage" src="/../images/pic1.webp" alt="">
         <h3 class="sofa">Beige Sofa</h3>
         <p class="description">Dijon Chesterfield 2S. Sofa/Majlis Linen Upholstery </p>
 
@@ -496,7 +501,7 @@
 
 
     <div class="contentContainer">
-      <a href="/product/itempage"><img class="productImage" src="../images/pic1.webp" alt="">
+      <a href="/product/itempage"><img class="productImage" src="/../images/pic1.webp" alt="">
         <h3 class="sofa">Beige Sofa</h3>
         <p class="description">Dijon Chesterfield 2S. Sofa/Majlis Linen Upholstery </p>
 
@@ -518,7 +523,7 @@
 
 
     <div class="contentContainer">
-      <a href="/product/itempage"><img class="productImage" src="../images/pic1.webp" alt="">
+      <a href="/product/itempage"><img class="productImage" src="/../images/pic1.webp" alt="">
         <h3 class="sofa">Beige Sofa</h3>
         <p class="description">Dijon Chesterfield 2S. Sofa/Majlis Linen Upholstery </p>
 
