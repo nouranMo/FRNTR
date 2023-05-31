@@ -24,11 +24,7 @@ router.get('/wishlist', function(req, res, next) {
 
 
 
-/* GET account page. */
-router.get('/account',function(req,res,next){
-  const userP = {};
-res.render('account',{userP});
-});
+
 // Export the router
 export default router;
 ;
