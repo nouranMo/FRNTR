@@ -49,10 +49,6 @@ router.get("/addproduct", function (req, res, next) {
   res.render("addproduct", { errors });
 });
 
-router.get("/deleteproduct", function (req, res, next) {
-  res.render("deleteproduct");
-});
-
 /* GET EditProduct page. */
 router.get("/productedit", async function (req, res, next) {
   const errors = {};
