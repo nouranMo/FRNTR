@@ -50,7 +50,7 @@
                                    <% } %>
                         </div>
                         <div class="container">
-                            <h4><b><%= product.productName %></b></h4>
+                            <h4><b>" <%= product.productName %> " on SALE up to <%= product.offer%> %</b></h4>
                              <p class="deals"><%= product.price %> EGP</p>
                             <p>Now for ONLY <%= product.price -(product.price * (product.offer)/100) %> EGP</p>
                         </div>
