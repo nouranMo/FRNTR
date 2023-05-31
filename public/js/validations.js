@@ -1,8 +1,11 @@
 //sidebars
-function signOpen() {
+function signOpen(user) {
+  if(user){
+    window.location.href = `auth/account`
+  }else{
     document.getElementById("sidebar-1").style.display = "block";
   }
-  
+}
   function signclose() {
     document.getElementById("sidebar-1").style.display = "none";
   }
