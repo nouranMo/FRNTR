@@ -1,0 +1,2 @@
+GET http://localhost:4040/products?page=1&limit=10
+

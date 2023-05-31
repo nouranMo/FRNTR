@@ -126,8 +126,10 @@
           <% }) %>
         </div>
       </div>
-      
 
+<div>
+      
+  </div>
 
           <!-- <div class="col-md-3">
             <div class="products">
@@ -540,7 +542,14 @@
     </div> -->
 
     <%- include("./partials/chat.ejs")%>
-    <%- include("./partials/pagination.ejs")%>
+    <%- include("./partials/pagination.ejs" , {Furniture : product})%>
+    <!-- Pass the allData variable to the JS file as a parameter -->
+    
+    <script>
+      const allData = JSONstringify(allData) ;
+      window.allData = allData;
+    </script>
+    <script type="text/javascript"  src="/js/pagination.js"></script>
     <%- include("./partials/footer.ejs")%>
 </body>
 </html>
