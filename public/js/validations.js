@@ -1,9 +1,9 @@
 //sidebars
 function signOpen(user) {
   if(user){
-    window.location.href = `auth/account`
-  }else{
     document.getElementById("sidebar-1").style.display = "block";
+  }else{
+    window.location.href = `auth/account`
   }
 }
   function signclose() {
