@@ -154,53 +154,7 @@ next();
 
 
 
-app.post("/account",  (req, res) => {
-  console.log("Login request received");
 
-  const { email, pass } = req.body;
-
- 
-
- 
-
-  try {
-    // Find the user in the database by email
-   User.findOne({ email })
-.then((result)=>{
-
-  if (!result) {
-    // User not found, display error message
-    //return res.status(401).json({ error: "Invalid email " });
-  
-  return res.render("login",{errors:"Invalid email or password"});
-    // return res.redirect('/auth/login',{errors:"Invalid email or password"});
-  }
-
-
-   if (result.password!=pass) {
-    // Password does not match, display error message
-    console.log("error");
-    // return res.status(401).json({ error: "Invalid  password" });
-   
-
-    return res.render("login",{errors:"Invalid email or password"})
-  }
-
-
-
-  // Password matches, render the account page with user data
-  return res.render("account", { userP:result});
-});
-   
-  } catch (error) {
-    console.error("Error during login:", error);
-    return res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-// app.get('/account',function(req,res){
-//  res.render("account",{userP:req.session.user===undefined?"":req.session.user});
-// });
 
 
 app.get("/logout", (req, res) => {
@@ -210,7 +164,7 @@ app.get("/logout", (req, res) => {
 
 // Handle 404 errors
 app.use((req, res) => {
-  res.status(404).render("404");
+  res.status(404).render("404",{user:req.session.user===undefined?"":req.session.user});
 });
 
 // Start the server

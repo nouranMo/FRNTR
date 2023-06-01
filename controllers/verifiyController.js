@@ -26,7 +26,7 @@ verifiyController.verifiy = async(req, res) => {
 
         if (!result) {
           // User not found, display error message
-          return res.render("verifiy", { errors: "Invalid email or password" , message:''});
+          return res.render("verifiy", { errors: "Invalid email or password" , message:'',user:req.session.user===undefined?"":req.session.user});
         }
        // Comparing the entered password with the hashed one.
         const isPasValid= await bcrypt.compare(pass,result.password);
@@ -38,13 +38,10 @@ verifiyController.verifiy = async(req, res) => {
               // return res.status(401).json({ error: "Invalid  password" });
 
 
-              return res.render("verifiy", { errors: "Invalid email or password" , message:''});
+              return res.render("verifiy", { errors: "Invalid email or password" , message:'',user:req.session.user===undefined?"":req.session.user});
             }
            
-            //  const emailSession=req.session.person;
-            //  if(emailSession.email!=email){
-            //     return res.render("verifiy", { errors: "Doest match email that you have been Resgisted " , message:''});
-            //  }
+           
 
        const token=new VerificationToken({userId:result._id,token:Math.random().toString(36).slice(-8)});
        await token.save();
@@ -61,7 +58,7 @@ verifiyController.verifiy = async(req, res) => {
           console.error('Error sending verification email:', error);
           res.status(500).send('Error sending verification email');
         } else {
-          res.render("verifiy",{errors:'',message:'Please check your email to verify your account'});
+          res.render("verifiy",{errors:'',message:'Please check your email to verify your account',user:req.session.user===undefined?"":req.session.user});
         }
       });
           }

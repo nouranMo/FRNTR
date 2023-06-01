@@ -26,6 +26,7 @@ const userviewproduct = {
       product: products,
       highestPrice,
       lowestPrice,
+      user:req.session.user===undefined?"":req.session.user
     });
   },
 };

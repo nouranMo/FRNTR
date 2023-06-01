@@ -45,7 +45,7 @@
             <nav class="account-nav">
               <ul>
                 <li>
-                  <a <% if (userP.userType === "admin") { %> href="/admin" <% } else { %> href="/" <% } %>>
+                  <a <% if (user.userType === "admin") { %> href="/admin" <% } else { %> href="/" <% } %>>
                     <i class="material-symbols-outlined"> grid_view </i>
                     Dashboard
                   </a>
@@ -76,8 +76,8 @@
           <div class="right-table">
             <p class="tag">
               Hello
-              <strong><%=userP.firstName%> <%=userP.lastName%></strong> (not
-              <strong><%=userP.firstName%> <%=userP.lastName%></strong>?
+              <strong><%=user.firstName%> <%=user.lastName%></strong> (not
+              <strong><%=user.firstName%> <%=user.lastName%></strong>?
               <a href="/logout">Logout</a>)
             </p>
 
@@ -98,11 +98,11 @@
                 <tbody>
                   <tr>
                     <td><strong>Name:</strong></td>
-                    <td><%=userP.firstName%> <%=userP.lastName%></td>
+                    <td><%=user.firstName%> <%=user.lastName%></td>
                   </tr>
                   <tr>
                     <td><strong>Email:</strong></td>
-                    <td><%=userP.email%></td>
+                    <td><%=user.email%></td>
                   </tr>
                   <tr>
                     <td><strong>Address</strong></td>

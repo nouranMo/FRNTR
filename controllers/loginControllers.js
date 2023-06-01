@@ -18,11 +18,11 @@ loginController.login = async(req, res) => {
           // User not found, display error message
           //return res.status(401).json({ error: "Invalid email " });
 
-          return res.render("login", { errors: "Invalid email or password" });
+          return res.render("login", { errors: "Invalid email or password",user:req.session.user===undefined?"":req.session.user });
         }
        // Comparing the entered password with the hashed one.
        if(!result.verified){
-        return res.render("login", { errors: "Sorry This Email is not Verified Please check yot email" });
+        return res.render("login", { errors: "Sorry This Email is not Verified Please check yot",user:req.session.user===undefined?"":req.session.user });
        }
         const isPasValid= await bcrypt.compare(pass,result.password);
 
@@ -33,7 +33,7 @@ loginController.login = async(req, res) => {
               // return res.status(401).json({ error: "Invalid  password" });
 
 
-              return res.render("login", { errors: "Invalid email or password" });
+              return res.render("login", { errors: "Invalid email or password",user:req.session.user===undefined?"":req.session.user });
             }
 
 

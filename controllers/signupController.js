@@ -57,7 +57,7 @@ signupController.signup = async (req, res) => {
 
   if (Object.keys(errors).length > 0) {
     // Return validation errors to the client
-    return res.render("signup", { errors });
+    return res.render("signup", { errors ,user:req.session.user===undefined?"":req.session.user});
   }
 
   try {
