@@ -167,17 +167,17 @@
                 <input
                   type="range"
                   class="range-min"
-                  min="0"
-                  max="10000"
-                  value="2500"
+                  min="<%= lowestPrice %>"
+                  max="<%= highestPrice %>"
+                  value="<%= highestPrice %>"
                   step="100"
                 />
                 <input
                   type="range"
                   class="range-max"
-                  min="0"
-                  max="10000"
-                  value="7500"
+                  min="<%= lowestPrice %>"
+                  max="<%= highestPrice %>"
+                  value="<%= highestPrice %>"
                   step="100"
                 />
               </div>
