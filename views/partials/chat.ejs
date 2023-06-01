@@ -9,21 +9,10 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
     <link rel="stylesheet" href=".../css/style.css" />
+   
   </head>
   <body>
-    <div id="chat-button">
-      <button class="open-button" onclick="openForm()">
-        <i style="margin: 0px" id="chat1" class="material-icons">chat</i>
-      </button>
-    </div>
-    <div class="chat-popup" id="myForm">
-      <form action="#" class="form-container">
-        <div class="chat-pop">
-          <span class="log1">CHAT</span>
-          <button class="side-btn2">
-            <i class="material-icons" onclick="closeForm()">close</i>
-          </button>
-        </div>
+ 
         <div
           style="
             margin-top: 90%;
@@ -33,23 +22,13 @@
           "
           class="form-cont"
         >
-          <div style="z-index: 1000" class="form">
-            <div class="form-cont">
-              <div class="inputt">
-                <input
-                  type="text"
-                  class="email-input"
-                  name="message"
-                  placeholder="type your message..."
-                  required
-                />
-              </div>
-
-              <div class="btn-sub">
-                <button type="submit" class="button-style">Send</button>
-              </div>
-            </div>
-          </div>
+        <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+        <df-messenger
+          intent="WELCOME"
+          chat-title="FRNTR"
+          agent-id="7f25c3f2-6159-433a-9a7d-3db6037b2eb2"
+          language-code="en"
+        ></df-messenger>
         </div>
       </form>
     </div>
