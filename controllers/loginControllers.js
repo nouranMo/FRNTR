@@ -30,8 +30,7 @@ loginController.login = async(req, res) => {
 
               // Password does not match, display error message
               console.log("error");
-              // return res.status(401).json({ error: "Invalid  password" });
-
+              // return res.status(401).json({ error: "Invalid  password" })
 
               return res.render("login", { errors: "Invalid email or password" });
             }

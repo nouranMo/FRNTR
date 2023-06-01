@@ -87,8 +87,6 @@ $(document).ready(function() {
       // Function to validate the uploaded images
       function validateImages() {
         if (uploadedImagePaths.length === 0) {
-          var imagesError = document.getElementById("images-error");
-          imagesError.innerHTML = "Please upload at least one image";
           return false;
         }
         return true;
@@ -104,13 +102,14 @@ $(document).ready(function() {
         var isPriceValid = validatePrice();
         var isQuantityValid = validateQuantity();
         var isImagesValid = validateImages();
-
+        var isMeasurementsValid = validateMeasurements();
         if (
           !isProductNameValid ||
           !isColorValid ||
           !isPriceValid ||
           !isQuantityValid ||
-          !isImagesValid
+          !isImagesValid ||
+          !isMeasurementsValid
         ) {
           return false;
         }
@@ -144,7 +143,23 @@ $(document).ready(function() {
     }
   });
 });
+function validateMeasurements() {
+  console.log("validateMeasurements");
+  const field = document.getElementById("measurements").value.trim();;
+  const measurementsError = document.getElementById("measurementsid");
+  const measurementsInput = document.getElementById("measurements");
+  if(field === "")
+  {
+    measurementsError.innerHTML = "Please enter the measurements";
+    measurementsInput.style.borderColor = "red";
+    return false;
+  }
+  measurementsError.innerHTML = "";
+  measurementsInput.style.borderColor = "black";
+  return true;
+}
 function validateProductName() {
+  console.log("validateProductName");
   const field = document.getElementById("productname").value.trim();
   const nameError = document.getElementById("nameid");
   const nameInput = document.getElementById("productname");
@@ -349,7 +364,18 @@ function confirmChangeUserToClient(userId) {
 
   return false; // Prevent the default link action
 }
-
+function validateProductDeletion(productID) {
+  showConfirmationModal(
+    "Are you sure you want to delete the product with the id: " + productID + "?",
+    (confirmed) => {
+      if (confirmed) {
+        // Proceed with the link action
+        window.location.href = `/adminproduct/deleteproduct/${productID}`;
+      }
+    }
+  );
+  return false; // Prevent the default link action
+}
 function validateEditQuantity() {
   const field = document.getElementById("quantity").value;
   const quantityError = document.getElementById("quantityid");

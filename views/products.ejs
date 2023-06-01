@@ -55,7 +55,7 @@
                                 <span class="tooltiptext">Add Product</span>
                               </div>
                               <div class="Icon">
-                                <a href="/adminproduct/deleteproduct"><i class="fa-solid fa-trash"></i></a>
+                                <a href="/adminproduct/deleteproduct/<%= product.id %>" onclick="return validateProductDeletion('<%= product.id %>')"><i class="fa-solid fa-trash"></i></a>
                                 <span class="tooltiptext">Delete Product</span>
                               </div>
                               <div class="Icon">

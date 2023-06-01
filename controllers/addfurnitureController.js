@@ -3,7 +3,7 @@ const furnitureController = {};
 
 furnitureController.createFurniture = async (req, res) => {
     // Extract data from the request body
-    const { productname, category, color, price, quantity, comments } = req.body;
+    const { productname, category, color, price, quantity, comments,measurements} = req.body;
     
     const uploadedImagePaths = JSON.parse(req.body.uploadedImagePaths);
     
@@ -29,7 +29,9 @@ furnitureController.createFurniture = async (req, res) => {
     } else if (!/^\d+$/.test(quantity)) {
       errors.quantity = "Quantity must be a positive whole number";
     }
-  
+    if (!measurements || measurements.trim() === "") {
+      errors.measurements = "Please enter the measurements name";
+    }
     if (Object.keys(errors).length > 0) {
       // Return validation errors to the client
       return res.render("addeditproduct", { errors,product:"add" });
@@ -53,17 +55,18 @@ furnitureController.createFurniture = async (req, res) => {
         quantity: parseInt(quantity),
         comments: comments,
         photo: uploadedImagePaths,
+        size:measurements,
       });
   
       // Save the new furniture item to the database
       await newFurniture.save();
       console.log("New furniture item:", newFurniture);
   
-      return res.render("addeditproduct", { errors, successMessage: "Successfully added an item" ,product:"add"});
+      res.render("addeditproduct", { errors, successMessage: "Successfully added an item" ,product:"add"});
     } catch (error) {
       console.error("Error saving furniture item:", error);
       errors.general = "Failed to add item";
-      return res.render("addeditproduct", { errors,successMessage,product:"add" });
+      res.render("addeditproduct", { errors,successMessage,product:"add" });
     }
   };
   
