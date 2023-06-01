@@ -131,7 +131,7 @@ router.post('/delete', (req, res) => {
     res.status(404).send('File not found');
   }
 });
-
+router.get('/deleteproduct/:id',editfurnitureController.deleteproduct);
 // ...
 // Export the router
 export default router;

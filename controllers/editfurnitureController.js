@@ -1,4 +1,6 @@
 import Furniture from "../models/furniture.js";
+import fs from "fs";
+import path from 'path';
 const editfurnitureController = {};
 
 editfurnitureController.editFurniture = async (req, res) => {
@@ -50,7 +52,6 @@ editfurnitureController.editFurniture = async (req, res) => {
         const product = await Furniture.findById(upProductID);
         return res.render("productedit", { errors, product });
       }
-  
       imagePaths = req.files.map((file) => file.path);
     }
   
@@ -87,6 +88,32 @@ editfurnitureController.editFurniture = async (req, res) => {
       return res.render("productedit", { errors, product });
     }
   };
-  
+  editfurnitureController.deleteproduct = async (req, res)=>{
+    try {
+      const productId = req.params.id;
+      const targetItem = await Furniture.findById(productId);
+      if (!targetItem) {
+        return res.render("404", { message: "Product not found" });
+      }
+      else{
+        for (const imagePath of targetItem.photo) {
+          const imagePathWithoutPrefix = path.join("public", imagePath).replace(/^public\//, '');
+          try {
+            fs.unlinkSync(imagePath);
+            console.log(`Deleted image: ${imagePathWithoutPrefix}`);
+          } catch (error) {
+            console.error(`Error deleting image ${imagePathWithoutPrefix}:`, error);
+          }
+        }
+        await Furniture.findByIdAndDelete(productId);
+        res.redirect('/product');
+      }
+    } catch (error) {
+      console.error("Error deleting item:", error);
+      res.render("404", { message: "Failed to delete item" });
+    }
+    
+  };
+
 
 export default editfurnitureController;

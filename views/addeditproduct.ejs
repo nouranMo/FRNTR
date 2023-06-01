@@ -185,13 +185,15 @@
                                                 <option value="armchair" <%= product && product.category === 'armchair' ? 'selected' : '' %>>Armchair</option>
                                                 <option value="beds" <%= product && product.category === 'beds' ? 'selected' : '' %>>Beds</option>
                                                 <option value="benches" <%= product && product.category === 'benches' ? 'selected' : '' %>>Benches</option>
+                                                <option value="sofas" <%= product && product.category === 'sofas' ? 'selected' : '' %>>Sofas</option>
                                                 <option value="beanbags" <%= product && product.category === 'beanbags' ? 'selected' : '' %>>Bean Bags</option>
                                                 <option value="chaise lounges" <%= product && product.category === 'chaise lounges' ? 'selected' : '' %>>Chaise Lounges</option>
                                                 <option value="living room set" <%= product && product.category === 'living room set' ? 'selected' : '' %>>Living Room Set</option>
                                                 <option value="kids furniture" <%= product && product.category === 'kids furniture' ? 'selected' : '' %>>Kids Furniture</option>
                                                 <option value="pets furniture" <%= product && product.category === 'pets furniture' ? 'selected' : '' %>>Pets Furniture</option>
                                                 <option value="space friendly" <%= product && product.category === 'space friendly' ? 'selected' : '' %>>Space Friendly</option>
-                                            
+                                                <option value="outdoors" <%= product && product.category === 'outdoors' ? 'selected' : '' %>>Outdoors</option>
+                                                
                                             
                                         </select>
                                         <% } else { %>
@@ -200,15 +202,17 @@
                                             border: 1px solid #ccc;
                                             border-radius: 4px;
                                             resize: vertical;" name="category">
-                                                <option value="armchair">Armchair</option>
-                                                <option value="beds">Beds</option>
-                                                <option value="benches">Benches</option>
-                                                <option value="beanbags">Bean Bags</option>
-                                                <option value="chaise lounges">Chaise Lounges</option>
-                                                <option value="living room set">Living Room Set</option>
-                                                <option value="kids furniture">Kids Furniture</option>
-                                                <option value="pets furniture">Pets Furniture</option>
-                                                <option value="space friendly">Space Friendly</option>
+                                               <option value="armchair">Armchair</option>
+                                               <option value="beds">Beds</option>
+                                               <option value="benches">Benches</option>
+                                               <option value="sofas">Sofas</option>
+                                               <option value="beanbags">Bean Bags</option>
+                                               <option value="chaise lounges">Chaise Lounges</option>
+                                               <option value="living room set">Living Room Set</option>
+                                               <option value="kids furniture">Kids Furniture</option>
+                                               <option value="pets furniture">Pets Furniture</option>
+                                               <option value="space friendly">Space Friendly</option>
+                                               <option value="outdoors">Outdoors</option>                                               
                                               </select>
                                         <% } %>
                                         <div id="catorgyid" class="err"></div>
@@ -288,6 +292,31 @@
                                 </div>
                                 <div class="rowform">
                                     <div class="col-25">
+    
+                                        <label for="subject">Write the measurements</label>
+                                    </div>
+                                    <div class="col-75">
+                                        <% if (product && product != "add") { %>
+                                            <textarea style="width: 100%;
+                                            padding: 12px;
+                                            border: 1px solid #ccc;
+                                            border-radius: 4px;
+                                            resize: vertical;" id="measurements" name="measurements" placeholder="Leave any measurements about the item" style="height:200px"><% if (product && product.comments) { %><%= product.comments %><% } %>
+                                          </textarea>
+                                          <% } else { %>
+                                              <textarea style="width: 100%;
+                                              padding: 12px;
+                                              border: 1px solid #ccc;
+                                              border-radius: 4px;
+                                              resize: vertical;" id="measurements" name="measurements" placeholder="Leave any measurements about the item" style="height:200px"></textarea>
+                                          <% } %>
+                                          <div id="measurementsid" class="err"><% if (errors && errors.measurements) { %>
+                                            <%= errors.measurements %>
+                                          <% } %></div>
+                                    </div>
+                                </div>
+                                <div class="rowform">
+                                    <div class="col-25">
                                       <label for="comments">Comments</label>
                                     </div>
                                     <div class="col-75">
@@ -296,14 +325,14 @@
                                       padding: 12px;
                                       border: 1px solid #ccc;
                                       border-radius: 4px;
-                                      resize: vertical;" id="comments" name="comments" placeholder="Leave any comments you have about the product..." style="height:200px"><% if (product && product.comments) { %><%= product.comments %><% } %>
+                                      resize: vertical;" id="comments" name="comments" placeholder="Leave any comments you have about the product" style="height:200px"><% if (product && product.comments) { %><%= product.comments %><% } %>
                                     </textarea>
                                     <% } else { %>
                                         <textarea style="width: 100%;
                                         padding: 12px;
                                         border: 1px solid #ccc;
                                         border-radius: 4px;
-                                        resize: vertical;" id="comments" name="comments" placeholder="Leave any comments you have about the product..." style="height:200px"></textarea>
+                                        resize: vertical;" id="comments" name="comments" placeholder="Leave any comments you have about the product" style="height:200px"></textarea>
                                     <% } %>
                                     </div>
                                   </div>
@@ -314,7 +343,7 @@
                                     </div>
                                     <% if (product && product != "add") { %>
                                     <div class="col-65">
-                                        <input type="file" id="photo" name="photo">
+                                        <div id="my-dropzone" class="dropzone"></div>
                                         
                                     </div>
                                     <% } else{%>
@@ -326,6 +355,8 @@
                                         <div id="preview"></div>
                                       </div>
                                     <% } %>
+                                </div>
+                                    <div class="rowform">
                                     
                                     <div class="rowform">
                                         <input type="submit" id="submitButton" value="Submit">
