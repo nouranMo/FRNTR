@@ -22,7 +22,7 @@ try{
     
     console.log(product);
 
-    res.render("itempage",{product});
+    res.render("itempage",{product,user:req.session.user===undefined?"":req.session.user});
    
 }catch (error) {
         console.error(error);

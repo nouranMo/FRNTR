@@ -1,10 +1,10 @@
 //sidebars
-function signOpen(user) {
-  if(user){
+function signOpen() {
+
     document.getElementById("sidebar-1").style.display = "block";
-  }else{
-    window.location.href = `auth/account`
-  }
+}
+function accOpen(){
+  window.location.href = `auth/account`
 }
   function signclose() {
     document.getElementById("sidebar-1").style.display = "none";
