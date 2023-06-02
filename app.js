@@ -8,7 +8,7 @@ import multer from "multer";
 import path from "path";
 import image from "express-image";
 import * as dotenv from "dotenv";
-
+import mailchimp from "@mailchimp/mailchimp_marketing";
 // Load environment variables from .env file
 dotenv.config();
 
@@ -25,6 +25,18 @@ const upload = multer({ storage });
 const port = process.env.PORT;
 const URI = process.env.URI;
 
+// Set up Mailchimp
+mailchimp.setConfig({
+  apiKey: process.env.MAILCHIMP_API_KEY,
+  server: process.env.MAILCHIMP_SERVER_PREFIX,
+});
+
+const run = async () => {
+  const response = await mailchimp.lists.getList("2d4d9e0eaa");
+  console.log(response);
+};
+
+run();
 // Connect to the database
 connectDB();
 
