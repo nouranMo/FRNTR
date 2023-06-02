@@ -82,20 +82,16 @@
         </h3>
       </div>
       <div class="viewproduct">
-        <div class="row">
-          <% product.forEach((products) => { %>
+        <div class="row"id="rfilter">
+          <% product.forEach((product) => { %>
           <div class="col-md-3">
             <div class="products">
               <div class="product-image">
-                <a href="/product/itemPage/<%=products._id%>" class="images">
-                <% if (products.photo && products.photo.length > 0) { %>
-                 
-                   
-                      <img src="<%= products.photo[0]%>" class="pic-1" style="width: 100%" />
-                      
-                       
-                          <img src="<%= products.photo[1] %>" class="pic-2" style="width: 100%" />
-                     
+                <a href="/product/itemPage/<%=product._id%>" class="images">
+                <% if (product.photo && product.photo.length > 0) { %>
+                      <img src="<%= product.photo[0]%>" class="pic-1" style="width: 100%" />
+                  
+                      <img src="<%= product.photo[1] %>" class="pic-2" style="width: 100%" />
                     </a>
                   
                 <% } %>
@@ -117,106 +113,19 @@
               </div>
               <div class="Content">
                 <h3 class="product-title">
-                  <%= products.productName %>
+                  <%= product.productName %>
                 </h3>
                 <del>10,680.00 EGP</del>
-                <ins class="in"><%= products.price %>EGP</ins>
+                <ins class="in"><%= product.price %>EGP</ins>
               </div>
             </div>
           </div>
           <% }) %>
         </div>
       </div>
-
 <div>
       
   </div>
-
-          <!-- <div class="col-md-3">
-            <div class="products">
-              <div class="product-image">
-                <a href="" class="images">
-                  <img src="/../images/TriviaSofa_1.webp" alt="" class="pic-1">
-                  <img src="/../images/TriviaSofa_4.webp" alt="" class="pic-2">
-                </a>
-                <span class="discount">-18%</span>
-
-                <div class="links">
-                  <div class="Icon">
-                    <a href=""><i class="fa-regular fa-heart"></i></a>
-                    <span class="tooltiptext">Add to WishList</span>
-                  </div>
-                  <div class="Icon">
-                    <a href="/product/itemPage"><i class="fa-regular fa-eye"></i></a>
-                    <span class="tooltiptext">Quick view</span>
-                  </div>
-                  <div class="Icon">
-                     <a href=""><i class="fa-solid fa-cart-plus" ></i></a>
-                    <span class="tooltiptext">Add To Cart</span>
-                  </div>
-
-                </div>
-
-
-
-              </div>
-              <div class="Content">
-                <h3 class="product-title">
-                  Trivia Sofa / 154 x 82 CM 2S
-                </h3>
-                <del>9,960.00 EGP</del>
-                <ins class="in">8,140.00 EGP</ins>
-              </div>
-
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="products">
-              <div class="product-image">
-                <a href="" class="images">
-                  <img src="/../images/Bilski_50_22_Square_Arm_Loveseat_3.jpg" alt="" class="pic-1">
-                  <img src="/../images/Bilski_50_22_Square_Arm_Loveseat_4.jpg" alt="" class="pic-2">
-                </a>
-                <span class="discount">-26%</span>
-
-                <div class="links">
-                  <div class="Icon">
-                    <a href=""><i class="fa-regular fa-heart"></i></a>
-                    <span class="tooltiptext">Add to WishList</span>
-                  </div>
-                  <div class="Icon">
-                    <a href="/product/itemPage"><i class="fa-regular fa-eye"></i></a>
-                    <span class="tooltiptext">Quick view</span>
-                  </div>
-                  <div class="Icon">
-                     <a href=""><i class="fa-solid fa-cart-plus" ></i></a>
-                    <span class="tooltiptext">Add To Cart</span>
-                  </div>
-
-                </div>
-
-              </div>
-              <div class="Content">
-                <h3 class="product-title">
-                  Leonie Design Sofa / 125 x 94 CM Linen Upholstery
-                </h3>
-                <del>10,680.00 EGP</del>
-                <ins class="in">7,920.00 EGP</ins>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-md-3">
-            <div class="products">
-              <div class="product-image">
-                <a href="" class="images">
-                  <img src="/../images/Bilski_50_22_Square_Arm_Loveseat_3.jpg" alt="" class="pic-1">
-                  <img src="/../images/Bilski_50_22_Square_Arm_Loveseat_4.jpg" alt="" class="pic-2">
-                </a>
-                <span class="discount">-26%</span-->
-
-
-     
 
     <%- include("./partials/chat.ejs")%>
     <%- include("./partials/pagination.ejs" , {Furniture : product})%>
