@@ -112,6 +112,19 @@ function accOpen(){
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return regular_expressions.test(String(email).toLocaleLowerCase());
   }
+
+  function validateAddress(field) {
+    if (field == "") {
+      document.getElementById("ad").innerHTML =
+        "You must enter your address!";
+      document.getElementById("add").style.borderColor = "red";
+      return false;
+    } else {
+      document.getElementById("ad").innerHTML = "";
+      document.getElementById("add").style.borderColor = "black";
+      return true;
+    }
+  }
   
   function validatePassword1(field1, field2) {
     let valid = true;
@@ -139,6 +152,7 @@ function accOpen(){
     fail &= validateFirstName(form.Firstname.value.trim());
     fail &= validateLastName(form.last.value.trim());
     fail &= validateEmail(form.email.value.trim());
+    fail &= validateAddress(form.address.value.trim());
     fail &= validatePassword(form.pas.value, form.pasconfirm.value);
     if (fail) {
       event.target.submit();
