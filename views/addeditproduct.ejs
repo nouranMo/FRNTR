@@ -122,7 +122,9 @@
 
 
 
-
+<script>
+   
+</script>
 </head>
 <body>
     <div class="barpage">
@@ -135,9 +137,9 @@
                     <div class="background">
                         <div class="containerform">
                             <!-- //////////////////update///////////////// -->
-                            <% if (product && product != "add") { %>
+                            <% if (product && product !== "add") { %>
                                 
-                                <form class="form" action="/adminproduct/edit" method="post" onsubmit="return validateEditForm(event)" enctype="multipart/form-data">
+                                <form id ="formedit" class="form" action="/adminproduct/edit" method="post" enctype="multipart/form-data">
                                 
                               <% } else { %>
                                 
@@ -156,7 +158,7 @@
                                             padding: 12px;
                                             border: 1px solid #ccc;
                                             border-radius: 4px;
-                                            resize: vertical;" id="upproductname" name="upproductname"
+                                            resize: vertical;" id="productname" name="productname"
                                             placeholder="Enter the product name.." value="<%= product ? product.productName : '' %>">
                                             
                                         <% } else { %>
@@ -228,7 +230,7 @@
                                         padding: 12px;
                                         border: 1px solid #ccc;
                                         border-radius: 4px;
-                                        resize: vertical;" name="colorpicker" type="text" value="<%= product ? product.color : '' %>">
+                                        resize: vertical;" name="color" type="text" value="<%= product ? product.color : '' %>">
                                         <% } else { %>
                                             <input type="text" style="width: 100%;
                                             padding: 12px;
@@ -248,7 +250,7 @@
                                     </div>
                                     <div class="col-75">
                                         <% if (product && product != "add") { %>
-                                        <input type="number" min="1" step="any" id="price" name="price"
+                                        <input type="number" min="0.01" step="0.01" id="price" name="price"
                                             placeholder="Decimals are accepted" value="<%= product ? product.price : '' %>">
                                         <% } else { %>
                                             <input type="number" min="0.01" step="0.01" id="price" name="price" placeholder="Enter the price..">
@@ -265,9 +267,9 @@
                                         <label for="subject">Add an offer</label>
                                     </div>
                                     <div class="col-75">
-                                        <input type="number" min="1" step="any" id="price" name="price"
+                                        <input type="number" min="1" step="any" id="offer" name="offer"
                                             placeholder="Decimals are accepted" value="<%= product ? product.offer : '' %>">
-                                        <div id="priceid" class="err"><% if (errors && errors.price) { %>
+                                        <div id="offerid" class="err"><% if (errors && errors.price) { %>
                                             <%= errors.price %>
                                           <% } %></div>
                                     </div>
@@ -280,7 +282,7 @@
                                     </div>
                                     <div class="col-75">
                                         <% if (product && product != "add") { %>
-                                        <input type="number" min="1" id="quantity" name="quantity"
+                                        <input type="number" min="1" step = "1" id="quantity" name="quantity"
                                             placeholder="Enter a whole posisitive number .."  value="<%= product ? product.quantity : '' %>">
                                         <% } else { %>
                                             <input type="number" min="1" step="1" id="quantity" name="quantity" placeholder="Enter the quantity..">
@@ -301,7 +303,7 @@
                                             padding: 12px;
                                             border: 1px solid #ccc;
                                             border-radius: 4px;
-                                            resize: vertical;" id="measurements" name="measurements" placeholder="Leave any measurements about the item" style="height:200px"><% if (product && product.comments) { %><%= product.comments %><% } %>
+                                            resize: vertical;" id="measurements" name="measurements" placeholder="Leave any measurements about the item" style="height:200px"><% if (product && product.size) { %><%= product.size %><% } %>
                                           </textarea>
                                           <% } else { %>
                                               <textarea style="width: 100%;
@@ -343,8 +345,17 @@
                                     </div>
                                     <% if (product && product != "add") { %>
                                     <div class="col-65">
-                                        <div id="my-dropzone" class="dropzone"></div>
-                                        
+                                        <div id="my-dropzoneedit" class="dropzone" data-product-id="<%= product._id %>"></div>
+                                        <div id="preview">
+                                            <ul id="previous-images">
+                                                <% product.photo.forEach(function(image) { %>
+                                                    <li>
+                                                      <img src="/<%= image.replace('public/', '') %>" style="max-width: 100px;" />
+                                                      <button type="button" class="remove-btn">Remove</button>
+                                                    </li>
+                                                  <% }) %>
+                                              </ul>                                              
+                                        </div>
                                     </div>
                                     <% } else{%>
                                     <div class="col-75">
@@ -368,7 +379,11 @@
                                         <% if (typeof failMessage !== 'undefined' && failMessage) { %>
                                           <p style="color:red"><%= failMessage %></p>
                                         <% } %>
+                                        <% if (errors && errors.general) { %>
+                                            <p style="color:red"><%= errors.general %></p>
+                                          <% } %>
                                       </div>
+
                             </form>
                             
                         </div>
