@@ -89,9 +89,15 @@
               <div class="h1-price">
                 <h1><%=product.productName%></h1>
                 <div class="price">
-                  <del>10,080.00 EGP</del>
-                  <ins><%=product.price%> EGP</ins>
-                  <span>SAVE <%=product.offer%>%</span>
+                  <% if(product.offer) {%>
+                    <del><%= product.price %>EGP</del>
+                    <ins class="in"><%= product.price -(product.price * (product.offer)/100) %> EGP</ins>
+                    <span>SAVE <%=product.offer%>%</span>
+                    <%} else {%>
+                      <ins class="in" style="color:black"><%= product.price %>EGP</ins>
+                      <%}%>
+                
+                  
                 </div>
               </div>
               <div class="tabbyPromo">
