@@ -105,7 +105,7 @@ router.get("/idcheck", function (req, res, next) {
 
 // Handle POST request to create a new furniture item
 router.post("/furniture", upload.array("photo", 5), furnitureController.createFurniture);
-router.post("/edit",upload.array("photo", 5), editfurnitureController.editFurniture);
+router.post("/edit", upload.array("photo", 5),editfurnitureController.editFurniture);
 router.post("/idcheck",idcheckController.EnterID);
 router.post("/upload", upload.single("file"), furnitureController.uploadImage);
 router.post('/delete', (req, res) => {
@@ -131,7 +131,7 @@ router.post('/delete', (req, res) => {
     res.status(404).send('File not found');
   }
 });
-router.get('/deleteproduct/:id',editfurnitureController.deleteproduct);
+router.get('/deleteproduct/:id', editfurnitureController.deleteproduct);
 // ...
 // Export the router
 export default router;

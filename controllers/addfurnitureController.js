@@ -62,7 +62,7 @@ furnitureController.createFurniture = async (req, res) => {
       await newFurniture.save();
       console.log("New furniture item:", newFurniture);
   
-      res.render("addeditproduct", { errors, successMessage: "Successfully added an item" ,product:"add"});
+      return res.redirect("/product")
     } catch (error) {
       console.error("Error saving furniture item:", error);
       errors.general = "Failed to add item";

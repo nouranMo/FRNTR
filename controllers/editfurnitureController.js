@@ -5,21 +5,17 @@ const editfurnitureController = {};
 
 editfurnitureController.editFurniture = async (req, res) => {
     // Extract data from the request body
-    const { upproductname, upProductID, category, colorpicker, price, quantity,comments } = req.body;
-  console.log(req.body);
+    const { productname, category, color, price, quantity, comments, measurements } = req.body;
+    const uploadedImagePaths = JSON.parse(req.body.uploadedImagePaths);
+    const id = req.body.id;
     // Backend validation
     let errors = {};
-
   
-    if (!upProductID || upProductID.trim() === "") {
-      errors.upProductID = "Please enter the product ID";
+    if (!productname || productname.trim() === "") {
+      errors.productname = "Please enter the product name";
     }
   
-    if (!upproductname || upproductname.trim() === "") {
-      errors.upproductname = "Please enter the product name";
-    }
-  
-    if (!colorpicker || colorpicker.trim() === "") {
+    if (!color || color.trim() === "") {
       errors.color = "Please enter the available color";
     }
   
@@ -35,57 +31,43 @@ editfurnitureController.editFurniture = async (req, res) => {
       errors.quantity = "Quantity must be a positive whole number";
     }
   
-    if (Object.keys(errors).length > 0) {
-      // Return validation errors to the client
-      const product = await Furniture.findById(upProductID);
-      return res.render("productedit", { errors, product });
+    if (!measurements || measurements.trim() === "") {
+      errors.measurements = "Please enter the measurements name";
     }
   
-    let imagePaths = [];
-  
-    // Check if files were uploaded
-    if (req.files) {
-      const maxImageCount = 5;
-  
-      if (req.files.length > maxImageCount) {
-        errors.photo = `Maximum ${maxImageCount} images allowed`;
-        const product = await Furniture.findById(upProductID);
-        return res.render("productedit", { errors, product });
-      }
-      imagePaths = req.files.map((file) => file.path);
+    if (Object.keys(errors).length > 0) {
+      // Return validation errors to the client
+      return res.render("addeditproduct", { errors, product: "edit" });
     }
   
     try {
-      // Find the existing product by ID and update it
-      const result = await Furniture.updateOne(
-        { _id: upProductID },
-        {
-          productName: upproductname,
-          category,
-          color:colorpicker,
-          price: parseFloat(price),
-          quantity: parseInt(quantity),
-          photo: imagePaths, // Replace the existing photo array with the new images
-          comments,
-        }
-      );
+
+      const existingFurniture = await Furniture.findById(id);
   
-      if (result.nModified === 0) {
-        // No product was modified (product ID not found)
-        errors.upProductID = "Product ID not found";
-        const product = await Furniture.findById(upProductID);
-        return res.render("productedit", { errors, product });
+      if (!existingFurniture) {
+        // Handle case where furniture item is not found
+        return res.render("addeditproduct", { errors: { general: "Furniture item not found" }, product: "edit" });
       }
   
-      // Fetch the updated product
-      const updatedProduct = await Furniture.findById(upProductID);
+      // Update the furniture item with the new data
+      existingFurniture.productName = productname;
+      existingFurniture.category = category;
+      existingFurniture.color = color;
+      existingFurniture.price = parseFloat(price);
+      existingFurniture.quantity = parseInt(quantity);
+      existingFurniture.comments = comments.trim();
+      existingFurniture.photo = uploadedImagePaths;
+      existingFurniture.size = measurements.trim();
   
-      return res.render("productedit", { successMessage: "Successfully updated the item",errors, product: updatedProduct });
+      // Save the updated furniture item to the database
+      await existingFurniture.save();
+      console.log("Updated furniture item:", existingFurniture);
+      const products = await Furniture.find();
+      return res.redirect("/product")
     } catch (error) {
       console.error("Error updating furniture item:", error);
       errors.general = "Failed to update item";
-      const product = await Furniture.findById(upProductID);
-      return res.render("productedit", { errors, product });
+      return res.render("addeditproduct", { errors, product: "edit" });
     }
   };
   editfurnitureController.deleteproduct = async (req, res)=>{
@@ -114,6 +96,5 @@ editfurnitureController.editFurniture = async (req, res) => {
     }
     
   };
-
 
 export default editfurnitureController;
