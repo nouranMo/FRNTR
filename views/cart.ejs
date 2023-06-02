@@ -30,7 +30,7 @@
       <i class="material-icons" id="emptyCart">production_quantity_limits</i>
       <div id="yourCart">YOUR CART IS EMPTY.</div>
       <div>
-        Before proceed to checkout your must add some product to your shopping
+        Before proceed to checkout you must add some product to your shopping
         cart
       </div>
       <div>You will find a lot of interesting products on our "Shop" page.</div>
@@ -38,6 +38,7 @@
     </div>
     <div class="fullCartContainer">
       <div class="listOfItems">
+        <% product.forEach((products) => { %>
         <div class="itemContainer">
           <div class="itemTopContainer">
             <span class="imageSpan">
@@ -45,7 +46,7 @@
             </span>
 
             <div class="firstSentence">
-              Autumn Barrel Chairs V2 / 70 CM x 105 CM Chid Velvet Upholstery
+              <%products.productName%>
             </div>
             <br />
             <div class="color">Color: <span class="theColor">Black</span></div>
@@ -65,7 +66,7 @@
           </div>
           <hr style="opacity: 0.5" />
           <div class="itemBottomContainer">
-            <span id="pricePlusDiscount">10,000 EGP</span>
+            <span id="pricePlusDiscount"><%products.price%></span>
             <span class="addOrRemove"
               ><span class="addRemoveContainer"
                 ><button
@@ -119,5 +120,7 @@
       </div>
     </div>
     <%- include("./partials/chat.ejs")%> <%- include("./partials/footer.ejs")%>
+
+    
   </body>
 </html>
