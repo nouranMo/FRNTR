@@ -56,10 +56,11 @@
         font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
       }
     </style>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/cartsidebar.css" />
+    <link rel="stylesheet" href="/../css/style.css" />
+    <link rel="stylesheet" href="/../css/cartsidebar.css" />
     <title>FRNTR</title>
-    <link rel="icon" type="image/x-icon" href="Images/logo.png" />
+    <link rel="icon" type="image/x-icon" href="/../images/logo.png" />
+    <script type="text/javascript" src="/../js/handler.js"></script>
   </head>
   <body>
     
@@ -129,14 +130,16 @@
           <p>Subscribe to our newsletter and get 400 EGP off your first purchase</p>
           <div class="form">
             <div class="form-cont">
-  
+              
               <div class="inputt">
-                <input type="email" class="email-input" name="email" placeholder="type your email address">
+                <input type="email" class="email-input" name="email" id="emailInput" placeholder="type your email address">
               </div>
   
               <div class="btn-sub">
-                <button type="submit" class="button-style">Subscribe</button>
+                <button type="submit" class="button-style" id="subscribeButton">Subscribe</button>
+                
               </div>
+              <div id="messageContainer"></div>
             </div>
           </div>
           <div class="line">
@@ -171,6 +174,57 @@
   
   
     </div>
-    <script type="text/javascript" src="./js/handler.js"></script>
+    <script type="text/javascript" src="/../js/handler.js"></script>
+    <script>
+      
+// Get the email input, subscribe button, and message container elements
+const emailInput = document.getElementById("emailInput");
+const subscribeButton = document.getElementById("subscribeButton");
+const messageContainer = document.getElementById("messageContainer");
+
+// Email format validation regex
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// Add event listener to the subscribe button
+subscribeButton.addEventListener("click", () => {
+  // Get the email value
+  const email = emailInput.value;
+
+  // Validate the email format
+  if (!emailRegex.test(email)) {
+    // Display an error message if the email format is invalid
+    messageContainer.textContent = "Please enter a valid email address.";
+    messageContainer.style.color = "red";
+    return; // Exit the function
+  }
+
+  // Create a data object with the email value
+  const data = { email };
+
+  // Send a POST request to your server
+  fetch("/addemail", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((result) => {
+      console.log(result);
+      // Clear the email input
+      emailInput.value = "";
+
+      // Display success message
+      messageContainer.textContent = "Added to newsletter!";
+      messageContainer.style.color = "green";
+    })
+    .catch((error) => {
+      console.error(error);
+      // Handle any errors that occur during the request
+    });
+});
+
+    </script>
   </footer>
 </html>
