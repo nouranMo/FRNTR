@@ -9,20 +9,33 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
     <link rel="stylesheet" href=".../css/style.css" />
+
+    <style>
+  df-messenger {
+   --df-messenger-bot-message: #363635d5;
+   --df-messenger-button-titlebar-color: #363635d5;
+   --df-messenger-chat-background-color: #fafafa;
+   --df-messenger-font-color: white;
+   --df-messenger-send-icon:#363635;
+   --df-messenger-user-message: #8f8e8e;
+  }
+</style>
    
   </head>
   <body>
- 
-    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
-    <df-messenger
-      intent="WELCOME"
-      chat-title="FRNTR"
-      agent-id="dc2cb33c-d133-4d66-819f-90102af7268c"
-      language-code="en"
-    ></df-messenger>
-        </div>
-      </form>
-    </div>
+
+
+  <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+
+  <df-messenger
+    intent="WELCOME"
+    chat-title="FRNTR"
+    agent-id="dc2cb33c-d133-4d66-819f-90102af7268c"
+    language-code="en"
+    chat-icon="https://drive.google.com/uc?export=download&id=1QyX4BQOcsvs34wmwZ5xIOSzRJUSvMDo_"
+  ></df-messenger>
+</div>
+
   </body>
 </html>
 <script src="../js/validations.js"></script>
