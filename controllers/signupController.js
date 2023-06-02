@@ -20,7 +20,7 @@ signupController.signup = async (req, res) => {
   console.log("Signup request received");
 
   // Extract form data from request body
-  const { Firstname, last, email, address, pas, pasconfirm, userType } = req.body;
+  const { Firstname, last, email, address, address2, pas, pasconfirm, userType } = req.body;
 
   // Backend validation
   let errors = {};
@@ -75,6 +75,7 @@ signupController.signup = async (req, res) => {
       lastName: last,
       email,
       address,
+      address2,
       password: hashedPassword,
       passwordConfirm: pasconfirm,
       userType,
