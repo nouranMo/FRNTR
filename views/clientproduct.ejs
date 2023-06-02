@@ -95,16 +95,17 @@
                     </a>
                   
                 <% } %>
-                <span class="discount">-26%</span>
+                <% if(product.offer) {%>
+                <span class="discount"><%=product.offer%>%</span>
+                <%} else { %>
+                  <span class="discount" style="display: none;"></span>
+                  <%}%>
                 <div class="links">
                   <div class="Icon">
                     <a href=""><i class="fa-regular fa-heart"></i></a>
                     <span class="tooltiptext">Add to WishList</span>
                   </div>
-                  <div class="Icon">
-                    <a href="/product/itemPage"><i class="fa-regular fa-eye"></i></a>
-                    <span class="tooltiptext">Quick view</span>
-                  </div>
+                  
                   <div class="Icon">
                     <a href=""><i class="fa-solid fa-cart-plus"></i></a>
                     <span class="tooltiptext">Add To Cart</span>
@@ -115,8 +116,12 @@
                 <h3 class="product-title">
                   <%= product.productName %>
                 </h3>
-                <del>10,680.00 EGP</del>
-                <ins class="in"><%= product.price %>EGP</ins>
+                <% if(product.offer) {%>
+                <del><%= product.price %>EGP</del>
+                <ins class="in"><%= product.price -(product.price * (product.offer)/100) %> EGP</ins>
+                <%} else {%>
+                  <ins class="in"style="color:#59533F"><%= product.price %>EGP</ins>
+                  <%}%>
               </div>
             </div>
           </div>
@@ -128,7 +133,7 @@
   </div>
 
     <%- include("./partials/chat.ejs")%>
-    <%- include("./partials/pagination.ejs)%>
+    <%- include("./partials/pagination.ejs")%>
  
     <script type="text/javascript"  src="/js/pagination.js"></script>
     <%- include("./partials/footer.ejs")%>
