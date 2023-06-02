@@ -120,32 +120,34 @@
         </h3>
       </div>
       <div class="viewproduct">
-        <div class="row"id="rfilter">
-          <% product.forEach((product) => { %>
+        <div class="row">
+          <% product.forEach((products) => { %>
           <div class="col-md-3">
             <div class="products">
               <div class="product-image">
-                <a href="/product/itemPage/<%=product._id%>" class="images">
-                <% if (product.photo && product.photo.length > 0) { %>
-                      <img src="<%= product.photo[0]%>" class="pic-1" style="width: 100%" />
-                  
-                      <img src="<%= product.photo[1] %>" class="pic-2" style="width: 100%" />
+                <a href="/product/itemPage/<%=products._id%>" class="images">
+                <% if (products.photo && products.photo.length > 0) { %>
+                 
+                   
+                      <img src="<%= products.photo[0]%>" class="pic-1" style="width: 100%" />
+                      
+                       
+                          <img src="<%= products.photo[1] %>" class="pic-2" style="width: 100%" />
+                     
                     </a>
                   
                 <% } %>
-                <% if(product.offer) {%>
-                <span class="discount"><%=product.offer%>%</span>
-                <%} else { %>
-                  <span class="discount" style="display: none;"></span>
-                  <%}%>
+                <span class="discount">-26%</span>
                 <div class="links">
                   <div class="Icon">
                     <a href=""><i class="fa-regular fa-heart"></i></a>
                     <span class="tooltiptext">Add to WishList</span>
                   </div>
-                  
                   <div class="Icon">
-                    <span class="tooltiptext">Add To Cart</span>
+                    <a href="/product/itemPage"><i class="fa-regular fa-eye"></i></a>
+                    <span class="tooltiptext">Quick view</span>
+                  </div>
+                  <div class="Icon">
                     
                       <input type="hidden" value="<%=products._id%>" name="productId">
                       <input type="hidden" value=" <%= products.productName %>" name="productName">
@@ -165,43 +167,112 @@
               
               <div class="Content">
                 <h3 class="product-title">
-                  <%= product.productName %>
+                  <%= products.productName %>
                 </h3>
-<<<<<<< Updated upstream
-                <% if(product.offer) {%>
-                <del><%= product.price %>EGP</del>
-                <ins class="in"><%= product.price -(product.price * (product.offer)/100) %> EGP</ins>
-                <%} else {%>
-                  <ins class="in"style="color:#59533F"><%= product.price %>EGP</ins>
-                  <%}%>
-=======
                 <del>10,680.00 EGP</del>
                 <ins class="in"><%= products.price %> EGP</ins>
->>>>>>> Stashed changes
               </div>
             </div>
           </div>
           <% }) %>
         </div>
       </div>
-<<<<<<< Updated upstream
-<div>
-=======
       <div class="popup" id="popup">
         <img src="/images/404-tick.png" alt="tick">
         <h2>Added To Cart!</h2>
         <p>Item has been added to cart successfully. Thanks!</p>
         <button type="button" onclick="closePopup()">OK</button>
     </div>
->>>>>>> Stashed changes
       
   </div>
 
+          <!-- <div class="col-md-3">
+            <div class="products">
+              <div class="product-image">
+                <a href="" class="images">
+                  <img src="/../images/TriviaSofa_1.webp" alt="" class="pic-1">
+                  <img src="/../images/TriviaSofa_4.webp" alt="" class="pic-2">
+                </a>
+                <span class="discount">-18%</span>
+
+                <div class="links">
+                  <div class="Icon">
+                    <a href=""><i class="fa-regular fa-heart"></i></a>
+                    <span class="tooltiptext">Add to WishList</span>
+                  </div>
+                  <div class="Icon">
+                    <a href="/product/itemPage"><i class="fa-regular fa-eye"></i></a>
+                    <span class="tooltiptext">Quick view</span>
+                  </div>
+                  <div class="Icon">
+                     <a href=""><i class="fa-solid fa-cart-plus" ></i></a>
+                    <span class="tooltiptext">Add To Cart</span>
+                  </div>
+
+                </div>
+
+
+
+              </div>
+              <div class="Content">
+                <h3 class="product-title">
+                  Trivia Sofa / 154 x 82 CM 2S
+                </h3>
+                <del>9,960.00 EGP</del>
+                <ins class="in">8,140.00 EGP</ins>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="products">
+              <div class="product-image">
+                <a href="" class="images">
+                  <img src="/../images/Bilski_50_22_Square_Arm_Loveseat_3.jpg" alt="" class="pic-1">
+                  <img src="/../images/Bilski_50_22_Square_Arm_Loveseat_4.jpg" alt="" class="pic-2">
+                </a>
+                <span class="discount">-26%</span>
+
+                <div class="links">
+                  <div class="Icon">
+                    <a href=""><i class="fa-regular fa-heart"></i></a>
+                    <span class="tooltiptext">Add to WishList</span>
+                  </div>
+                  <div class="Icon">
+                    <a href="/product/itemPage"><i class="fa-regular fa-eye"></i></a>
+                    <span class="tooltiptext">Quick view</span>
+                  </div>
+                  <div class="Icon">
+                     <a href=""><i class="fa-solid fa-cart-plus" ></i></a>
+                    <span class="tooltiptext">Add To Cart</span>
+                  </div>
+
+                </div>
+
+              </div>
+              <div class="Content">
+                <h3 class="product-title">
+                  Leonie Design Sofa / 125 x 94 CM Linen Upholstery
+                </h3>
+                <del>10,680.00 EGP</del>
+                <ins class="in">7,920.00 EGP</ins>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-3">
+            <div class="products">
+              <div class="product-image">
+                <a href="" class="images">
+                  <img src="/../images/Bilski_50_22_Square_Arm_Loveseat_3.jpg" alt="" class="pic-1">
+                  <img src="/../images/Bilski_50_22_Square_Arm_Loveseat_4.jpg" alt="" class="pic-2">
+                </a>
+                <span class="discount">-26%</span-->
+
+
+     
+
     <%- include("./partials/chat.ejs")%>
-<<<<<<< Updated upstream
-    <%- include("./partials/pagination.ejs")%>
- 
-=======
     <%- include("./partials/pagination.ejs" , {Furniture : product})%>
     <!-- Pass the allData variable to the JS file as a parameter -->
     
@@ -276,7 +347,6 @@
 
               }
     </script>
->>>>>>> Stashed changes
     <script type="text/javascript"  src="/js/pagination.js"></script>
     <%- include("./partials/footer.ejs")%>
 </body>
