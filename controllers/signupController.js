@@ -20,7 +20,7 @@ signupController.signup = async (req, res) => {
   console.log("Signup request received");
 
   // Extract form data from request body
-  const { Firstname, last, email, pas, pasconfirm, userType } = req.body;
+  const { Firstname, last, email, address, pas, pasconfirm, userType } = req.body;
 
   // Backend validation
   let errors = {};
@@ -35,6 +35,10 @@ signupController.signup = async (req, res) => {
 
   if (email.trim() === "") {
     errors.email = "You must enter your email!";
+  }
+
+  if (address.trim() === "") {
+    errors.address = "You must enter your address!";
   }
 
   const existingUser = await User.findOne({ email });
@@ -70,6 +74,7 @@ signupController.signup = async (req, res) => {
       firstName: Firstname,
       lastName: last,
       email,
+      address,
       password: hashedPassword,
       passwordConfirm: pasconfirm,
       userType,
