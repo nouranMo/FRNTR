@@ -10,7 +10,7 @@ router.get('/itempage/:id',itemproductdetail.detail);
 /* GET client Product page. */
 router.get('/clientproduct/:category', userviewproduct.userview);
 
-
+router.get('/filter',userviewproduct.filtering);
 
 // Authentication, securing the admin dashboard.
 
