@@ -74,11 +74,11 @@ const productsController = {
           }
         });
     
-        res.render("offers", {  offers , imagePath: offers[0].imagePath,});
+        res.render("offers", {  offers , imagePath: offers[0].imagePath});
       } catch (error) {
         // Handle error if retrieval fails
         console.error("Error retrieving products with offers:", error);
-        res.status(500).render("404", { message: "Failed to retrieve products with offers" });
+        res.status(500).render("404", { message: "Failed to retrieve products with offers",user:req.session.user===undefined?"":req.session.user});
  
       }
     },

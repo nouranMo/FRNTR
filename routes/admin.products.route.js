@@ -33,7 +33,7 @@ router.use((req,res,next)=>{
   else
   {
 
-  res.render('404');
+  res.render('404',{user:req.session.user===undefined?"":req.session.user});
   
   }
   });
