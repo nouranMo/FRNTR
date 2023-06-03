@@ -1370,4 +1370,24 @@ div.contenty {
   .sidebary-1 a {float: none;}
   div.content {margin-left: 0;}
 }
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
 
+.pagination a {
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.pagination a.active {
+  background-color: #4caf50;
+  color: white;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+}
