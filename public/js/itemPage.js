@@ -39,3 +39,38 @@ accordion.addEventListener('click',function(event){
         this.querySelector("i").classList.replace("fa-minus","fa-plus");
     }
 })
+function showReviewForm() {
+    const accordion = document.querySelector('.contentBox');
+    accordion.addEventListener('click', function(event) {
+      this.classList.toggle('active');
+      if (this.classList.contains('active')) {
+        this.querySelector("i").classList.replace("fa-plus", "fa-minus");
+      } else {
+        this.querySelector("i").classList.replace("fa-minus", "fa-plus");
+      }
+    });
+  
+    console.log("inside add review button");
+    var reviewForm = document.getElementById("review-form");
+    var closeButton = document.getElementById("close-button");
+  
+    closeButton.addEventListener('click', function() {
+      reviewForm.style.display = "none";
+      accordion.classList.remove('active');
+      accordion.querySelector("i").classList.replace("fa-minus", "fa-plus");
+    });
+  
+    if (reviewForm.style.display === "none") {
+      reviewForm.style.display = "block";
+      accordion.classList.add('active');
+      accordion.querySelector("i").classList.replace("fa-plus", "fa-minus");
+    } else {
+      reviewForm.style.display = "none";
+      accordion.classList.remove('active');
+      accordion.querySelector("i").classList.replace("fa-minus", "fa-plus");
+    }
+  }
+  function closeReviewForm() {
+    var reviewForm = document.getElementById("review-form");
+    reviewForm.style.display = "none";
+  }

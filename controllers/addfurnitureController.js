@@ -78,6 +78,10 @@ furnitureController.createFurniture = async (req, res) => {
     // File was successfully uploaded
     return res.status(200).json({ message: 'File uploaded successfully' });
   };
+
+  furnitureController.getreview = async(req ,res)=>{
+    
+  }
 // ...
 export default furnitureController;
 

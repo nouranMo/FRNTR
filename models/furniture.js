@@ -22,6 +22,7 @@ const furnitureSchema = new mongoose.Schema({
   offer: {
     type: Number,
     required: false,
+    default:0
   },
   quantity: {
     type: Number,
@@ -40,6 +41,10 @@ const furnitureSchema = new mongoose.Schema({
   size:{
     type:String,
     required:true,
+  },
+  review:{
+    type:String,
+    required:false,
   },
   photo: {
     type: [String], // Array of strings

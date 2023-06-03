@@ -284,10 +284,22 @@
                             </ul>
                           </span>
                         </div>
-                        <button class="review-btn">Write a review</button>
-                        <button class="review-btn"><i class="fa fa-sliders"></i></button>
+                        <button class="review-btn" onclick="showReviewForm()">Write a review</button>
+                        
+                        <div class="popup">
+                          <form id="review-form" style="display: none;">
+                           
+                            <label for="review-text"> Leave a review for the ( <%= product.productName%> )</label>
+                            <textarea id="review-text" name="review" placeholder="Enter your review here:"></textarea>
+                            <button type="submit">Submit</button> 
+                            <button id="close-button" onclick="closeReviewForm()">Close</button>
+                          </form>
+                     
+                        </div>
+
+                        <button class="review-btn" ><i class="fa fa-sliders"></i></button>
                       </div>
-                      <div class="rev-link">Be the first to&nbsp;<a href="#">write a review</a></div>
+                      <div class="rev-link">Be the first to&nbsp;<a href="#">write a review</a></div> 
                     </div>
                   </div>
                 </div>
