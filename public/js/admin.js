@@ -1,6 +1,6 @@
 Dropzone.autoDiscover = false;
 var uploadedImagePaths = [];
-$(document).ready(function() {
+$(document).ready(function () {
   // Initialize Dropzone
   var myDropzone = new Dropzone("#my-dropzone", {
     // Configuration options for Dropzone
@@ -10,28 +10,31 @@ $(document).ready(function() {
     acceptedFiles: ".jpg,.png,.gif", // Allowed file types
     autoProcessQueue: true,
     // Customized initialization function
-    init: function() {
+    init: function () {
       var previewElement = document.getElementById("preview");
 
-      this.on("addedfile", function(file) {
+      this.on("addedfile", function (file) {
         // Action to be performed when a file is added
         console.log("File added: " + file.name);
         // Display the file thumbnail
         // You can replace this with your own desired action
         var reader = new FileReader();
-        reader.onload = function(e) {
+        reader.onload = function (e) {
           var thumbnail = document.createElement("div");
           thumbnail.classList.add("thumbnail");
           thumbnail.setAttribute("data-dz-name", file.name); // Add a custom attribute with the file name
           thumbnail.setAttribute("data-file-id", file.upload.uuid); // Add a custom attribute with the file ID
-          thumbnail.innerHTML = '<img src="' + e.target.result + '" style="max-width: 100px;" />' +
+          thumbnail.innerHTML =
+            '<img src="' +
+            e.target.result +
+            '" style="max-width: 100px;" />' +
             '<button type = "button" class="remove-btn">Remove</button>';
           previewElement.appendChild(thumbnail);
         };
         reader.readAsDataURL(file);
       });
 
-      this.on("success", function(file, response) {
+      this.on("success", function (file, response) {
         console.log("File uploaded successfully: " + file.name);
         console.log("Server response: " + response);
         var imagePath = "public/images/" + file.name;
@@ -40,7 +43,7 @@ $(document).ready(function() {
         // Update the preview element based on the server's response
       });
 
-      this.on("error", function(file, errorMessage) {
+      this.on("error", function (file, errorMessage) {
         console.log("Error uploading file: " + file.name);
         console.log("Error message: " + errorMessage);
         // Update the preview element to indicate the error
@@ -50,9 +53,8 @@ $(document).ready(function() {
         previewElement.appendChild(errorText);
       });
 
-
       // Attach event listener to the remove button
-      previewElement.addEventListener("click", function(e) {
+      previewElement.addEventListener("click", function (e) {
         if (e.target.classList.contains("remove-btn")) {
           e.stopPropagation(); // Stop event propagation to prevent triggering the parent click event
           var thumbnail = e.target.parentNode;
@@ -64,12 +66,15 @@ $(document).ready(function() {
             url: "/adminproduct/delete",
             type: "POST",
             data: { filename: filename },
-            success: function(response) {
+            success: function (response) {
               console.log("File deleted successfully: " + filename);
               console.log("Server response: " + response);
               // Find the file object by file ID
-              uploadedImagePaths.splice(uploadedImagePaths.indexOf("public/images/"+filename), 1);
-              var fileObject = myDropzone.files.find(function(file) {
+              uploadedImagePaths.splice(
+                uploadedImagePaths.indexOf("public/images/" + filename),
+                1
+              );
+              var fileObject = myDropzone.files.find(function (file) {
                 return file.upload.uuid === fileId;
               });
               if (fileObject) {
@@ -77,10 +82,10 @@ $(document).ready(function() {
               }
               thumbnail.remove(); // Remove the thumbnail from the preview element
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
               console.log("Error deleting file: " + filename);
               console.log("Error message: " + error);
-            }
+            },
           });
         }
       });
@@ -91,11 +96,11 @@ $(document).ready(function() {
         }
         return true;
       }
-      
+
       // Rest of the code...
-      
+
       // Submit the form with AJAX
-      $('#product-form').submit(function(event) {
+      $("#product-form").submit(function (event) {
         event.preventDefault();
         var isProductNameValid = validateProductName();
         var isColorValid = validateColor();
@@ -115,50 +120,51 @@ $(document).ready(function() {
         }
 
         var form = $(this);
-        var url = form.attr('action');
+        var url = form.attr("action");
         var formData = new FormData(form[0]);
         // Append the uploadedImagePaths to the form data
-        formData.append('uploadedImagePaths', JSON.stringify(uploadedImagePaths));
+        formData.append(
+          "uploadedImagePaths",
+          JSON.stringify(uploadedImagePaths)
+        );
 
         $.ajax({
-          type: 'POST',
+          type: "POST",
           url: "/adminproduct/furniture",
           data: formData,
           processData: false,
           contentType: false,
-          success: function(response) {
+          success: function (response) {
             console.log("Form submitted successfully");
             console.log("Server response: " + response);
             // Handle success response
             // Replace the current page's content with the response
             document.documentElement.innerHTML = response;
-  
+
             // Optionally, you can update the browser's history so the user can use the back button
             history.pushState({}, "", "/product");
           },
-          error: function(xhr, status, error) {
+          error: function (xhr, status, error) {
             console.log("Error submitting form");
             console.log("Error message: " + error);
             // Handle error response
-          }
+          },
         });
 
         return false;
       });
-    }
+    },
   });
-  
 });
-$(document).ready(function() {
+$(document).ready(function () {
   var myDropzone = new Dropzone("#my-dropzoneedit", {
-    
     // Configuration options for Dropzone
     paramName: "file", // The name that will be used to transfer the file
     url: "/adminproduct/upload", // The URL where the file should be uploaded
     maxFilesize: 5, // Maximum file size in megabytes
     acceptedFiles: ".jpg,.png,.gif", // Allowed file types
     autoProcessQueue: true,
-    init: function() {
+    init: function () {
       var previewElement = document.getElementById("preview");
       // Get the img elements and extract the src attribute
       var productImages = document.querySelectorAll("#previous-images img");
@@ -168,26 +174,29 @@ $(document).ready(function() {
         var imagePathWithPublic = "public" + imagePath;
         console.log(imagePathWithPublic + " added to uploadedImagePaths");
         uploadedImagePaths.push(imagePathWithPublic);
-      }      
-      this.on("addedfile", function(file) {
+      }
+      this.on("addedfile", function (file) {
         // Action to be performed when a file is added
         console.log("File added: " + file.name);
         // Display the file thumbnail
         // You can replace this with your own desired action
         var reader = new FileReader();
-        reader.onload = function(e) {
+        reader.onload = function (e) {
           var thumbnail = document.createElement("div");
           thumbnail.classList.add("thumbnail");
           thumbnail.setAttribute("data-dz-name", file.name); // Add a custom attribute with the file name
           thumbnail.setAttribute("data-file-id", file.upload.uuid); // Add a custom attribute with the file ID
-          thumbnail.innerHTML = '<img src="' + e.target.result + '" style="max-width: 100px;" />' +
+          thumbnail.innerHTML =
+            '<img src="' +
+            e.target.result +
+            '" style="max-width: 100px;" />' +
             '<button type = "button" class="remove-button">Remove</button>';
           previewElement.appendChild(thumbnail);
         };
         reader.readAsDataURL(file);
       });
 
-      this.on("success", function(file, response) {
+      this.on("success", function (file, response) {
         console.log("File uploaded successfully: " + file.name);
         console.log("Server response: " + response);
         var imagePath = "public/images/" + file.name;
@@ -196,7 +205,7 @@ $(document).ready(function() {
         // Update the preview element based on the server's response
       });
 
-      this.on("error", function(file, errorMessage) {
+      this.on("error", function (file, errorMessage) {
         console.log("Error uploading file: " + file.name);
         console.log("Error message: " + errorMessage);
         // Update the preview element to indicate the error
@@ -206,9 +215,8 @@ $(document).ready(function() {
         previewElement.appendChild(errorText);
       });
 
-
       // Attach event listener to the remove button
-      previewElement.addEventListener("click", function(e) {
+      previewElement.addEventListener("click", function (e) {
         if (e.target.classList.contains("remove-button")) {
           e.stopPropagation(); // Stop event propagation to prevent triggering the parent click event
           var thumbnail = e.target.parentNode;
@@ -220,12 +228,15 @@ $(document).ready(function() {
             url: "/adminproduct/delete",
             type: "POST",
             data: { filename: filename },
-            success: function(response) {
+            success: function (response) {
               console.log("File deleted successfully: " + filename);
               console.log("Server response: " + response);
               // Find the file object by file ID
-              uploadedImagePaths.splice(uploadedImagePaths.indexOf("public/images/"+filename), 1);
-              var fileObject = myDropzone.files.find(function(file) {
+              uploadedImagePaths.splice(
+                uploadedImagePaths.indexOf("public/images/" + filename),
+                1
+              );
+              var fileObject = myDropzone.files.find(function (file) {
                 return file.upload.uuid === fileId;
               });
               if (fileObject) {
@@ -233,102 +244,111 @@ $(document).ready(function() {
               }
               thumbnail.remove(); // Remove the thumbnail from the preview element
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
               console.log("Error deleting file: " + filename);
               console.log("Error message: " + error);
-            }
+            },
           });
         }
       });
-  // Attach event listener to the remove button for previous images
-  $("#previous-images").on("click", ".remove-btn", function() {
-    var listItem = $(this).closest("li");
-    var imagePath = listItem.find("img").attr("src");
-    var imageName = imagePath.substring(imagePath.lastIndexOf("/") + 1);
-    // Make an AJAX request to delete the image from the server
-    $.ajax({
-      url: "/adminproduct/delete",
-      type: "POST",
-      data: { filename: imageName },
-      success: function(response) {
-        console.log("Image deleted successfully: " + imageName);
-        console.log("Server response: " + response);
-        listItem.remove(); // Remove the image from the list
+      // Attach event listener to the remove button for previous images
+      $("#previous-images").on("click", ".remove-btn", function () {
+        var listItem = $(this).closest("li");
+        var imagePath = listItem.find("img").attr("src");
+        var imageName = imagePath.substring(imagePath.lastIndexOf("/") + 1);
+        // Make an AJAX request to delete the image from the server
+        $.ajax({
+          url: "/adminproduct/delete",
+          type: "POST",
+          data: { filename: imageName },
+          success: function (response) {
+            console.log("Image deleted successfully: " + imageName);
+            console.log("Server response: " + response);
+            listItem.remove(); // Remove the image from the list
 
-        // Remove the image path from the uploadedImagePaths array
-        var index = uploadedImagePaths.indexOf("public/images/"+imageName);
-        if (index !== -1) {
-          console.log("Removing image path: " + "public/images/"+imageName + " from uploadedImagePaths");
-          uploadedImagePaths.splice(index, 1);
+            // Remove the image path from the uploadedImagePaths array
+            var index = uploadedImagePaths.indexOf(
+              "public/images/" + imageName
+            );
+            if (index !== -1) {
+              console.log(
+                "Removing image path: " +
+                  "public/images/" +
+                  imageName +
+                  " from uploadedImagePaths"
+              );
+              uploadedImagePaths.splice(index, 1);
+            }
+          },
+          error: function (xhr, status, error) {
+            console.log("Error deleting image: " + imageName);
+            console.log("Error message: " + error);
+          },
+        });
+      });
+      // Submit the form with AJAX
+      $("#formedit").submit(function (event) {
+        event.preventDefault();
+        var isProductNameValid = validateProductName();
+        var isColorValid = validateColor();
+        var isPriceValid = validatePrice();
+        var isQuantityValid = validateQuantity();
+        var isMeasurementsValid = validateMeasurements();
+        if (
+          !isProductNameValid ||
+          !isColorValid ||
+          !isPriceValid ||
+          !isQuantityValid ||
+          !isMeasurementsValid
+        ) {
+          return false;
         }
-      },
-      error: function(xhr, status, error) {
-        console.log("Error deleting image: " + imageName);
-        console.log("Error message: " + error);
-      }
-    });
-  });
-  // Submit the form with AJAX
-  $('#formedit').submit(function(event) {
-    event.preventDefault();
-    var isProductNameValid = validateProductName();
-    var isColorValid = validateColor();
-    var isPriceValid = validatePrice();
-    var isQuantityValid = validateQuantity();
-    var isMeasurementsValid = validateMeasurements();
-    if (
-      !isProductNameValid ||
-      !isColorValid ||
-      !isPriceValid ||
-      !isQuantityValid ||
-      !isMeasurementsValid
-    ) {
-      return false;
-    }
 
-    var form = $(this);
-    var url = form.attr('action');
-    var formData1 = new FormData(form[0]);
-    for (var i = 0; i < uploadedImagePaths.length; i++) {
-      console.log(uploadedImagePaths[i]);
-    }
-    var productID = $("#my-dropzoneedit").data("product-id");
-    // Append the uploadedImagePaths to the form data
-    formData1.append('uploadedImagePaths', JSON.stringify(uploadedImagePaths));
-    formData1.append('id', productID);
-    $.ajax({
-      type: 'POST',
-      url: "/adminproduct/edit",
-      data: formData1,
-      processData: false,
-      contentType: false,
-      success: function(response) {
-        console.log("Form submitted successfully");
-        console.log("Server response: " + response);
-        // Replace the current page's content with the response
-  document.documentElement.innerHTML = response;
-  
-  // Optionally, you can update the browser's history so the user can use the back button
-  history.pushState({}, "", "/product");
-      },
-      error: function(xhr, status, error) {
-        console.log("Error submitting form");
-        console.log("Error message: " + error);
-        // Handle error response
-      }
-    });
-    return false;
-  });
-    }
+        var form = $(this);
+        var url = form.attr("action");
+        var formData1 = new FormData(form[0]);
+        for (var i = 0; i < uploadedImagePaths.length; i++) {
+          console.log(uploadedImagePaths[i]);
+        }
+        var productID = $("#my-dropzoneedit").data("product-id");
+        // Append the uploadedImagePaths to the form data
+        formData1.append(
+          "uploadedImagePaths",
+          JSON.stringify(uploadedImagePaths)
+        );
+        formData1.append("id", productID);
+        $.ajax({
+          type: "POST",
+          url: "/adminproduct/edit",
+          data: formData1,
+          processData: false,
+          contentType: false,
+          success: function (response) {
+            console.log("Form submitted successfully");
+            console.log("Server response: " + response);
+            // Replace the current page's content with the response
+            document.documentElement.innerHTML = response;
+
+            // Optionally, you can update the browser's history so the user can use the back button
+            history.pushState({}, "", "/product");
+          },
+          error: function (xhr, status, error) {
+            console.log("Error submitting form");
+            console.log("Error message: " + error);
+            // Handle error response
+          },
+        });
+        return false;
+      });
+    },
   });
 });
 function validateMeasurements() {
   console.log(document.getElementById("measurements").innerText);
-  const field = document.getElementById("measurements").value.trim();;
+  const field = document.getElementById("measurements").value.trim();
   const measurementsError = document.getElementById("measurementsid");
   const measurementsInput = document.getElementById("measurements");
-  if(field === "")
-  {
+  if (field === "") {
     measurementsError.innerHTML = "Please enter the measurements";
     measurementsInput.style.borderColor = "red";
     return false;
@@ -415,9 +435,6 @@ function validateImages() {
   return true;
 }
 
-
-
-
 // function confirmChangeUserToAdmin()
 // {
 //   return confirm('Are you sure you want to change this user to an admin?');
@@ -449,7 +466,7 @@ function showEditUserModal(userDetails, callback) {
 
     const input = document.createElement("input");
     input.type = "text";
-    input.value = item.input;
+    input.value = item.input || ""; // Set input value to empty string if it's undefined
 
     modalContent.appendChild(label);
     modalContent.appendChild(input);
@@ -472,10 +489,23 @@ function showEditUserModal(userDetails, callback) {
   saveButton.addEventListener("click", () => {
     const updatedUserDetails = {};
 
+    const userDetailsKeys = [
+      "firstName",
+      "lastName",
+      "email",
+      "address",
+      "address2",
+    ];
+    let i = 0;
+
     labelsAndInputs.forEach((item, index) => {
-      updatedUserDetails[item.label.replace(":", "")] =
-        modalContent.children[index * 2 + 1].value;
+      // ... existing code ...
+
+      const input = modalContent.children[index * 2 + 1].value;
+      updatedUserDetails[userDetailsKeys[i]] = input;
+      i++;
     });
+    console.log("Updated User Details:", updatedUserDetails); // Check the updated user details
 
     callback(updatedUserDetails);
     closeModal();
@@ -491,10 +521,16 @@ function showEditUserModal(userDetails, callback) {
   }
 }
 
-
-function confirmEditUser(userId, email, firstName, lastName, address, address2) {
+function confirmEditUser(
+  userId,
+  email,
+  firstName,
+  lastName,
+  address,
+  address2
+) {
   const userDetails = {
-    id:userId,
+    id: userId,
     firstName: firstName,
     lastName: lastName,
     email: email,
@@ -504,31 +540,36 @@ function confirmEditUser(userId, email, firstName, lastName, address, address2) 
 
   showEditUserModal(userDetails, (updatedUserDetails) => {
     if (updatedUserDetails) {
-      const updatedFirstName = updatedUserDetails.firstName;
-      const updatedLastName = updatedUserDetails.lastName;
-      const updatedEmail = updatedUserDetails.email;
-      const updatedAddress = updatedUserDetails.address;
-      const updatedAddress2 = updatedUserDetails.address2;
-      console.log(updatedAddress + updatedAddress2 + updatedFirstName);
-      const formData = new FormData();
-      formData.append("id",userId)
-      formData.append("firstName", updatedFirstName);
-      formData.append("lastName", updatedLastName);
-      formData.append("email", updatedEmail);
-      formData.append("address", updatedAddress);
-      formData.append("address2", updatedAddress2);
+      console.log("Updated Details to Send:", updatedUserDetails);
 
-      fetch(`/admin/editUser`, {
+      const formData = new FormData();
+      formData.append("id", userId);
+      const userDetails = { firstName, lastName, email, address, address2 };
+      for (const [key, value] of Object.entries(updatedUserDetails)) {
+        console.log(`${key}: ${value}`);
+        formData.append(key, value);
+      } // Check the details to sendc
+      console.log("FormData Content:");
+      for (const [key, value] of formData.entries()) {
+        console.log(key, value);
+      }
+      $.ajax({
+        url: "/admin/editUser",
         method: "POST",
-        body: formData,
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("Response from the backend:", data);
-        })
-        .catch((error) => {
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: (data) => {
+          // Replace the current page's content with the response
+          document.documentElement.innerHTML = data;
+
+          // Optionally, you can update the browser's history so the user can use the back button
+          history.pushState({}, "", "/product");
+        },
+        error: (error) => {
           console.error("Error:", error);
-        });
+        },
+      });
     } else {
       console.log("Edit canceled");
     }
@@ -604,9 +645,9 @@ function confirmChangeUserToClient(userId) {
 
   return false; // Prevent the default link action
 }
-function confirmDeleteUser(userId,userEmail) {
+function confirmDeleteUser(userId, userEmail) {
   showConfirmationModal(
-    `Are you sure you want to delete the user with the email: ${userEmail}` ,
+    `Are you sure you want to delete the user with the email: ${userEmail}`,
     (confirmed) => {
       if (confirmed) {
         // Proceed with the link action
@@ -619,7 +660,9 @@ function confirmDeleteUser(userId,userEmail) {
 }
 function validateProductDeletion(productID, productName) {
   showConfirmationModal(
-    "Are you sure you want to delete the product with the name: " + productName + "?",
+    "Are you sure you want to delete the product with the name: " +
+      productName +
+      "?",
     (confirmed) => {
       if (confirmed) {
         // Proceed with the link action
