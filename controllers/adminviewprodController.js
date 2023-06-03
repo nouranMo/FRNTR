@@ -7,7 +7,7 @@ const productsController = {
       console.log("Inside viewAllProducts");
 
       // Retrieve all products from the database
-      const products = await Furniture.find();
+      let products = await Furniture.find();
 
       console.log("Retrieved products from the database:", products);
 
@@ -18,6 +18,14 @@ const productsController = {
           );
         }
       });
+
+      // Filter products by name if search query is provided
+      const searchQuery = req.query.search;
+      if (searchQuery) {
+        products = products.filter((product) =>
+          product.productName.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      }
 
       // Calculate pagination variables
       const currentPage = parseInt(req.query.page) || 1; // Current page number
@@ -108,35 +116,45 @@ const productsController = {
     } catch (error) {
       // Handle error if retrieval fails
       console.error("Error retrieving products with offers:", error);
-      res
-        .status(500)
-        .render("404", {
-          message: "Failed to retrieve products with offers",
-          user: req.session.user === undefined ? "" : req.session.user,
-        });
+      res.status(500).render("404", {
+        message: "Failed to retrieve products with offers",
+        user: req.session.user === undefined ? "" : req.session.user,
+      });
     }
   },
   viewAllUsers: async (req, res) => {
     try {
       console.log("Inside viewAllUsers");
-      const Users = await user.find();
-      console.log("Retrieved Users from the database: ", Users);
 
-      const page = parseInt(req.query.page) || 1; // Get the requested page from the query parameter (default to 1 if not provided)
-      const perPage = 10; // Number of customers per page
+      // Retrieve all users from the database
+      let users = await user.find();
 
-      const totalUsers = Users.length;
-      const totalPages = Math.ceil(totalUsers / perPage);
-      const startIndex = (page - 1) * perPage;
-      const endIndex = startIndex + perPage;
-      const usersOnPage = Users.slice(startIndex, endIndex);
+      console.log("Retrieved users from the database:", users);
+
+      // Filter users by email if search query is provided
+      const searchQuery = req.query.search;
+      if (searchQuery) {
+        users = users.filter((user) =>
+          user.email.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      }
+
+      // Calculate pagination variables
+      const currentPage = parseInt(req.query.page) || 1; // Current page number
+      const itemsPerPage = 10; // Number of users to display per page
+      const totalItems = users.length; // Total number of users
+      const totalPages = Math.ceil(totalItems / itemsPerPage); // Total number of pages
+
+      // Get the users for the current page
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+      const currentUsers = users.slice(startIndex, endIndex);
 
       res.render("customers", {
-        Users: usersOnPage,
-        currentPage: page,
-        totalPages: totalPages,
-        startIndex: startIndex,
-        endIndex: endIndex,
+        Users: currentUsers,
+        currentPage,
+        totalPages,
+        search: searchQuery || "",
       });
     } catch (error) {
       // Handle error if retrieval fails
