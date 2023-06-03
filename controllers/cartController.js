@@ -5,29 +5,45 @@ import Cart from "../models/cart.js";
 
 const cartController = {};
 
-cartController.cart = async (req, res) => {
-  const { productId, productName, productPrice, productQuantity } = req.body;
+cartController.addToCart = async (req, res) => {
+  //const { productId, productName, productPrice, productQuantity } = req.body;
+
+  const productId = req.body.productId;
+  const productName = req.body.productName;
+  const productPrice = req.body.productPrice;
+  const productQuantity = req.body.productQuantity;
+
 
   // Find the cart for the current user
-  let cart = await Cart.findOne({ productId }).exec();
+  let cart = await Cart.find({ _id:req.session.user._id});
 
-  if (cart) {
+  if (cart.length>0) {
+    console.log(cart);
+
     // If the cart already exists, find the item with the specified productId
-    const item = cart.items.find(item => item.productId === productId);
-
+    const item = cart.item.find(item => item.productId === productId);
     if (item) {
       // If the item already exists, update its quantity
       item.quantity += parseInt(productQuantity);
+      let newQuantity=item.quantity;
+      console.log(newQuantity);
+      cart.updateOne(
+        { _id: item.productId },
+        {$set:{productQuantity: parseInt(item.quantity)}});
     } else {
       // If the item does not exist, add a new item to the cart
-      cart.items.push({ productId, productName, productPrice, quantity: parseInt(productQuantity) });
+      cart.item.push({ productId, productName, productPrice, productQuantity: parseInt(productQuantity) });
+      cart.update(
+        { _id: userId },
+        {$push: { item: productId, productName, productPrice, productQuantity: parseInt(productQuantity) }});
     }
 
-    cart = await cart.save();
+    
   } else {
     // If the cart does not exist, create a new cart with the item
-    const newCart = new Cart({ userId, items: [{ productId, productName, productPrice, quantity: parseInt(productQuantity) }] });
+    const newCart = new Cart({ userId:req.session.user._id, item: [{ productId, productName, productPrice, quantity: parseInt(productQuantity) }] });
     cart = await newCart.save();
+    console.log(cart)
   }
 
   res.redirect('/cart');
@@ -47,6 +63,6 @@ cartController.cart = async (req, res) => {
 
 
 
-export default CartController;
+export default cartController;
 
 

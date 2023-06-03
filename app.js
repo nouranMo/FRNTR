@@ -8,7 +8,13 @@ import multer from "multer";
 import path from "path";
 import image from "express-image";
 import * as dotenv from "dotenv";
+<<<<<<< Updated upstream
 import mailchimp from "@mailchimp/mailchimp_marketing";
+=======
+import bodyParser from "body-parser";
+
+
+>>>>>>> Stashed changes
 // Load environment variables from .env file
 dotenv.config();
 
@@ -51,6 +57,7 @@ app.use(
     saveUninitialized: true, // Set to true or false based on your needs
   })
 );
+app.use(bodyParser.json());
 
 // Set the view engine to EJS
 app.set("view engine", "ejs");

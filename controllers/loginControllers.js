@@ -37,6 +37,7 @@ loginController.login = async(req, res) => {
 
 
         req.session.user = result;
+        console.log(req.session.user);
 
         // Password matches, render the account page with user data
         // return res.render("account", { userP:result});
