@@ -5,6 +5,7 @@ import Furniture from "../models/furniture.js";
 import furnitureController from "../controllers/addfurnitureController.js";
 import editfurnitureController from "../controllers/editfurnitureController.js";
 import idcheckController from "../controllers/idcheckController.js";
+import productsController from "../controllers/adminviewprodController.js";
 import fs from "fs";
 const storage = multer.diskStorage({
   destination: "public/images",
@@ -48,7 +49,7 @@ router.get("/addproduct", function (req, res, next) {
   const errors = {};
   res.render("addproduct", { errors });
 });
-
+router.get('/product', productsController.viewAllProducts)
 /* GET EditProduct page. */
 router.get("/productedit", async function (req, res, next) {
   const errors = {};

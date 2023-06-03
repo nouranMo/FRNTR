@@ -1,101 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/admin.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      .btn {
+        display: inline-block;
+        padding: 6px 10px;
+        font-size: 12px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+      }
 
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="../css/admin.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <style>
-   
+      .btn-make-admin {
+        background-color: #4caf50;
+        color: white;
+      }
 
-   .btn {
-  display: inline-block;
-  padding: 6px 10px;
-  font-size: 12px;
-  font-weight: bold;
-  text-align: center;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-}
-.btn-make-admin {
-  background-color: #4caf50;
-  color: white;
-}
-    .sidebar a.products {
-      background-color: black;
-      color: white;
-    }
+      .sidebar a.products {
+        background-color: black;
+        color: white;
+      }
 
-    .sidebar a:hover:not(.products) {
-      background-color: #555;
-      color: white;
-    }
-  </style>
-  <title>Admin Products</title>
-</head>
+      .sidebar a:hover:not(.products) {
+        background-color: #555;
+        color: white;
+      }
+    </style>
+    <title>Admin Products</title>
+  </head>
 
-<body>
-  <%- include("./partials/adminsidebar.ejs")%>
+  <body>
+    <%- include("./partials/adminsidebar.ejs")%>
     <div class="contenty">
       <%- include("./partials/adminnav.ejs")%>
-        <div class="sideCon">
-          <a class="btn btn-make-admin" href="/adminproduct/addeditproduct">Add Product</a>
-          <div class="header">
-            <h2>All Store Products</h2>
-          </div>
-          <div class="gallery">
-            <div class="row">
-              <% products.forEach((product)=> { %>
-                <div class="content">
-                  <div class="product-image">
-                    <% if (product.imagePath && product.imagePath.length> 0) { %> <% product.imagePath.forEach((path)=>
-                        { %>
-                        <img src="<%= path %>" class="pic-1" style="width: 100%" />
-
-                        <% console.log("hello Image Path:", path); %>
-                          <img src="<%= path %>" class="pic-2" style="width: 100%" />
-
-                          <% }); %>
-                            <div class="link">
-                              <div class="Icon">
-                                <a href="/adminproduct/addeditproduct"><i class="fa-solid fa-plus"></i></a>
-                                <span class="tooltiptext">Add Product</span>
-                              </div>
-                              <div class="Icon">
-                                <a href="/adminproduct/deleteproduct/<%= product.id %>" onclick="return validateProductDeletion('<%= product.id %>','<%= product.productName %>')"><i class="fa-solid fa-trash"></i></a>
-                                <span class="tooltiptext">Delete Product</span>
-                              </div>
-                              <div class="Icon">
-                                <a href="/adminproduct/addeditproduct?id=<%=product._id%>"><i class="fa-solid fa-pen-to-square"></i></a>
-                                <span class="tooltiptext">Edit Product</span>
-                              </div>
-                            </div>
+      <div class="sideCon">
+        <a class="btn btn-make-admin" href="/adminproduct/addeditproduct"
+          >Add Product</a
+        >
+        <div class="header">
+          <h2>All Store Products</h2>
+        </div>
+        <div class="gallery">
+          <div class="row">
+            <% products.forEach((product) => { %>
+            <div class="content">
+              <div class="product-image">
+                <% if (product.imagePath && product.imagePath.length > 0) { %>
+                <% product.imagePath.forEach((path) => { %>
+                <img src="../<%= path %>" class="pic-1" style="width: 100%" />
+                <img src="../<%= path %>" class="pic-2" style="width: 100%" />
+                <% }); %> <% } %>
+                <div class="link">
+                  <div class="Icon">
+                    <a href="/adminproduct/addeditproduct"
+                      ><i class="fa-solid fa-plus"></i
+                    ></a>
+                    <span class="tooltiptext">Add Product</span>
                   </div>
-                  <div class="container">
-                    <h4><b>
-                        <%= product.productName %>
-                      </b></h4>
-                    <p>
-                      <%= product.category %>
-                    </p> <% } %>
+                  <div class="Icon">
+                    <a
+                      href="/adminproduct/deleteproduct/<%= product.id %>"
+                      onclick="return validateProductDeletion('<%= product.id %>','<%= product.productName %>')"
+                      ><i class="fa-solid fa-trash"></i
+                    ></a>
+                    <span class="tooltiptext">Delete Product</span>
+                  </div>
+                  <div class="Icon">
+                    <a href="/adminproduct/addeditproduct?id=<%=product._id%>"
+                      ><i class="fa-solid fa-pen-to-square"></i
+                    ></a>
+                    <span class="tooltiptext">Edit Product</span>
                   </div>
                 </div>
-               
-<% }) %>
+              </div>
+              <div class="container">
+                <h4><b> <%= product.productName %> </b></h4>
+                <p><%= product.category %></p>
+              </div>
             </div>
+            <% }) %>
           </div>
-          
         </div>
+
+        <!-- Pagination links -->
+        <div class="pagination">
+          <% if (currentPage > 1) { %>
+          <a href="/adminproduct/products?page=<%= currentPage - 1 %>"
+            >&laquo; Previous</a
+          >
+          <% } %> <% for (let i = 1; i <= totalPages; i++) { %> <% if (i ===
+          currentPage) { %>
+          <a class="active" href="/adminproduct/products?page=<%= i %>"
+            ><%= i %></a
+          >
+          <% } else { %>
+          <a href="/adminproduct/products?page=<%= i %>"><%= i %></a>
+          <% } %> <% } %> <% if (currentPage < totalPages) { %>
+          <a href="/adminproduct/products?page=<%= currentPage + 1 %>"
+            >Next &raquo;</a
+          >
+          <% } %>
+        </div>
+      </div>
     </div>
     <%- include('./partials/chat.ejs')%>
-
-</body>
-
+  </body>
 </html>
