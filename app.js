@@ -7,14 +7,9 @@ import Furniture from "./models/furniture.js";
 import multer from "multer";
 import path from "path";
 import image from "express-image";
-import * as dotenv from "dotenv";
-<<<<<<< Updated upstream
-import mailchimp from "@mailchimp/mailchimp_marketing";
-=======
 import bodyParser from "body-parser";
-
-
->>>>>>> Stashed changes
+import * as dotenv from "dotenv";
+import mailchimp from "@mailchimp/mailchimp_marketing";
 // Load environment variables from .env file
 dotenv.config();
 

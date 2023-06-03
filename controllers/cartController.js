@@ -1,68 +1,63 @@
-
-import Furniture from "../models/furniture.js";
 import Cart from "../models/cart.js";
-
 
 const cartController = {};
 
 cartController.addToCart = async (req, res) => {
-  //const { productId, productName, productPrice, productQuantity } = req.body;
+  const { productId, productName, productPrice, productQuantity } = req.body;
+  const userId = req.session.user._id;
 
-  const productId = req.body.productId;
-  const productName = req.body.productName;
-  const productPrice = req.body.productPrice;
-  const productQuantity = req.body.productQuantity;
+  try {
+    let cart = await Cart.findOne({ UserId: userId });
+    console.log("Add to cart function", cart, "done here");
 
+    if (cart) {
+      console.log("Cart exists", cart, "done here");
 
-  // Find the cart for the current user
-  let cart = await Cart.find({ _id:req.session.user._id});
+      const item = cart.item.find((item) => item.productId === productId);
+//testtttttt
+      if (item) {
+        const newQuantity = item.quantity + parseInt(productQuantity);
+        console.log("new quantity", newQuantity, "done here");
 
-  if (cart.length>0) {
-    console.log(cart);
+        await Cart.updateOne(
+          { "item.productId": productId },
+          { $set: { "item.$.quantity": newQuantity } }
+        );
+      } else {
+        cart.item.push({
+          productId,
+          productName,
+          productPrice,
+          quantity: parseInt(productQuantity),
+        });
 
-    // If the cart already exists, find the item with the specified productId
-    const item = cart.item.find(item => item.productId === productId);
-    if (item) {
-      // If the item already exists, update its quantity
-      item.quantity += parseInt(productQuantity);
-      let newQuantity=item.quantity;
-      console.log(newQuantity);
-      cart.updateOne(
-        { _id: item.productId },
-        {$set:{productQuantity: parseInt(item.quantity)}});
+        await cart.save();
+      }
     } else {
-      // If the item does not exist, add a new item to the cart
-      cart.item.push({ productId, productName, productPrice, productQuantity: parseInt(productQuantity) });
-      cart.update(
-        { _id: userId },
-        {$push: { item: productId, productName, productPrice, productQuantity: parseInt(productQuantity) }});
+      const newCart = new Cart({
+        UserId: userId,
+        item: [{ productId, productName, productPrice, quantity: parseInt(productQuantity) }],
+      });
+
+      await newCart.save();
+      console.log("saving new cart", newCart, "done here");
     }
 
-    
-  } else {
-    // If the cart does not exist, create a new cart with the item
-    const newCart = new Cart({ userId:req.session.user._id, item: [{ productId, productName, productPrice, quantity: parseInt(productQuantity) }] });
-    cart = await newCart.save();
-    console.log(cart)
+    res.redirect('/cart');
+  } catch (error) {
+    console.error("An error occurred while adding to cart:", error);
+    res.redirect('/error');
   }
-
-  res.redirect('/cart');
 };
 
-
-  // get cart items
-  cartController.getCart = async (req, res) => {
-    // Find the cart for the current user
-    const cart = await Cart.findOne({ userId: req.session.userId });
-    if (cart) {
-      // If the cart exists, populate the items in the cart
-      await cart.populate('items.productId').execPopulate();
-    }
+cartController.getCart = async (req, res) => {
+  try {
+    const cart = await Cart.findOne({ UserId: req.session.user._id }).populate('item.productId');
     res.render('cart', { cart });
-  };
-
-
+  } catch (error) {
+    console.error("An error occurred while retrieving the cart:", error);
+    res.redirect('/error');
+  }
+};
 
 export default cartController;
-
-
