@@ -21,6 +21,7 @@
     "@mailchimp/mailchimp_marketing": "^3.0.80",
     "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
     "dotenv": "^16.0.3",
     "dropzone": "^6.0.0-beta.2",
     "ejs": "^3.1.9",
