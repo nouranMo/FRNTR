@@ -177,11 +177,12 @@ const productsController = {
   },
   editUser: async (req, res) => {
 
-    console.log("the user id is: " + userID);
+    
     console.log("initiated user edit in backend");
     
     try {
       const { id, firstName, lastName, email, address, address2 } = req.body;
+      console.log(req.body);
       // Use the extracted values to update the user in your database
       const updatedUser = await user.findByIdAndUpdate(id, {
         firstName: firstName,
@@ -190,9 +191,9 @@ const productsController = {
         address: address,
         address2: address2,
       });
-  
+      console.log("updated user", updatedUser);
       // Once the user is updated successfully, you can send a response indicating success
-      res.status(200).json({ message: "User updated successfully" });
+      res.redirect('/admin/customers');
     } catch (error) {
       // If an error occurs during the update process, you can send an error response
       console.error("Error updating user:", error);
