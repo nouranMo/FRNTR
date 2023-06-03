@@ -56,6 +56,8 @@ furnitureController.createFurniture = async (req, res) => {
         comments: comments,
         photo: uploadedImagePaths,
         size:measurements,
+        sold,
+        offer,
       });
   
       // Save the new furniture item to the database

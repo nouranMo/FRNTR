@@ -29,7 +29,7 @@ router.get('/statistics', function(req, res, next) {
 router.get('/reviews', function(req, res, next) {
     res.render('reviews');
   });
-
+  router.post('/editUser',productsController.editUser)
   /* GET orders page. */
 router.get('/orders', function(req, res, next) {
     res.render('orders');
@@ -41,7 +41,7 @@ router.get('/orders', function(req, res, next) {
   router.get('/deleteUser/:id',productsController.deleteUser);
   router.get('/lowInStock', productsController.LowInStock);
   router.get('/offer',productsController.Offers);
-
+  
 
   /* GET customers page. */
 // Export the router
