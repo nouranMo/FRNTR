@@ -32,7 +32,7 @@ mailchimp.setConfig({
 });
 
 const run = async () => {
-  const response = await mailchimp.lists.getList("2d4d9e0eaa");
+  const response = await mailchimp.ping.get();
   console.log(response);
 };
 

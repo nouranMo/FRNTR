@@ -495,6 +495,19 @@ function confirmChangeUserToClient(userId) {
 
   return false; // Prevent the default link action
 }
+function confirmDeleteUser(userId,userEmail) {
+  showConfirmationModal(
+    `Are you sure you want to delete the user with the email: ${userEmail}` ,
+    (confirmed) => {
+      if (confirmed) {
+        // Proceed with the link action
+        window.location.href = `/admin/deleteUser/${userId}`;
+      }
+    }
+  );
+
+  return false; // Prevent the default link action
+}
 function validateProductDeletion(productID, productName) {
   showConfirmationModal(
     "Are you sure you want to delete the product with the name: " + productName + "?",

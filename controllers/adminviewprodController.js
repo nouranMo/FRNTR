@@ -138,6 +138,25 @@ const productsController = {
       }
     
   },
+  deleteUser: async(req,res)=>{
+    try{
+      const userID = req.params.id;
+      console.log(userID);
+      const targetUser = await user.findById(userID);
+    if (!targetUser) {
+      return res.render("404", { message: "User not found" });
+    }
+    else{
+      await user.findByIdAndDelete(userID);
+      res.redirect('/admin/customers');
+    }
+  }
+  catch(error)
+  {
+    console.error("Error deleting the user: ", error);
+    res.render("404",{message:"Failed to change the user"});
+  }
+  },
   };
   
   export default productsController;
