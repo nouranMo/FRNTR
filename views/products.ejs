@@ -14,7 +14,20 @@
   <style>
    
 
-
+   .btn {
+  display: inline-block;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+.btn-make-admin {
+  background-color: #4caf50;
+  color: white;
+}
     .sidebar a.products {
       background-color: black;
       color: white;
@@ -33,6 +46,7 @@
     <div class="contenty">
       <%- include("./partials/adminnav.ejs")%>
         <div class="sideCon">
+          <a class="btn btn-make-admin" href="/adminproduct/addeditproduct">Add Product</a>
           <div class="header">
             <h2>All Store Products</h2>
           </div>
