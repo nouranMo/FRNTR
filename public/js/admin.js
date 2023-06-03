@@ -428,6 +428,115 @@ function validateImages() {
 // }
 // confirmation.js
 
+function showEditUserModal(userDetails, callback) {
+  const modalContainer = document.createElement("div");
+  modalContainer.classList.add("edit-user-modal");
+
+  const modalContent = document.createElement("div");
+  modalContent.classList.add("edit-user-modal-content");
+
+  const labelsAndInputs = [
+    { label: "First Name:", input: userDetails.firstName },
+    { label: "Last Name:", input: userDetails.lastName },
+    { label: "Email:", input: userDetails.email },
+    { label: "Address 1:", input: userDetails.address },
+    { label: "Address 2:", input: userDetails.address2 },
+  ];
+
+  labelsAndInputs.forEach((item) => {
+    const label = document.createElement("label");
+    label.textContent = item.label;
+
+    const input = document.createElement("input");
+    input.type = "text";
+    input.value = item.input;
+
+    modalContent.appendChild(label);
+    modalContent.appendChild(input);
+  });
+
+  const saveButton = document.createElement("button");
+  saveButton.textContent = "Save";
+  saveButton.classList.add("btn", "btn-save-user");
+
+  const cancelButton = document.createElement("button");
+  cancelButton.textContent = "Cancel";
+  cancelButton.classList.add("btn", "btn-cancel-user");
+
+  modalContent.appendChild(saveButton);
+  modalContent.appendChild(cancelButton);
+
+  modalContainer.appendChild(modalContent);
+  document.body.appendChild(modalContainer);
+
+  saveButton.addEventListener("click", () => {
+    const updatedUserDetails = {};
+
+    labelsAndInputs.forEach((item, index) => {
+      updatedUserDetails[item.label.replace(":", "")] =
+        modalContent.children[index * 2 + 1].value;
+    });
+
+    callback(updatedUserDetails);
+    closeModal();
+  });
+
+  cancelButton.addEventListener("click", () => {
+    callback(null); // Pass null to indicate cancellation
+    closeModal();
+  });
+
+  function closeModal() {
+    document.body.removeChild(modalContainer);
+  }
+}
+
+
+function confirmEditUser(userId, email, firstName, lastName, address, address2) {
+  const userDetails = {
+    id:userId,
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    address: address,
+    address2: address2,
+  };
+
+  showEditUserModal(userDetails, (updatedUserDetails) => {
+    if (updatedUserDetails) {
+      const updatedFirstName = updatedUserDetails.firstName;
+      const updatedLastName = updatedUserDetails.lastName;
+      const updatedEmail = updatedUserDetails.email;
+      const updatedAddress = updatedUserDetails.address;
+      const updatedAddress2 = updatedUserDetails.address2;
+      console.log(updatedAddress + updatedAddress2 + updatedFirstName);
+      const formData = new FormData();
+      formData.append("id",userId)
+      formData.append("firstName", updatedFirstName);
+      formData.append("lastName", updatedLastName);
+      formData.append("email", updatedEmail);
+      formData.append("address", updatedAddress);
+      formData.append("address2", updatedAddress2);
+
+      fetch(`/admin/editUser`, {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Response from the backend:", data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    } else {
+      console.log("Edit canceled");
+    }
+  });
+
+  return false;
+}
+
 function showConfirmationModal(message, callback) {
   const modalContainer = document.createElement("div");
   modalContainer.classList.add("confirmation-modal");

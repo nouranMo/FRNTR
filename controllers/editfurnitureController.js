@@ -5,7 +5,7 @@ const editfurnitureController = {};
 
 editfurnitureController.editFurniture = async (req, res) => {
     // Extract data from the request body
-    const { productname, category, color, price, quantity, comments, measurements } = req.body;
+    const { productname, category, color, price,offer, quantity, comments, measurements } = req.body;
     const uploadedImagePaths = JSON.parse(req.body.uploadedImagePaths);
     const id = req.body.id;
     // Backend validation
@@ -58,6 +58,7 @@ editfurnitureController.editFurniture = async (req, res) => {
       existingFurniture.comments = comments.trim();
       existingFurniture.photo = uploadedImagePaths;
       existingFurniture.size = measurements.trim();
+      existingFurniture.offer = offer;
   
       // Save the updated furniture item to the database
       await existingFurniture.save();
