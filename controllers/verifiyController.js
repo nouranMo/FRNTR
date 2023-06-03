@@ -1,4 +1,4 @@
-// loginController.js
+// verifiyController.js
 import bcrypt from "bcryptjs"
 import User from "../models/user.js";
 import VerificationToken from "../models/token.js";
@@ -7,8 +7,8 @@ import nodemailer from "nodemailer";
 const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-      user: 'nnouranmohamed19@gmail.com', // Replace with your Gmail email address
-      pass: 'lfbaljyywdgfzouh', // Replace with your Gmail password
+      user: 'projectfrntr@gmail.com', // Sender Email
+      pass: 'szuzlstihutpziej', 
     },
   });
 const verifiyController = {}; 
@@ -47,10 +47,10 @@ verifiyController.verifiy = async(req, res) => {
        await token.save();
 
        const mailOptions = {
-        from: 'nnouranmohamed19@gmail.com',
+        from: 'projectfrntr@gmail.com',
         to: result.email,
         subject: 'Email Verification',
-        text: `Hello ${result.firstName} ${result.lastName},\n\nPlease verify your email by clicking the following link: \n\nhttp://localhost:4040/auth/verify/${token.token}`,
+        text: `Hello ${result.firstName} ${result.lastName},\n\nPlease verify your email by clicking the following link: \n\nhttp://frntr.store/auth/verify/${token.token}`,
        }
 
        transporter.sendMail(mailOptions, (error) => {
