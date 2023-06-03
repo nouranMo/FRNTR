@@ -38,6 +38,7 @@ router.get('/orders', function(req, res, next) {
   router.get('/customers', productsController.viewAllUsers);
   router.get('/beAdmin/:id',productsController.beAdmin);
   router.get('/beClient/:id',productsController.beClient);
+  router.get('/deleteUser/:id',productsController.deleteUser);
   router.get('/lowInStock', productsController.LowInStock);
   router.get('/offer',productsController.Offers);
 

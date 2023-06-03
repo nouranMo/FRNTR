@@ -876,7 +876,14 @@ text-decoration: none;
   background-color: #777777;
   color: white;
 }
-
+.btn-delete-user{
+  background-color: red;
+  color:white;
+}
+.btn-edit-user{
+  background-color: #2196f3;
+  color:white;
+}
 .btn:hover {
   background-color: #555555;
 }

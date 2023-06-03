@@ -66,6 +66,8 @@
                       <% } else{ %>
                         <a class="btn btn-make-client" href="/admin/beClient/<%= Users.id %>" onclick="return confirmChangeUserToClient('<%= Users.id %>')">Make Client</a>
                         <% } %>
+                        <a class="btn btn-delete-user" href="/admin/deleteUser/<%= Users.id %>" onclick="return confirmDeleteUser('<%= Users.id %>','<%= Users.email%>')">Delete User</a>
+                        <a class="btn btn-edit-user" href="/admin/editUser/<%= Users.id %>" onclick="return confirmEditUser('<%= Users.id %>')">Edit User</a>
                   </p>
                  </div>
                 </div>
