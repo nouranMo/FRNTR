@@ -125,7 +125,7 @@
           <div class="col-md-3">
             <div class="products">
               <div class="product-image">
-                <a href="/product/itemPage/<%=products._id%>" class="images">
+                <a href="/product/itempage?id=<%= products._id %>&category=<%= products.category %>" class="images">
                 <% if (products.photo && products.photo.length > 0) { %>
                  
                    
