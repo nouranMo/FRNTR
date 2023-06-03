@@ -17,21 +17,25 @@ const productsController = {
             product.imagePath = product.photo.map((photo)=>photo.replace(/\\/g, '/').replace('public/',''));
           }
         });
-  
+        if (products.length === 0) {
+          // If no low stock items, render the page without passing lowStock or imagePath
+          res.render("products",{products});
+        } else {
+          // If there are low stock items, render the page with lowStock and imagePath
+          res.render("products", {  products, imagePath: products[0].imagePath  });
+    
+        }
         // Render the "products" view and pass the products data
-        res.render("products", {  products, imagePath: products[0].imagePath  });
-      } 
+         } 
       catch (error) {
         // Handle error if retrieval fails
         console.error("Error retrieving products:", error);
-        res.render("404", { message: "Failed to retrieve products" });
+        res.render("404", { message: "Failed to retrieve products" ,user:req.session.user===undefined?"":req.session.user});
       }
     },
     LowInStock: async (req, res) => {
       try {
         console.log("Inside LowInStock");
-    
-        // Retrieve products with quantities less than 10 from the database
         const lowStock = await Furniture.find({ quantity: { $lt: 10 } });
     
         console.log("Retrieved low stock products from the database:", lowStock);
@@ -40,22 +44,30 @@ const productsController = {
           if (product.photo && product.photo.length > 0) {
             product.imagePath = product.photo.map((photo) =>
               photo.replace(/\\/g, "/").replace("public/", "")
-              
             );
-            console.log(product.photo)
+            console.log(product.photo);
           }
         });
-      
-          // For other routes under /admin, render the same view but pass the lowStock and imagePath
-          res.render("dashboard", {lowStock, imagePath: lowStock[0].imagePath,});  
-     
-        } 
-        catch (error) {
-        // Handle error if retrieval fails
+    
+        if (lowStock.length === 0) {
+          // If no low stock items, render the page without passing lowStock or imagePath
+          res.render("dashboard",{lowStock});
+        } else {
+          // If there are low stock items, render the page with lowStock and imagePath
+          res.render("dashboard", {
+            lowStock, 
+            imagePath: lowStock[0].imagePath,
+          });
+        }
+      } catch (error) {
         console.error("Error retrieving low stock products:", error);
-        res.render("404", { message: "Failed to retrieve low stock products" });
+        res.render("404", {
+          message: "Failed to retrieve low stock products",
+          user: req.session.user === undefined ? "" : req.session.user,
+        });
       }
     },
+    
     Offers: async (req, res) => {
       try {
         console.log("Inside offers");
@@ -73,9 +85,15 @@ const productsController = {
             console.log( "offer", product.photo);
           }
         });
-    
-        res.render("offers", {  offers , imagePath: offers[0].imagePath});
-      } catch (error) {
+        if(offers.length===0)
+        {
+          res.render("offers",{offers});
+        }
+        else{
+          res.render("offers", {  offers , imagePath: offers[0].imagePath});
+     
+        }
+        } catch (error) {
         // Handle error if retrieval fails
         console.error("Error retrieving products with offers:", error);
         res.status(500).render("404", { message: "Failed to retrieve products with offers",user:req.session.user===undefined?"":req.session.user});

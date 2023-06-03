@@ -19,11 +19,6 @@ const furnitureSchema = new mongoose.Schema({
     required: true,
     min: 1
   },
-  offer: {
-    type: Number,
-    required: false,
-    default:0
-  },
   quantity: {
     type: Number,
     required: true,
@@ -35,7 +30,12 @@ const furnitureSchema = new mongoose.Schema({
   },
   sold:{
     type:Number,
-    required:false,
+    required:true,
+    default:0
+  },
+  offer:{
+    type: Number,
+    required: true,
     default:0
   },
   size:{
