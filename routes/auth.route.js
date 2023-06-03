@@ -4,6 +4,7 @@ import VerificationToken from"../models/token.js";
 import signupController from '../controllers/signupController.js';
 import loginController from '../controllers/loginControllers.js';
 import verifiyController from'../controllers/verifiyController.js';
+import forgetpassController from '../controllers/forgetpassController.js';
 // Create a new router instance
 var router = Router();
 
@@ -29,6 +30,18 @@ router.get('/verify/:token',verifiyController.active);
 
 
 router.post("/verifiy",verifiyController.verifiy);
+
+
+router.get('/forgetpassword', function(req, res, next) {
+  const errors = '';
+    res.render('forgetpassword',{errors,user:req.session.user===undefined?"":req.session.user});
+  });
+
+  
+router.post('/forgetpassword',forgetpassController.forgetpass);
+
+router.get('/forget-password/:token',forgetpassController.forgetPasswordLoad);
+router.post('/forget-password',forgetpassController.resetpassword);
 
 router.get('/login',function(req,res,next){
   const errors = '';

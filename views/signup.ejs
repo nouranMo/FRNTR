@@ -50,7 +50,10 @@
             <div id="last" class="err"><%= errors && errors.lastname ? errors.lastname : '' %></div>
           
             <input id="ema" type="email" class="elemen" name="email" placeholder="Email">
-            <div id="em" class="err"><%= errors && errors.email ? errors.email : '' %></div>
+            <div id="em" class="err"><% if(errors && errors.email) { %>
+                <%=errors.email%> <a href="/auth/forgetpassword">"reset your password</a>
+                <%}%>
+            </div>
 
              <input id="add" type="text" class="elemen" name="address" placeholder="Address">
             <div id="ad" class="err"><%= errors && errors.address ? errors.address : '' %></div>

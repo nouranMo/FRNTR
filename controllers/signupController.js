@@ -43,7 +43,7 @@ signupController.signup = async (req, res) => {
 
   const existingUser = await User.findOne({ email });
   if (existingUser) {
-    errors.email = "Email already exists!";
+    errors.email = "Email already exists!.If this account is yours, you can";
   }
 
   if (pas === "") {

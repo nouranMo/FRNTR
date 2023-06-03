@@ -36,6 +36,11 @@ const userSchema = new mongoose.Schema({
     type:Boolean,
     default:false
   },
+
+  token:{
+    type:String,
+    default:''
+  },
   createdAt: {
     type: Date,
     default: Date.now
@@ -45,3 +50,4 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 export default User;
+;
