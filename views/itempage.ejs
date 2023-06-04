@@ -143,9 +143,10 @@
                       <button class="plus" onclick="increment()"><i class="fa fa-plus"></i></button>
                     </div>
                     <button class="button-addto" onclick="addToCart('<%=product._id%>' , '<%=product.productName%>' , '<%=product.price%>', '<%=product.quantity%>' )"> <span class="">Add to cart</span></button>
-                    <a href="#"><i class="material-symbols-outlined">
+                    <button class="button-addto" onclick="addToWishlist('<%=product._id%>' , '<%=product.productName%>' , '<%=product.price%>', '<%=product.quantity%>'  )"><i class="material-symbols-outlined">
                         favorite
-                      </i></a>
+                      </i>
+                    </button>>
     
                   </div>
                   <div class="row2">
@@ -469,6 +470,10 @@
       </div>
       <script src="/../js/itemPage.js"></script>
        <script type="text/javascript"  src="/js/ajax-cart.js"></script>
+      <script type="text/javascript"  src="/js/ajax-wishlist.js"></script>
+      <script>
+
+      </script>
 
       <%- include("./partials/chat.ejs")%>
       <%- include("./partials/footer.ejs")%>

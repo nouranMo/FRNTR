@@ -33,16 +33,23 @@
     </div>
 
     <div class="fullWishlistContainer">
+      <%wishlist.item.forEach((items) => { %>
       <div class="wishlistItemContainer">
         <div class="wishlistImageContainer">
-          <img src="../images/BlueBed.webp" width="100px" height="100px" />
+          <img src="<%= products.find(products => products.id === items.productId).photo[0] %>" width="100px" height="100px" />
         </div>
         <div class="wishlistTexts">
           <a href="index" id="websiteLink">FRNTR</a>
-          <div style="font-weight: bold">Nova Upholstered Platform Bed</div>
+          <div style="font-weight: bold"><%=items.productName%></div>
           <div>
-            <s>16,100.00 EGP</s> <span style="color: red">8,200.00</span>
+            <s>16,100.00 EGP</s> <span style="color: red"><%=items.productPrice%></span>
+            
           </div>
+          <span>Stock:  <%=items.productQuantity%></span><button
+          class="material-symbols-outlined" style="padding:0;"
+          id="trash"
+          onclick="removeFromCart('<%=items.productId%>','<%=items.productName%>' , '<%=items.productPrice%>', '<%=items.quantity%>')">
+          delete</button>
 
           <div id="insideInfo">
             <p style="font-size: 10px">
@@ -55,14 +62,19 @@
         <div class="buttonContainer">
           <button id="viewButton">
             <span id="viewMessage">View</span
-            ><span class="material-symbols-outlined" id="eyeIcon"
-              >visibility</span
-            >
+            > <a href="/product/itempage?id=<%=items.productId %>&category=<%= products.find(products => products.id === items.productId).category %>">
+              <span class="material-symbols-outlined" id="eyeIcon"
+            >visibility</span
+          ></a>
           </button>
+          
         </div>
       </div>
+      <%});%>
     </div>
     <%- include("./partials/chat.ejs")%> <%- include("./partials/footer.ejs")%>
     <script type="text/javascript" src="../js/handler.js"></script>
+    <script type="text/javascript"  src="/js/ajax-wishlist.js"></script>
+
   </body>
 </html>
