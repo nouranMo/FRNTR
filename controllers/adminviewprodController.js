@@ -53,6 +53,85 @@ const productsController = {
       });
     }
   },
+  viewAllCategoryProducts: async (req, res) => {
+    try {
+      console.log("Inside viewAllProducts");
+
+      // Retrieve all products from the database
+      let products = await Furniture.find();
+
+      console.log("Retrieved products from the database:", products);
+
+      products.forEach((product) => {
+        if (product.photo && product.photo.length > 0) {
+          product.imagePath = product.photo.map((photo) =>
+            photo.replace(/\\/g, "/").replace("public/", "")
+          );
+        }
+      });
+
+      // Filter products by name if search query is provided
+      const searchQuery = req.query.search;
+      if (searchQuery) {
+        products = products.filter((product) =>
+          product.productName.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      }
+      const categoryQuery = req.query.category;
+      if(categoryQuery){
+        if(categoryQuery!="allcategories")
+        {
+        products = products.filter((product) =>
+          product.category.toLowerCase().includes(categoryQuery.toLowerCase())
+          
+        );
+        }
+      }
+      // Calculate pagination variables
+      const currentPage = parseInt(req.query.page) || 1; // Current page number
+      const itemsPerPage = 10; // Number of products to display per page
+      const totalItems = products.length; // Total number of products
+      const totalPages = Math.ceil(totalItems / itemsPerPage); // Total number of pages
+
+      // Get the products for the current page
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+      const currentProducts = products.slice(startIndex, endIndex);
+
+      // Find the highest and lowest prices
+    const highestPrice = Math.max(...products.map((product) => product.price));
+    const lowestPrice = Math.min(...products.map((product) => product.price));
+    
+    console.log("Highest Price:", highestPrice);
+    console.log("Lowest Price:", lowestPrice);
+
+    // Check if a filter has been applied
+    const minPrice = parseInt(req.query.minPrice);
+    const maxPrice = parseInt(req.query.maxPrice);
+
+    if (!isNaN(minPrice) && !isNaN(maxPrice)) {
+      // Filter the products based on the price range
+      products = products.filter(
+        (product) => product.price >= minPrice && product.price <= maxPrice
+      );
+    }
+      res.render("clientproduct", {
+        user: req.session.user === undefined ? "" : req.session.user,
+        product: currentProducts,
+        lowestPrice,
+        highestPrice,
+        currentPage,
+        totalPages,
+      });
+    } catch (error) {
+      // Handle error if retrieval fails
+      console.error("Error retrieving products:", error);
+      res.render("404", {
+        message: "Failed to retrieve products",
+        user: req.session.user === undefined ? "" : req.session.user,
+      });
+    }
+  },
 
   LowInStock: async (req, res) => {
     try {

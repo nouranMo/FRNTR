@@ -64,7 +64,7 @@ editfurnitureController.editFurniture = async (req, res) => {
       await existingFurniture.save();
       console.log("Updated furniture item:", existingFurniture);
       const products = await Furniture.find();
-      return res.redirect("/product")
+      return res.redirect("/adminproduct/product");
     } catch (error) {
       console.error("Error updating furniture item:", error);
       errors.general = "Failed to update item";
@@ -89,7 +89,7 @@ editfurnitureController.editFurniture = async (req, res) => {
           }
         }
         await Furniture.findByIdAndDelete(productId);
-        res.redirect('/product');
+        res.redirect('/adminproduct/product');
       }
     } catch (error) {
       console.error("Error deleting item:", error);
