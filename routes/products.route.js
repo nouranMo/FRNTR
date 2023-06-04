@@ -11,6 +11,6 @@ router.get('/itempage',itemproductdetail.detail);
 router.get('/clientproduct/:category', userviewproduct.userview);
 
 router.get('/filter',userviewproduct.filtering);
-
+router.post('/review',furnitureController.getreview);
 
 export default router;

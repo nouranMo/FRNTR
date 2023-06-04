@@ -287,12 +287,12 @@
                         <button class="review-btn" onclick="showReviewForm()">Write a review</button>
                         
                         <div class="popup">
-                          <form id="review-form" style="display: none;">
-                           
+                          <form id="review-form" method="POST" action="/product/review" style="display: none;">
+                           <input type="hidden" name="id" value="<%=product._id%>">
                             <label for="review-text"> Leave a review for the ( <%= product.productName%> )</label>
                             <textarea id="review-text" name="review" placeholder="Enter your review here:"></textarea>
                             <button type="submit">Submit</button> 
-                            <button id="close-button" onclick="closeReviewForm()">Close</button>
+                            <button id="close-button">Close</button>
                           </form>
                      
                         </div>
