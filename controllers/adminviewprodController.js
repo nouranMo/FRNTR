@@ -27,7 +27,25 @@ const productsController = {
         );
       }
       
-      
+      const sortQuery = req.query.sort;
+      if (sortQuery) {
+        if (sortQuery === "atoz") {
+          // Sort products alphabetically: A to Z
+          products.sort((a, b) => a.productName.localeCompare(b.productName));
+        } else if (sortQuery === "ztoa") {
+          // Sort products alphabetically: Z to A
+          products.sort((a, b) => b.productName.localeCompare(a.productName));
+        } else if (sortQuery === "lowtohigh") {
+          // Sort products by price: Low to High
+          products.sort((a, b) => a.price - b.price);
+        } else if (sortQuery === "hightolow") {
+          // Sort products by price: High to Low
+          products.sort((a, b) => b.price - a.price);
+        } else if (sortQuery === "oldtonew") {
+          // Sort products by date: Old to New
+          products.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+        }
+      }
       
       // Calculate pagination variables
       const currentPage = parseInt(req.query.page) || 1; // Current page number
@@ -41,10 +59,11 @@ const productsController = {
       const currentProducts = products.slice(startIndex, endIndex);
 
       res.render("products", {
+        user: req.session.user === undefined ? "" : req.session.user,
         products: currentProducts,
         currentPage,
         totalPages,
-        imagePath: currentProducts[0].imagePath,
+        searchQuery,
       });
     } catch (error) {
       // Handle error if retrieval fails
