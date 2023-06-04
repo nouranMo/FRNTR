@@ -94,16 +94,16 @@ furnitureController.uploadImage = async (req, res) => {
 
 furnitureController.getreview = async (req, res) => {
   console.log("in function");
-  const {id, review}=req.body;
- const updatereview= await Furniture.findByIdAndUpdate({_id:id} ,{$set:{review:review }})
- const product = await Furniture.findById({_id:id});
- if(updatereview){
+  const {id, review,category}=req.body;
+//  const updatereview= await Furniture.findByIdAndUpdate({_id:id} ,{$set:{review:review }})
+//  const product = await Furniture.findById({_id:id});
+const furniture = await Furniture.findById({_id:id});
+ if(furniture){
     console.log("updated review");
-    const updateUser=await User.findByIdAndUpdate({_id:req.session.user._id},{$set:{review:review}})
-      req.session.user.review = review;
-      console.log( req.session.user.review);
-      // res.render("itempage",{product,user:req.session.user===undefined?"":req.session.user})
-      res.redirect("/")
+    furniture.review.push(review);
+    const updatedFurniture = await furniture.save();    
+    console.log(updatedFurniture);
+      res.redirect("/product/itempage?id="+id+"&category="+category)
       console.log("after redirect ?");
   }else{
     console.log("errrroorr")
