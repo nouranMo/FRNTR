@@ -1,53 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <link rel="stylesheet" href="../css/admin.css" />
-  <link rel="stylesheet" href="../css/cartsidebar.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-  <style>
-    .sidebar a.customers {
-      background-color: black;
-      color: white;
-    }
+  <head>
+    <link rel="stylesheet" href="../css/admin.css" />
+    <link rel="stylesheet" href="../css/cartsidebar.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <style>
+      .sidebar a.customers {
+        background-color: black;
+        color: white;
+      }
 
-    .sidebar a:hover:not(.customers) {
-      background-color: #555;
-      color: white;
-    }
+      .sidebar a:hover:not(.customers) {
+        background-color: #555;
+        color: white;
+      }
 
-    .row {
-      justify-content: center;
-      align-items: center;
-    }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <title>Admin Users</title>
-</head>
-<body>
-  <%- include("./partials/adminsidebar.ejs")%>
-  <div class="contenty">
-    <%- include("./partials/adminnav.ejs")%>
-    <div class="sideCon">
-      <div class="header">
-        <h2>Registered Customers</h2>
-      </div>
-      <div class="search-container">
-        <div class="search-bar">
-          <form action="/admin/customers" method="GET">
-            <input type="text" name="search" placeholder="Search by email" />
-            <button type="submit">Search</button>
-          </form>
+      .row {
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Admin Users</title>
+  </head>
+  <body>
+    <%- include("./partials/adminsidebar.ejs")%>
+    <div class="contenty">
+      <%- include("./partials/adminnav.ejs")%>
+      <div class="sideCon">
+        <div class="header">
+          <h2>Registered Customers</h2>
         </div>
-      </div>  
-      <div class="gallery">
-        <div class="row">
-          <% Users.forEach((user) => { %>
+        <div class="search-container">
+          <div class="search-bar">
+            <form action="/admin/customers" method="GET">
+              <input type="text" name="search" placeholder="Search by email" />
+              <button type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+        <div class="gallery">
+          <div class="row">
+            <% Users.forEach((user) => { %>
             <div class="fullrev">
               <div class="content-z">
                 <div class="content-x">
-                  <img src="../images/user (1).png" alt="Avatar" style="width: 100%" />
+                  <img
+                    src="../images/user (1).png"
+                    alt="Avatar"
+                    style="width: 100%"
+                  />
                 </div>
                 <div class="container-x">
                   <h6><%= user.firstName %></h6>
@@ -56,53 +66,68 @@
               <div class="rev">
                 <div class="container-z">
                   <p>
-                    <%= user.email %><br>
+                    <%= user.email %><br />
                     <%= user.userType %>
                   </p>
                   <div class="status">
                     <p>
                       <% if (user.userType === 'client') { %>
-                        <a class="btn btn-make-admin" href="/admin/beAdmin/<%= user.id %>"
-                          onclick="return confirmChangeUserToAdmin('<%= user.id %>')">Make Admin</a>
+                      <a
+                        class="btn btn-make-admin"
+                        href="/admin/beAdmin/<%= user.id %>"
+                        onclick="return confirmChangeUserToAdmin('<%= user.id %>')"
+                        >Make Admin</a
+                      >
                       <% } else { %>
-                        <a class="btn btn-make-client" href="/admin/beClient/<%= user.id %>"
-                          onclick="return confirmChangeUserToClient('<%= user.id %>')">Make Client</a>
+                      <a
+                        class="btn btn-make-client"
+                        href="/admin/beClient/<%= user.id %>"
+                        onclick="return confirmChangeUserToClient('<%= user.id %>')"
+                        >Make Client</a
+                      >
                       <% } %>
-                      <a class="btn btn-delete-user" href="/admin/deleteUser/<%= user.id %>"
-                        onclick="return confirmDeleteUser('<%= user.id %>','<%= user.email %>')">Delete User</a>
-                      <a class="btn btn-edit-user" href="/admin/editUser"
-                        onclick="return confirmEditUser('<%= user.id %>','<%= user.email %>','<%= user.firstName %>','<%= user.lastName %>','<%= user.address %>','<%= user.address2 %>')">Edit User</a>
+                      <a
+                        class="btn btn-delete-user"
+                        href="/admin/deleteuser/<%= user.id %>"
+                        onclick="return confirmDeleteUser('<%= user.id %>','<%= user.email %>')"
+                        >Delete User</a
+                      >
+                      <a
+                        class="btn btn-edit-user"
+                        href="/admin/editUser"
+                        onclick="return confirmEditUser('<%= user.id %>','<%= user.email %>','<%= user.firstName %>','<%= user.lastName %>','<%= user.address %>','<%= user.address2 %>')"
+                        >Edit User</a
+                      >
                     </p>
                   </div>
                 </div>
               </div>
             </div>
-          <% }) %>
+            <% }) %>
+          </div>
+        </div>
+
+        <!-- Pagination links -->
+        <div class="pagination">
+          <% if (currentPage > 1) { %>
+          <a href="/admin/customers?page=<%= currentPage - 1 %>"
+            >&laquo; Previous</a
+          >
+          <% } %> <% for (let i = 1; i <= totalPages; i++) { %> <% if (i ===
+          currentPage) { %>
+          <a class="active" href="/admin/customers?page=<%= i %>"><%= i %></a>
+          <% } else { %>
+          <a href="/admin/customers?page=<%= i %>"><%= i %></a>
+          <% } %> <% } %> <% if (currentPage < totalPages) { %>
+          <a href="/admin/customers?page=<%= currentPage + 1 %>"
+            >Next &raquo;</a
+          >
+          <% } %>
         </div>
       </div>
 
-      <!-- Pagination links -->
-      <div class="pagination">
-        <% if (currentPage > 1) { %>
-          <a href="/admin/customers?page=<%= currentPage - 1 %>">&laquo; Previous</a>
-        <% } %>
-
-        <% for (let i = 1; i <= totalPages; i++) { %>
-          <% if (i === currentPage) { %>
-            <a class="active" href="/admin/customers?page=<%= i %>"><%= i %></a>
-          <% } else { %>
-            <a href="/admin/customers?page=<%= i %>"><%= i %></a>
-          <% } %>
-        <% } %>
-
-        <% if (currentPage < totalPages) { %>
-          <a href="/admin/customers?page=<%= currentPage + 1 %>">Next &raquo;</a>
-        <% } %>
-      </div>
+      <%- include('./partials/chat.ejs')%>
     </div>
-
-    <%- include('./partials/chat.ejs')%>
-  </div>
-  <script src="../js/admin.js"></script>
-</body>
+    <script src="../js/admin.js"></script>
+  </body>
 </html>
