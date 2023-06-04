@@ -95,7 +95,6 @@ editfurnitureController.editFurniture = async (req, res) => {
       console.error("Error deleting item:", error);
       res.render("404", { message: "Failed to delete item" });
     }
-    
   };
 
 export default editfurnitureController;

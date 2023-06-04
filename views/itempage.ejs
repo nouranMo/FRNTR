@@ -319,13 +319,16 @@
           </div>
           <div class="viewproduct">
             <div class="row">
+              <% products.forEach((prod) => { %>
               <div class="col-md-3">
                 <div class="products">
                   <div class="product-image">
+                    <% if (prod.photo && prod.photo.length > 0) { %>
                     <a href="" class="images">
-                      <img src="/../images/Bilski_50_22_Square_Arm_Loveseat_3.jpg" alt="" class="pic-1">
-                      <img src="/../images/Bilski_50_22_Square_Arm_Loveseat_4.jpg" alt="" class="pic-2">
+                      <img src="<%= prod.photo[0]%>" alt="" class="pic-1">
+                      <img src="<%= prod.photo[1]%>" alt="" class="pic-2">
                     </a>
+                    <% } %>
                     <span class="discount">-26%</span>
     
     
@@ -348,16 +351,16 @@
                   </div>
                   <div class="Content">
                     <h3 class="product-title">
-                      Leonie Design Sofa / 125 x 94 CM Linen Upholstery
+                    <%=prod.productName%>
                     </h3>
                     <del>10,680.00 EGP</del>
-                    <ins class="in">7,920.00 EGP</ins>
+                    <ins class="in"> <%=prod.price%> EGP</ins>
                   </div>
                 </div>
               </div>
     
-    
-    
+              <% }) %>
+<!--     
               <div class="col-md-3">
                 <div class="products">
                   <div class="product-image">
@@ -400,7 +403,7 @@
           </div>
         </div>
       </div>
-    
+     -->
       <div class="recentpreview">
     
         <div class="innerprod">
@@ -420,6 +423,7 @@
                       <img src="/../images/Nova_Velvet_Upholstered_Platform_Bed_10.webp" alt="" class="pic-1">
                       <img src="/../images/Nova_Velvet_Upholstered_Platform_Bed_6.webp" alt="" class="pic-2">
                     </a>
+                  
                     <span class="discount">-53%</span>
     
                     <div class="links">

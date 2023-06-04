@@ -7,6 +7,7 @@ import Furniture from "./models/furniture.js";
 import multer from "multer";
 import path from "path";
 import image from "express-image";
+import bodyParser from "body-parser";
 import * as dotenv from "dotenv";
 import mailchimp from "@mailchimp/mailchimp_marketing";
 // Load environment variables from .env file
@@ -51,6 +52,7 @@ app.use(
     saveUninitialized: true, // Set to true or false based on your needs
   })
 );
+app.use(bodyParser.json());
 
 // Set the view engine to EJS
 app.set("view engine", "ejs");
@@ -67,7 +69,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Import routers
 import index_router from "./routes/index.js";
-import product_router from "./routes/products.js";
+import product_router from "./routes/products.route.js";
 import user_router from "./routes/User.js";
 import auth_router from "./routes/auth.route.js";
 import admin_router from "./routes/admin.route.js";
