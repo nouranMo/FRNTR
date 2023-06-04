@@ -164,7 +164,7 @@
                       <input type="hidden" value=" <%= products.productName %>" name="productName">
                       <input type="hidden" value=" <%= products.price %>" name="productPrice">
                       <input type="hidden" value=" <%= products.quantity %>" name="productQuantity">
-                    <button type="button" class="confBtn" onclick="addToCart('<%=products._id%>' , '<%=products.productName%>' , '<%=products.price%>', '<%=products.quantity%>')"><i class="fa-solid fa-cart-plus"></i></button>
+                    <button type="button" class="confBtn" onclick="addToCart('<%=products._id%>' , '<%=products.productName%>' , '<%=products.price%>', '<%=products.quantity%>' )"><i class="fa-solid fa-cart-plus"></i></button>
                     
                     <span class="tooltiptext">Add To Cart</span>>
                      
@@ -232,42 +232,9 @@
         const existItem = cart
       }
 
-  async function addToCart(productid, productname , productprice , productQuantity) {
-    let popup = document.getElementById("popup");
-    function openPopup(){
-          popup.classList.add("open-popup");
-      }
-
-      function closePopup(){
-          popup.classList.remove("open-popup");
-      }
-                console.log(productname);
-                product = {
-                  productId: productid,
-                  productName: productname,
-                  productPrice: productprice,
-                  productQuantity: productQuantity,
-                }
-                console.log(product);
-
-                $.ajax({
-                  url:'/user/add-to-cart',
-                  method:'POST',
-                  contentType: 'application/json',
-                  data:JSON.stringify({ productId: productid, productName:productname,
-                  productPrice: productprice, quantity:0 ,stock: productQuantity}),
-                  success:function(response){
-                  $('#result').html(response);
-                  },
-                  error:function(err){}
-                })
-            
-                  
-
-             
-            }
     </script>
     <script type="text/javascript"  src="/js/pagination.js"></script>
+    <script type="text/javascript"  src="/js/ajax-cart.js"></script>
     <%- include("./partials/footer.ejs")%>
 </body>
 </html>

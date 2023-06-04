@@ -10,13 +10,12 @@ import cartController from "../controllers/cartController.js";
 router.use(bodyParser.json());
 
 /* GET cart page. */
-router.get('/cart', function(req, res, next) {
-  res.render('cart',{user:req.session.user===undefined?"":req.session.user});
-});
 
 
 //Create Route for add item into cart
 router.post('/add-to-cart', cartController.addToCart ); 
+//router.get('/add-to-cart', cartController.getCart);
+      
 //   // const userId = req.body.user._id; // Assuming you have implemented user authentication
 //   console.log('req: '+req.body.productId)
 //   console.log('req: '+req.body.productName)
@@ -83,6 +82,12 @@ router.post('/add-to-cart', cartController.addToCart );
 router.get('/wishlist', function(req, res, next) {
   res.render('wishlist',{user:req.session.user===undefined?"":req.session.user});
 });
+
+// cartPage
+router.get('/cartPage', cartController.getCart);
+
+//remove item from cart
+router.post('/remove-from-cart', cartController.removeFromCart);
 
 
 
