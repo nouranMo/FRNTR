@@ -1,5 +1,5 @@
 import Furniture from "../models/furniture.js";
-import User from "../models/user.js";
+import user from "../models/user.js";
 console.log("Retrieved products from the database:");
 const productsController = {
   viewAllProducts: async (req, res) => {
@@ -171,7 +171,7 @@ const productsController = {
     try{
       console.log("inside reviews to admin");
       const revadmin = await Furniture.find({ review: { $exists: true, $ne: [] } });
-      const usereview= await User.find({ review: { $exists: true, $ne: [] } });
+      const usereview= await user.find({ review: { $exists: true, $ne: [] } });
       console.log("Retrieved products with reviews from the database:", revadmin);
         res.render("reviews", { revadmin,usereview});
      
