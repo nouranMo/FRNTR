@@ -79,11 +79,8 @@
       referrerpolicy="no-referrer"
     />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
   </head>
   <body>
-
-    
     <!-- <div class="containerProductPhoto">
       <div class="clientProductPhoto">
         <img
@@ -119,22 +116,22 @@
       </div>
 
       <div class="dropDownContainer">
-        <select
-          id="options"
-          class="element55"
-          name="catego"
-          placeholder="Price , Low To High"
-        >
-          <option value="*">Price , Low To High</option>
-          <option value="Featured">Feautred</option>
-          <option value="Best Selling">Best Selling</option>
-          <option value="Alphabatically A-Z">Alphabatically A-Z</option>
-          <option value="Alphabatically Z-A">Alphabatically Z-A</option>
-          <option value="Price , Low To High">Price , Low To High</option>
-          <option value="Price , High To Low">Price , High To Low</option>
-          <option value="Date , Old To New">Date , Old To New</option>
+        <select id ="sortSelect">
+          <option value="atoz">Alphabatically: A to Z</option>
+          <option value="ztoa">Alphabatically: Z to A</option>
+          <option value="lowtohigh">Price: Low To High</option>
+          <option value="hightolow">Price: High To Low</option>
+          <option value="oldtonew">Date: Old To New</option>
         </select>
+        <button onclick="sortItems()">Sort</button>
       </div>
+      <%if(category) {%>
+      <input id = "categoryinput" type="hidden" value="<%= category %>">
+      <%}%>
+      <%if(searchQuery){%>
+      
+      <input id = "searchinput" type="hidden" value="<%= searchQuery %>">
+      <%}%>
     </div>
 
     <div class="filterDiv" id="filter-button1">
@@ -156,12 +153,20 @@
               <div class="price-input">
                 <div class="field">
                   <span>Min</span>
-                  <input type="number" class="input-min" value="<%= lowestPrice %>" />
+                  <input
+                    type="number"
+                    class="input-min"
+                    value="<%= lowestPrice %>"
+                  />
                 </div>
                 <div class="separator">-</div>
                 <div class="field">
                   <span>Max</span>
-                  <input type="number" class="input-max" value="<%= highestPrice %>" />
+                  <input
+                    type="number"
+                    class="input-max"
+                    value="<%= highestPrice %>"
+                  />
                 </div>
               </div>
               <div class="slider">
@@ -186,7 +191,7 @@
                 />
               </div>
 
-              <button class="filter" onclick= " applyFilter()"> Filter</button>
+              <button class="filter" onclick=" applyFilter()">Filter</button>
             </div>
           </div>
         </div>
@@ -196,6 +201,25 @@
     <script type="text/javascript" src="/../js/validations.js"></script>
     <script type="text/javascript" src="/../js/validateFilter.js"></script>
     <script type="text/javascript" src="/../js/ajax-filter.js"></script>
-    
+    <script>
+      function sortItems() {
+        console.log("entered sort function")
+        var selectElement = document.getElementById("sortSelect");
+        console.log("found sortSelect")
+        var selectedValue = selectElement.value;
+        console.log("found sortselect value")
+        var category = document.getElementById("categoryinput").value;
+        console.log("found category value and added it")
+        var search = document.getElementById("searchinput")
+        console.log("found search input")
+        if(search!==null)
+        {
+        window.location.href=`/product/clientproduct/?category=${category}&sort=${selectedValue}&search=${search}`;
+        }
+        else{
+          window.location.href=`/product/clientproduct/?category=${category}&sort=${selectedValue}`;
+        }
+      }
+    </script>
   </body>
 </html>
