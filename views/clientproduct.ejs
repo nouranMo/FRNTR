@@ -348,7 +348,7 @@
                   method:'POST',
                   contentType: 'application/json',
                   data:JSON.stringify({ productId: productid, productName:productname,
-                  productPrice: productprice,productQuantity: productQuantity}),
+                  productPrice: productprice, quantity:0 ,stock: productQuantity}),
                   success:function(response){
                   $('#result').html(response);
                   },
