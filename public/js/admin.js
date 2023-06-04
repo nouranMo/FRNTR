@@ -651,7 +651,7 @@ function confirmDeleteUser(userId, userEmail) {
     (confirmed) => {
       if (confirmed) {
         // Proceed with the link action
-        window.location.href = `/admin/deleteUser/${userId}`;
+        window.location.href = `/admin/deleteuser/${userId}`;
       }
     }
   );
