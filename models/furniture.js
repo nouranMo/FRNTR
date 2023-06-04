@@ -7,7 +7,7 @@ const furnitureSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    enum: ['armchair', 'beds', 'benches','sofas', 'beanbags', 'chaise lounges', 'living room set', 'kids furniture', 'pets furniture', 'space friendly','outdoors'],
+    enum: ['armchair', 'beds', 'benches','sofas', 'beanbags', 'chaiselounges', 'livingroomset', 'kidsfurniture', 'petsfurniture', 'spacefriendly','outdoors','dressers','tvunits','consoles','vanity','diningtables','coffeetables','sidetables','nightstands','mattresses','comfortpillows','duvets','mattressprotectors'],
     required: true
   },
   color: {
@@ -43,7 +43,7 @@ const furnitureSchema = new mongoose.Schema({
     required:true,
   },
   review:{
-    type:String,
+    type:[String],
     required:false,
   },
   photo: {

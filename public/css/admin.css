@@ -1372,12 +1372,12 @@ div.contenty {
 }
 
 .search-container {
-  display: flex;
+  display: block;
   justify-content: center;
   margin-bottom: 20px;
 }
 .search-bar {
-  display: flex;
+  display: block;
   align-items: center;
   margin-bottom: 20px;
 }

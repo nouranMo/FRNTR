@@ -20,11 +20,6 @@ router.get("/statistics", function (req, res, next) {
   res.render("statistics");
 });
 
-/* GET reviews page. */
-router.get("/reviews", function (req, res, next) {
-  res.render("reviews");
-});
-
 router.post("/editUser", upload.none(), productsController.editUser);
 /* GET orders page. */
 router.get("/orders", function (req, res, next) {
@@ -37,7 +32,7 @@ router.get("/beClient/:id", productsController.beClient);
 router.get("/deleteUser/:id", productsController.deleteUser);
 router.get("/lowInStock", productsController.LowInStock);
 router.get("/offer", productsController.Offers);
-
+router.get("/reviews",productsController.revtoadmin);
 /* GET customers page. */
 // Export the router
 export default router;
