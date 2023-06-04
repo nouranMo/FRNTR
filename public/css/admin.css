@@ -1377,7 +1377,7 @@ div.contenty {
   margin-bottom: 20px;
 }
 .search-bar {
-  display: flex;
+  display: block;
   align-items: center;
   margin-bottom: 20px;
 }
