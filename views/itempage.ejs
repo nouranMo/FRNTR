@@ -72,7 +72,7 @@
         <div class="product">
           <div class="left-side">
             <div class="left-img">
-              <% if (product.photo && product.photo.length> 0) { %> <% product.photo.forEach((path,index)=>
+              <% if (product.photo && product.photo.length > 0) { %> <% product.photo.forEach((path,index)=>
                 { %>
               <div class="images">
                 <img id="image<%= index + 1 %>"src="<%= path %>" alt="pic-1" width="700" height="700">
@@ -142,7 +142,7 @@
                       <span class="number"></span>
                       <button class="plus" onclick="increment()"><i class="fa fa-plus"></i></button>
                     </div>
-                    <button class="button-addto"><span class="">Add to cart</span></button>
+                    <button class="button-addto" onclick="addToCart('<%=product._id%>' , '<%=product.productName%>' , '<%=product.price%>', '<%=product.quantity%>' )"> <span class="">Add to cart</span></button>
                     <a href="#"><i class="material-symbols-outlined">
                         favorite
                       </i></a>
@@ -498,6 +498,7 @@
         </div>
       </div>
       <script src="/../js/itemPage.js"></script>
+       <script type="text/javascript"  src="/js/ajax-cart.js"></script>
 
       <%- include("./partials/chat.ejs")%>
       <%- include("./partials/footer.ejs")%>

@@ -89,13 +89,13 @@
     font-weight: bold;
 }
 .addOrRemove{
-    width:33%;
+    width:20%;
     text-align: center;
 }
 .addRemoveContainer{
     text-align: center;
-    width:50%;
-    border: 2px solid black;
+    width:20%;
+    border: 1px solid black;
     border-radius: 20px;
     display: inline-block;
     overflow: hidden;
@@ -115,10 +115,11 @@
     padding: 1%;
 }
 #finalPrice{
-    width:33%;
+    width:50%;
     text-align: center;
     display: inline-block;
     font-weight: bold;
+    margin-top: 15px;
 }
 .checkoutContainer{
     display: flex;
@@ -153,6 +154,7 @@
     text-align: right;
     font-size: 25px;
     font-weight: bold;
+    margin-right: 4%;
 }
 #checkoutButtonContainer{
     text-align: right;
@@ -160,7 +162,7 @@
 #checkoutButton{
     text-align: center;
     padding: 0;
-    width:65%;
+    width:45%;
     border-radius: 30px;
     height:40px;
     letter-spacing: 3px;
