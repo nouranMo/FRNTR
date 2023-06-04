@@ -53,22 +53,27 @@
   </head>
 
   <body>
+
     <%- include("./partials/adminsidebar.ejs")%>
+    
     <div class="contenty">
       <%- include("./partials/adminnav.ejs")%>
+      
       <div class="sideCon">
         <a class="btn btn-make-admin" href="/adminproduct/addeditproduct"
           >Add Product</a
         >
         <div class="header">
           <h2>All Store Products</h2>
+          <div class="search-bar">
+            <form action="/adminproduct/product" method="GET">
+              <input type="text" name="search" placeholder="Search by name" />
+              <button type="submit">Search</button>
+            </form>
+          </div>
         </div>
-        <div class="search-bar">
-          <form action="/adminproduct/product" method="GET">
-            <input type="text" name="search" placeholder="Search by name" />
-            <button type="submit">Search</button>
-          </form>
-        </div>
+        
+        
         <div class="gallery">
           <div class="row">
             <% products.forEach((product) => { %>

@@ -8,7 +8,7 @@ router.get('/itempage',itemproductdetail.detail);
 
 
 /* GET client Product page. */
-router.get('/clientproduct/:category', userviewproduct.userview);
+router.get('/clientproduct', productsController.viewAllCategoryProducts);
 
 router.get('/filter',userviewproduct.filtering);
 router.post('/review',furnitureController.getreview);
