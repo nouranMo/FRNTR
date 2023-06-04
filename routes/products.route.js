@@ -3,6 +3,7 @@ import multer from "multer";
 import productsController from "../controllers/adminviewprodController.js";
 import userviewproduct from "../controllers/userproductController.js";
 import itemproductdetail from "../controllers/itempageController.js";
+import furnitureController from "../controllers/addfurnitureController.js"
 var router = Router();
 router.get('/itempage',itemproductdetail.detail);
 

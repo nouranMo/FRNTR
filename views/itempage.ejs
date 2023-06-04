@@ -272,7 +272,8 @@
                   </div>
                   <div class="conteent">
                     <div class="review-bottom">
-                      <div class="review-bottom-1">
+                      <div class="review-bottom-1"> 
+                        <%if(user.userType==='client'){%>
                         <div class="rate">
                           <span class="stars-rate">
                             <ul>
@@ -284,23 +285,29 @@
                             </ul>
                           </span>
                         </div>
+                       
                         <button class="review-btn" onclick="showReviewForm()">Write a review</button>
                         
                         <div class="popup">
                           <form id="review-form" method="POST" action="/product/review" style="display: none;">
                            <input type="hidden" name="id" value="<%=product._id%>">
+                           <input type="hidden" name="category" value="<%=product.category%>">
                             <label for="review-text"> Leave a review for the ( <%= product.productName%> )</label>
                             <textarea id="review-text" name="review" placeholder="Enter your review here:"></textarea>
                             <button type="submit">Submit</button> 
                             <button id="close-button">Close</button>
                           </form>
-                     
                         </div>
 
                         <button class="review-btn" ><i class="fa fa-sliders"></i></button>
                       </div>
                       <div class="rev-link">Be the first to&nbsp;<a href="#">write a review</a></div> 
                     </div>
+                    <%} else{%>
+                      <div class="viewreview">
+                        <textarea name="view-review" id="view-review" cols="123" rows="50"></textarea>
+                       </div>
+                       <%}%>
                   </div>
                 </div>
               </div>
