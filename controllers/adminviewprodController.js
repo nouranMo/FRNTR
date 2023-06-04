@@ -1,5 +1,5 @@
 import Furniture from "../models/furniture.js";
-import user from "../models/user.js";
+import User from "../models/user.js";
 console.log("Retrieved products from the database:");
 const productsController = {
   viewAllProducts: async (req, res) => {
@@ -167,7 +167,23 @@ const productsController = {
       });
     }
   },
-
+  revtoadmin:async(req,res)=>{
+    try{
+      console.log("inside reviews to admin");
+      const revadmin = await Furniture.find({ review: { $exists: true, $ne: [] } });
+      const usereview= await User.find({ review: { $exists: true, $ne: [] } });
+      console.log("Retrieved products with reviews from the database:", revadmin);
+        res.render("reviews", { revadmin,usereview});
+     
+    }
+    catch (error) {
+      console.error("Error retrieving review products:", error);
+      res.render("404", {
+        message: "Failed to retrieve reviewd products",
+        user: req.session.user === undefined ? "" : req.session.user,
+      });
+    }
+  },
   Offers: async (req, res) => {
     try {
       console.log("Inside offers");
