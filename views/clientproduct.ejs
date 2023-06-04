@@ -152,7 +152,11 @@
                 <div class="links">
                   <% if(user!==""){%>
                   <div class="Icon">
-                    <a href=""><i class="fa-regular fa-heart"></i></a>
+                    <input type="hidden" value="<%=products._id%>" name="productId">
+                      <input type="hidden" value=" <%= products.productName %>" name="productName">
+                      <input type="hidden" value=" <%= products.price %>" name="productPrice">
+                      <input type="hidden" value=" <%= products.quantity %>" name="productQuantity">
+                    <button type="button" class="confBtn" onclick="addToWishlist(`<%=products._id%>` , `<%=products.productName%>` , `<%=products.price%>`, `<%=products.quantity%>` )"><i class="fa-regular fa-heart"></i></button>
                     <span class="tooltiptext">Add to WishList</span>
                   </div>
                 <%}%>
@@ -231,9 +235,42 @@
         const existItem = cart
       }
 
+      async function addToWishlist(productid, productname , productprice , productQuantity) {
+        console.log("in ajax wishlist");
+        console.log(productid, productname, productprice, productQuantity, "done");
+        console.log(product);
+
+                // fetch('/user/add-to-cart', {
+                //   contentType: 'application/json',
+                //   method: 'POST',
+                //   body: JSON.stringify({product: product})
+                // })
+                //   .then(response => {
+                //     // Handle response
+                //     console.log(response);
+                //   })
+                //   .catch(error => {
+                //     // Handle error
+                //     console.error(error);
+                //   });
+
+                $.ajax({
+                  url:'/user/add-to-wishlist',
+                  method:'POST',
+                  contentType: 'application/json',
+                  data:JSON.stringify({ productId: productid, productName:productname,
+                  productPrice: productprice,productQuantity: productQuantity}),
+                  success:function(response){
+                  // $('#result').html(response);
+                  },
+                  error:function(err){}
+                })
+            }
+
     </script>
     <script type="text/javascript"  src="/js/pagination.js"></script>
     <script type="text/javascript"  src="/js/ajax-cart.js"></script>
+    <script type="text/javascript"  src="/js/ajax-wishlist.js"></script>
     <%- include("./partials/footer.ejs")%>
 </body>
 </html>

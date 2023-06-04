@@ -22,6 +22,13 @@
     margin:auto;
   width: 100%;
 }
+.buttonxx{
+   /* hide a button */
+    display: none;
+    position: absolute;
+    
+
+}
 .wishlistItemContainer {
     margin:3% 10% 3% 10%;
     border:1px solid gray;

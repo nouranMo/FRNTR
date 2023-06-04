@@ -142,6 +142,7 @@
                       <span class="number"></span>
                       <button class="plus" onclick="increment()"><i class="fa fa-plus"></i></button>
                     </div>
+
                     <% if(user!==""){%>
                     <button class="button-addto" onclick="addToCart(`<%=product._id%>` , `<%=product.productName%>` , `<%=product.price%>`, `<%=product.quantity%>` )"> <span class="">Add to cart</span></button>
                     <a href="#"><i class="material-symbols-outlined">
@@ -475,6 +476,10 @@
       </div>
       <script src="/../js/itemPage.js"></script>
        <script type="text/javascript"  src="/js/ajax-cart.js"></script>
+      <script type="text/javascript"  src="/js/ajax-wishlist.js"></script>
+      <script>
+
+      </script>
 
       <%- include("./partials/chat.ejs")%>
       <%- include("./partials/footer.ejs")%>

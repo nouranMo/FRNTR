@@ -1,11 +1,9 @@
 import express  from 'express';
-import Furniture from "../models/furniture.js";
-import furnitureController from "../controllers/addfurnitureController.js";
-import Cart from "../models/cart.js";
 // Create a new router instance
 var router = express.Router();
 import bodyParser from "body-parser";
 import cartController from "../controllers/cartController.js";
+import wishlistController from "../controllers/wishlistController.js";
 
 router.use(bodyParser.json());
 
@@ -14,6 +12,9 @@ router.use(bodyParser.json());
 
 //Create Route for add item into cart
 router.post('/add-to-cart', cartController.addToCart ); 
+router.post('/add-to-wishlist', wishlistController.addToWishlist); 
+
+router.get('/wishlist',wishlistController.getWishlist);
 //router.get('/add-to-cart', cartController.getCart);
       
 //   // const userId = req.body.user._id; // Assuming you have implemented user authentication
@@ -78,10 +79,6 @@ router.post('/add-to-cart', cartController.addToCart );
 
 
 
-/* GET Wishlist page. */
-router.get('/wishlist', function(req, res, next) {
-  res.render('wishlist',{user:req.session.user===undefined?"":req.session.user});
-});
 
 // cartPage
 router.get('/cartPage', cartController.getCart);
