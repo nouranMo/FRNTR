@@ -118,12 +118,6 @@
                 </button>
 
 
-                <button class="dropbtn"><a class="anor" href="/">FRNTR Moods</a>
-                  <div class="content">
-                    <a class="anor" href="/product/clientproduct">Modern</a>
-                    <a class="anor" href="/product/clientproduct">Boho</a>
-                  </div>
-                </button>
 
                 
             </nav>
@@ -136,11 +130,13 @@
                       
                   <ul>
                     <button class="side-btn" onclick="searchOpen()"><i class="material-icons">search</i></button>
-                    <% if(user==="") {%>
+                    <% if(user!=="") {%>
                     <button class="side-btn"  onclick="signOpen()"><i class="material-icons">person</i></button> <% }else { %>
                       <button class="side-btn"  onclick="accOpen()"><i class="material-icons">person</i></button> <% } %>
+                      <% if(user!=="") {%>
                     <a href="/user/wishlist"><button class="side-btn" onclick=><i class="material-icons">favorite</i></button></a>
                     <a href="/user/cartPage"><button class="side-btn" onclick=><i class="material-icons">shopping_cart</i></button></a>
+                    <% } %>
                   </ul>
               </nav>
           </div>
