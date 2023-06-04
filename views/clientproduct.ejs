@@ -150,6 +150,7 @@
                 <% } %>
                 <span class="discount">-26%</span>
                 <div class="links">
+                  <% if(user!==""){%>
                   <div class="Icon">
                     <input type="hidden" value="<%=products._id%>" name="productId">
                       <input type="hidden" value=" <%= products.productName %>" name="productName">
@@ -158,10 +159,8 @@
                     <button type="button" class="confBtn" onclick="addToWishlist(`<%=products._id%>` , `<%=products.productName%>` , `<%=products.price%>`, `<%=products.quantity%>` )"><i class="fa-regular fa-heart"></i></button>
                     <span class="tooltiptext">Add to WishList</span>
                   </div>
-                  <div class="Icon">
-                    <a href="/product/itemPage"><i class="fa-regular fa-eye"></i></a>
-                    <span class="tooltiptext">Quick view</span>
-                  </div>
+                <%}%>
+                  <% if(user!==""){ %>
                   <div class="Icon">
                     
                       <input type="hidden" value="<%=products._id%>" name="productId">
@@ -173,7 +172,7 @@
                     <span class="tooltiptext">Add To Cart</span>>
                      
                   </div>
-                  
+                  <%}%>
 
 
                 </div>

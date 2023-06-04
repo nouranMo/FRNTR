@@ -187,7 +187,8 @@ cartController.removeFromCart = async (req, res) => {
         }
 
         await Furniture.updateOne({ _id: productId }, { $set: { "quantity": newStock } });
-        console.log("updating furniture", furniture, "done here");
+        console.log("updating furniture done here");
+        res.redirect('/user/cartPage');
       } else {
         console.log("item does not exist in cart", item, "done here");
       }
@@ -195,7 +196,7 @@ cartController.removeFromCart = async (req, res) => {
       console.log("Cart does not exist", cart, "done here");
     }
 
-   // res.redirect('/cart');
+   ;
   } catch (error) {
     console.error("An error occurred while removing from cart:", error);
     res.redirect('/error');

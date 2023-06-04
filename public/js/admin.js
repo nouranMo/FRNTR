@@ -7,7 +7,7 @@ $(document).ready(function () {
     paramName: "file", // The name that will be used to transfer the file
     url: "/adminproduct/upload", // The URL where the file should be uploaded
     maxFilesize: 5, // Maximum file size in megabytes
-    acceptedFiles: ".jpg,.png,.gif", // Allowed file types
+    acceptedFiles: ".jpg,.png,.gif,.webp,.jpeg", // Allowed file types
     autoProcessQueue: true,
     // Customized initialization function
     init: function () {
@@ -162,7 +162,7 @@ $(document).ready(function () {
     paramName: "file", // The name that will be used to transfer the file
     url: "/adminproduct/upload", // The URL where the file should be uploaded
     maxFilesize: 5, // Maximum file size in megabytes
-    acceptedFiles: ".jpg,.png,.gif", // Allowed file types
+    acceptedFiles: ".jpg,.png,.gif,.webp,jpeg", // Allowed file types
     autoProcessQueue: true,
     init: function () {
       var previewElement = document.getElementById("preview");
@@ -651,7 +651,7 @@ function confirmDeleteUser(userId, userEmail) {
     (confirmed) => {
       if (confirmed) {
         // Proceed with the link action
-        window.location.href = `/admin/deleteUser/${userId}`;
+        window.location.href = `/admin/deleteuser/${userId}`;
       }
     }
   );
