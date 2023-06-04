@@ -86,6 +86,12 @@ router.get('/wishlist', function(req, res, next) {
 
 
 
+router.get('/editprofile', function(req, res, next) {
+  res.render('editprofile',{user:req.session.user===undefined?"":req.session.user});
+});
+
+
+
 
 
 
