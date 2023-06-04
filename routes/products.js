@@ -3,14 +3,16 @@ import multer from "multer";
 import productsController from "../controllers/adminviewprodController.js";
 import userviewproduct from "../controllers/userproductController.js";
 import itemproductdetail from "../controllers/itempageController.js";
+import furnitureController from "../controllers/addfurnitureController.js";
 var router = Router();
-router.get('/itempage/:id',itemproductdetail.detail);
+router.get('/itempage/:id',itemproductdetail.detail)
 
 
 /* GET client Product page. */
 router.get('/clientproduct/:category', userviewproduct.userview);
 
 router.get('/filter',userviewproduct.filtering);
+router.post('/review',furnitureController.getreview);
 
 // Authentication, securing the admin dashboard.
 

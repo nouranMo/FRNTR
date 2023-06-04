@@ -73,7 +73,7 @@ const productsController = {
         console.log("Inside offers");
     
         // Retrieve products with quantities less than 10 from the database
-        const offers = await Furniture.find({ offer: { $exists: true, $ne: null } });
+        const offers = await Furniture.find({ offer: { $exists: true, $ne: null, $gt: 0 } });
     
         console.log("Retrieved products with offers from the database:", offers);
     

@@ -43,7 +43,7 @@ const furnitureSchema = new mongoose.Schema({
     required:true,
   },
   review:{
-    type:String,
+    type:[String],
     required:false,
   },
   photo: {
