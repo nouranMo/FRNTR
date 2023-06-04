@@ -40,26 +40,32 @@
         </div>
         <div class="gallery">
           <div class="row">
+            <% revadmin.forEach((product) => { %>
+         
             <div class="fullrev">
               <div class="content-z">
                 <div class="content-x">
-                  <img
+                  <!-- <img
                     src="../images/woman.png"
                     alt="Avatar"
                     style="width: 100%"
-                  />
+                  /> -->
                 </div>
                 <div class="container-x">
-                  <h6>Janie Mourment</h6>
+                  <h6><%= product.productName%></h6>
                 </div>
               </div>
               <div class="rev">
                 <div class="container-z">
-                  <p>Hello this product was amazing</p>
+                 <% usereview.forEach((user)=> {%>
+                 <% if(product.review ===user.review ){%>
+                 <p><%= product.review%>  review left by user <%= user.firstName%> <br> </p>
+                  <%}%>
+                 <%})%>
                 </div>
               </div>
             </div>
-            <div class="fullrev">
+            <!-- <div class="fullrev">
               <div class="content-z">
                 <div class="content-x">
                   <img
@@ -77,8 +83,10 @@
                   <p>Hello this product was amazing aktar</p>
                 </div>
               </div>
-            </div>
-          </div>
+            </div> -->
+      
+          <% }); %>
+         </div>
         </div>
       </div> 
       <%- include('./partials/chat.ejs')%>

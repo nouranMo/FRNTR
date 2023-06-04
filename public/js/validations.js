@@ -4,7 +4,7 @@ function signOpen() {
     document.getElementById("sidebar-1").style.display = "block";
 }
 function accOpen(){
-  window.location.href = `auth/account`
+  window.location.href = `/auth/account`
 }
   function signclose() {
     document.getElementById("sidebar-1").style.display = "none";
