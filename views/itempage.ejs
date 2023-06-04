@@ -142,12 +142,18 @@
                       <span class="number"></span>
                       <button class="plus" onclick="increment()"><i class="fa fa-plus"></i></button>
                     </div>
-                    <button class="button-addto" onclick="addToCart('<%=product._id%>' , '<%=product.productName%>' , '<%=product.price%>', '<%=product.quantity%>' )"> <span class="">Add to cart</span></button>
-                    <button class="button-addto" onclick="addToWishlist('<%=product._id%>' , '<%=product.productName%>' , '<%=product.price%>', '<%=product.quantity%>'  )"><i class="material-symbols-outlined">
+
+                    <% if(user!==""){%>
+                    <button class="button-addto" onclick="addToCart(`<%=product._id%>` , `<%=product.productName%>` , `<%=product.price%>`, `<%=product.quantity%>` )"> <span class="">Add to cart</span></button>
+                    <a href="#"><i class="material-symbols-outlined">
                         favorite
-                      </i>
-                    </button>>
-    
+                      </i></a>
+                      <%}else{%>
+                        <button class="button-addto"> <span class="">Login to Add to Cart</span></button>
+                        <a href="#"><i class="material-symbols-outlined">
+                            favorite
+                          </i></a>
+                          <%}%>
                   </div>
                   <div class="row2">
                     <button class="buy">Buy it now</button>

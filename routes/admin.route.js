@@ -29,10 +29,10 @@ router.get("/", productsController.LowInStock);
 router.get("/customers", productsController.viewAllUsers);
 router.get("/beAdmin/:id", productsController.beAdmin);
 router.get("/beClient/:id", productsController.beClient);
-router.get("/deleteUser/:id", productsController.deleteUser);
+router.get("/deleteuser/:id", productsController.deleteUser);
 router.get("/lowInStock", productsController.LowInStock);
 router.get("/offer", productsController.Offers);
-router.get("/reviews",productsController.revtoadmin);
+router.get("/reviews", productsController.revtoadmin);
 /* GET customers page. */
 // Export the router
 export default router;

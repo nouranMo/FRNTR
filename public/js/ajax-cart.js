@@ -69,7 +69,8 @@ async function addToCart(productid, productname , productprice , productQuantity
                     productPrice: productprice, quantity:0 ,stock: productQuantity}),
                     success:function(response){
                      $('#result').html(response);
-                    
+                      document.documentElement.innerHTML = response;
+                      history.pushState({}, null, "/user/cartPage");
                     },
                     error:function(err){}
                   })             
