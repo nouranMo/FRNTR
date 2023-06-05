@@ -176,7 +176,12 @@
                     </a>
                   
                 <% } %>
-                <span class="discount">-26%</span>
+
+                 <% if(products.offer){%>
+                    <span class="discount"><%=products.offer%>%</span>
+                       <%}else{%>
+                        <span class="discount" style="display: none;"></span>
+                        <%}%>
                 <div class="links">
                   <% if(user!==""){%>
                   <div class="Icon">
@@ -211,8 +216,12 @@
                 <h3 class="product-title">
                   <%= products.productName %>
                 </h3>
-                <del>10,680.00 EGP</del>
-                <ins class="in"><%= products.price %> EGP</ins>
+                <%if(products.offer){%>
+                <del><%= products.price %> EGP</del>
+                <ins class="in"><%= products.price -(products.price * (products.offer)/100) %> EGP</ins>
+                <%} else{%>
+                  <ins class="in" style="color: #333;"><%= products.price %> EGP</ins>
+                  <%}%>
               </div>
             </div>
           </div>
