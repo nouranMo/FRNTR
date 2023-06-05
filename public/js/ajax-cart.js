@@ -1,35 +1,13 @@
-async function addToCart(productid, productname , productprice , productQuantity) {
+async function addToCart(productid, productname , productprice , productQuantity,value) {
     console.log(productid, productname, productprice, productQuantity, "done");
     openPopup();
                 console.log(productname);
-                product = {
-                  productId: productid,
-                  productName: productname,
-                  productPrice: productprice,
-                  productQuantity: productQuantity,
-                }
-                console.log(product);
-
-                // fetch('/user/add-to-cart', {
-                //   contentType: 'application/json',
-                //   method: 'POST',
-                //   body: JSON.stringify({product: product})
-                // })
-                //   .then(response => {
-                //     // Handle response
-                //     console.log(response);
-                //   })
-                //   .catch(error => {
-                //     // Handle error
-                //     console.error(error);
-                //   });
-
                 $.ajax({
                   url:'/user/add-to-cart',
                   method:'POST',
                   contentType: 'application/json',
                   data:JSON.stringify({ productId: productid, productName:productname,
-                  productPrice: productprice, quantity:0 ,stock: productQuantity}),
+                  productPrice: productprice, quantity:0 ,stock: productQuantity, value: value}),
                   success:function(response){
                   // $('#result').html(response);
                   
@@ -99,7 +77,6 @@ history.pushState({}, null, "/user/cartPage");
       }
     });
   }
-  
    function openPopup(){
     popup.classList.add("open-popup");
 }
