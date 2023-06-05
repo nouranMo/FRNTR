@@ -1,4 +1,5 @@
 import Furniture from "../models/furniture.js";
+import Cart from '../models/cart.js';
 
 const userviewproduct = {
   userview: async (req, res) => {
@@ -64,7 +65,20 @@ const userviewproduct = {
         console.error('Error:', error);
         res.status(500).json({ error: 'An error occurred while filtering products.' });
       }
-    }
+    },
+
+
+    checkout: async(req,res)=>{
+      console.log('hello');
+        const{cart}=req.query;
+          const productlist= await Cart.findById({_id:cart});
+          console.log("found the product "+productlist);
+          if(productlist){
+           
+             res.render('checkout',{user:req.session.user===undefined?"":req.session.user,productlist});
+          }
+      
+    },
   };
 
 export default userviewproduct;

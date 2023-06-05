@@ -3,6 +3,7 @@ import Furniture from "../models/furniture.js";
 import furnitureController from "../controllers/addfurnitureController.js";
 import Cart from "../models/cart.js";
 import editprofileController1 from "../controllers/editprofileController.js"
+import userviewproduct from '../controllers/userproductController.js';
 
 // Create a new router instance
 var router = express.Router();
@@ -99,6 +100,9 @@ router.get('/cartPage', cartController.getCart);
 
 //remove item from cart
 router.post('/remove-from-cart', cartController.removeFromCart);
+
+router.get('/checkout',userviewproduct.checkout);
+ 
 
 
 router.get('/editprofile', function(req, res, next) {
