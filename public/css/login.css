@@ -193,5 +193,10 @@ input[type=submit]{
 .message{
   color: green; 
   text-align: center;
+  background-color: lightgreen;
+  margin: 10px 0px;
+  padding:10px 0px ;
+}
+span {
   content: "\2705";
 }

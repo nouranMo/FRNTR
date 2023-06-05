@@ -63,9 +63,11 @@
               <div class="btnsignup">
                 <input type="submit" value="Sign in" >
               </div>
-              <div class="message" >
-               <%= message ?message : ''%>
+              <% if(message){%>
+              <div class="message">
+                <span>&#9989; <%=message%></span>
               </div>
+              <%}%>
             </form>
           </div>
         </div>

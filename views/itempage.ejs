@@ -148,7 +148,11 @@
                     <button class="buttonxxx" onclick="addToWishlist(`<%=product._id%>` , `<%=product.productName%>` , `<%=product.price%>`, `<%=product.quantity%>` )" > <a><i class="material-symbols-outlined" >
                         favorite </i></a></button>
                       <%}else{%>
-                        <button class="buttonxxx"> <span class="">Login to Add to Cart</span></button>
+
+                        <button class="button-addto" > <span class="">Login to Add to Cart</span></button>
+
+                        
+
                         <a href="#"><i class="material-symbols-outlined">
                             favorite
                           </i></a>
@@ -164,46 +168,9 @@
                 <img src="Images/CVH33.webp" alt="" class="images">
               </div>
               <div class="description">
-                Built for luxury and elegance combined with a relaxed vibe in your living area with the modular
-                nature of this linen tufted chesterfield sofa. A formal style with a contemporary twist, it has
-                enough room to suit your needs & you can customize it to suit bigger spaces and even Majlises.
-                Plush
-                detailing of deep, all-over button tufting and thick foam filling would make this piece of
-                furniture
-                your home's favorite lounge spot. Providing a soft and cozy place to sit down, the high-end
-                linen
-                upholstery brings a warm and welcoming aspect to your room.
+               <%=product.comments%>
     
-                <h4>
-                  <br>
-                  <strong>Features</strong>
-                </h4>
-    
-                <p>
-                  Design: Chesterfield
-                  <br>
-                  Upholstery Fabric: High-End Beige Linen
-                  <br>
-                  All-over button tufting for plush comfort
-                  <br>
-                  40 GSM foam density provides firm support
-                  <br>
-                  <br>
-                  <strong>Product Details</strong>
-                </p>
-                <p>Availability: On-Demand
-                  <br>
-                  Storage Included: No
-                  <br>
-                  Number of Pieces: 1
-                  <br>
-                  Seating Capacity: 2 People
-                  <br>
-                  Seat Fill Material: Firm Pressure Foam
-                  <br>
-                  Removable Cushions: No
-                </p>
-    
+               
                 <h4>
                   <br>
                   <strong>Weights &amp; Dimensions</strong>
@@ -211,12 +178,6 @@
   
                 <p>
                   <%=product.category%>:<%=product.size%>
-                  <br>
-                  Back Cushion:&nbsp;71.12cm H
-                  <br>
-                  Seat Height - Floor to Seat:&nbsp;38.1cm
-                  <br>
-                  Overall Product Weight: 51.55 Kilograms.
                 </p>
                 <p>
                   <img src="<%=product.photo[0]%>" alt="" class="images" width="705" height="602">
@@ -380,99 +341,7 @@
     
               <% }) %>
 
-      <div class="recentpreview">
-    
-        <div class="innerprod">
-          <div class="top-header">
-            <h3 class="title">
-    
-              <span>Recently viewed products</span>
-    
-            </h3>
-          </div>
-          <div class="viewproduct">
-            <div class="row">
-              <div class="col-md-3">
-                <div class="products">
-                  <div class="product-image">
-                    <a href="" class="images">
-                      <img src="/../images/Nova_Velvet_Upholstered_Platform_Bed_10.webp" alt="" class="pic-1">
-                      <img src="/../images/Nova_Velvet_Upholstered_Platform_Bed_6.webp" alt="" class="pic-2">
-                    </a>
-                  
-                    <span class="discount">-53%</span>
-    
-                    <div class="links">
-                      <div class="Icon">
-                        <a href=""><i class="fa-regular fa-heart"></i></a>
-                        <span class="tooltiptext">Add to WishList</span>
-                      </div>
-                      <div class="Icon">
-                        <a href=""><i class="fa-regular fa-eye"></i></a>
-                        <span class="tooltiptext">Quick view</span>
-                      </div>
-                      <div class="Icon">
-                        <a href=""><i class="fa fa-arrow-up-right-from-square"></i></a>
-                        <span class="tooltiptext">Compare</span>
-                      </div>
-    
-                    </div>
-    
-                  </div>
-                  <div class="Content">
-                    <h3 class="product-title">
-                      Nova Upholstered Platform Bed
-                    </h3>
-                    <del>16,100.00 EGP</del>
-                    <ins class="in"><span style="color:#333">From </span> 8,200.00 EGP</ins>
-                  </div>
-                </div>
-              </div>
-    
-    
-    
-    
-    
-    
-    
-              <div class="col-md-3">
-                <div class="products">
-                  <div class="product-image">
-                    <a href="" class="images">
-                      <img src="/../images/rumi_4.webp" alt="" class="pic-1">
-                      <img src="/../images/rumi_6.webp" alt="" class="pic-2">
-                    </a>
-                    <div class="links">
-                      <div class="Icon">
-                        <a href=""><i class="fa-regular fa-heart"></i></a>
-                        <span class="tooltiptext">Add to WishList</span>
-                      </div>
-                      <div class="Icon">
-                        <a href=""><i class="fa-regular fa-eye"></i></a>
-                        <span class="tooltiptext">Quick view</span>
-                      </div>
-                      <div class="Icon">
-                        <a href=""><i class="fa fa-arrow-up-right-from-square"></i></a>
-                        <span class="tooltiptext">Compare</span>
-                      </div>
-    
-                    </div>
-    
-                  </div>
-                  <div class="Content">
-                    <h3 class="product-title">
-                      Rumi Dining Chair
-                    </h3>
-                    <span>From 3,000.00 EGP</span>
-    
-                  </div>
-    
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+     
       <script src="/../js/itemPage.js"></script>
        <script type="text/javascript"  src="/js/ajax-cart.js"></script>
       <script type="text/javascript"  src="/js/ajax-wishlist.js"></script>
