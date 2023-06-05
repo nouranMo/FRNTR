@@ -1,13 +1,6 @@
 async function addToCart(productid, productname , productprice , productQuantity) {
     console.log(productid, productname, productprice, productQuantity, "done");
-    let popup = document.getElementById("popup");
-    function openPopup(){
-          popup.classList.add("open-popup");
-      }
-
-      function closePopup(){
-          popup.classList.remove("open-popup");
-      }
+    openPopup();
                 console.log(productname);
                 product = {
                   productId: productid,
@@ -76,5 +69,12 @@ async function addToCart(productid, productname , productprice , productQuantity
                   })             
 
    }
-   
+   function openPopup(){
+    popup.classList.add("open-popup");
+}
+
+
+function closePopup(){
+    popup.classList.remove("open-popup");
+}
    
