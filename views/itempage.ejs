@@ -50,7 +50,7 @@
               <nav class="naav">
                 <a href="/">Home</a>
                 <i class="fa fa-chevron-right"></i>
-                <a href="/product/clientproduct/<%=product.category%>"><%=product.category%></a>
+                <a href="/product/clientproduct/?category=<%=product.category%>"><%=product.category%></a>
                 <i class="fa fa-chevron-right"></i>
                 <span><%= product.productName%></span>
               </nav>
@@ -58,7 +58,7 @@
     
             <div class="rightnav">
     
-              <a href="/product/clientproduct/sofas"><i class="material-symbols-outlined">
+              <a href="/product/clientproduct/?category=<%=product.category%>"><i class="material-symbols-outlined">
                   grid_view
                 </i></a>
     
@@ -72,7 +72,7 @@
         <div class="product">
           <div class="left-side">
             <div class="left-img">
-              <% if (product.photo && product.photo.length> 0) { %> <% product.photo.forEach((path,index)=>
+              <% if (product.photo && product.photo.length > 0) { %> <% product.photo.forEach((path,index)=>
                 { %>
               <div class="images">
                 <img id="image<%= index + 1 %>"src="<%= path %>" alt="pic-1" width="700" height="700">
@@ -142,11 +142,18 @@
                       <span class="number"></span>
                       <button class="plus" onclick="increment()"><i class="fa fa-plus"></i></button>
                     </div>
-                    <button class="button-addto"><span class="">Add to cart</span></button>
+
+                    <% if(user!==""){%>
+                    <button class="button-addto" onclick="addToCart(`<%=product._id%>` , `<%=product.productName%>` , `<%=product.price%>`, `<%=product.quantity%>` )"> <span class="">Add to cart</span></button>
                     <a href="#"><i class="material-symbols-outlined">
                         favorite
                       </i></a>
-    
+                      <%}else{%>
+                        <button class="button-addto"> <span class="">Login to Add to Cart</span></button>
+                        <a href="#"><i class="material-symbols-outlined">
+                            favorite
+                          </i></a>
+                          <%}%>
                   </div>
                   <div class="row2">
                     <button class="buy">Buy it now</button>
@@ -202,9 +209,9 @@
                   <br>
                   <strong>Weights &amp; Dimensions</strong>
                 </h4>
-    
+  
                 <p>
-                  Sofa: 71.12cm&nbsp;H x 185.92cm&nbsp;W x 96.01cm D
+                  <%=product.category%>:<%=product.size%>
                   <br>
                   Back Cushion:&nbsp;71.12cm H
                   <br>
@@ -224,14 +231,14 @@
     
               <div class="product-details">
                 <div class="type">
-                  <span>Type: <a href="#">Sofas</a></span>
+                  <span>Type: <a href="/product/clientproduct/?category=<%=product.category%>"><%=product.category%></a></span>
                 </div>
                 <div class="availabile">
                   <span>Availability : <span>In Stock</span>
                 </div>
     
                 <div class="categories">
-                  <span>Categories: <a href="#">Sofas</a></span>
+                  <span>Categories: <a href="/product/clientproduct/?category=<%=product.category%>"><%=product.category%></a></span>
                 </div>
               </div>
     
@@ -272,7 +279,8 @@
                   </div>
                   <div class="conteent">
                     <div class="review-bottom">
-                      <div class="review-bottom-1">
+                      <div class="review-bottom-1"> 
+                        <%if(user.userType==='client'){%>
                         <div class="rate">
                           <span class="stars-rate">
                             <ul>
@@ -284,23 +292,29 @@
                             </ul>
                           </span>
                         </div>
+                       
                         <button class="review-btn" onclick="showReviewForm()">Write a review</button>
                         
                         <div class="popup">
-                          <form id="review-form" style="display: none;">
-                           
+                          <form id="review-form" method="POST" action="/product/review" style="display: none;">
+                           <input type="hidden" name="id" value="<%=product._id%>">
+                           <input type="hidden" name="category" value="<%=product.category%>">
                             <label for="review-text"> Leave a review for the ( <%= product.productName%> )</label>
                             <textarea id="review-text" name="review" placeholder="Enter your review here:"></textarea>
                             <button type="submit">Submit</button> 
-                            <button id="close-button" onclick="closeReviewForm()">Close</button>
+                            <button id="close-button">Close</button>
                           </form>
-                     
                         </div>
 
                         <button class="review-btn" ><i class="fa fa-sliders"></i></button>
                       </div>
                       <div class="rev-link">Be the first to&nbsp;<a href="#">write a review</a></div> 
                     </div>
+                    <%} else{%>
+                      <div class="viewreview">
+                        <textarea name="view-review" id="view-review" cols="123" rows="50"></textarea>
+                       </div>
+                       <%}%>
                   </div>
                 </div>
               </div>
@@ -324,14 +338,16 @@
                 <div class="products">
                   <div class="product-image">
                     <% if (prod.photo && prod.photo.length > 0) { %>
-                    <a href="" class="images">
+                    <a href="/product/itempage?id=<%= prod._id %>&category=<%= prod.category %>" class="images">
                       <img src="<%= prod.photo[0]%>" alt="" class="pic-1">
                       <img src="<%= prod.photo[1]%>" alt="" class="pic-2">
                     </a>
                     <% } %>
-                    <span class="discount">-26%</span>
-    
-    
+                    <% if(prod.offer){%>
+                    <span class="discount"><%=prod.offer%>%</span>
+                       <%}else{%>
+                        <span class="discount" style="display: none;"></span>
+                        <%}%>
                     <div class="links">
                       <div class="Icon">
                         <a href=""><i class="fa-regular fa-heart"></i></a>
@@ -353,57 +369,18 @@
                     <h3 class="product-title">
                     <%=prod.productName%>
                     </h3>
-                    <del>10,680.00 EGP</del>
-                    <ins class="in"> <%=prod.price%> EGP</ins>
+                    <% if(prod.offer) {%>
+                    <del><%=prod.price%> EGP</del>
+                    <ins class="in"> <%= prod.price -(prod.price * (prod.offer)/100) %> EGP</ins>
+                    <%} else {%>
+                      <ins class="in" style="color:#333"> <%= prod.price %> EGP</ins>
+                      <%}%>
                   </div>
                 </div>
               </div>
     
               <% }) %>
-<!--     
-              <div class="col-md-3">
-                <div class="products">
-                  <div class="product-image">
-                    <a href="" class="images">
-                      <img src="/../images/TriviaSofa_1.webp" alt="" class="pic-1">
-                      <img src="/../images/TriviaSofa_4.webp" alt="" class="pic-2">
-                    </a>
-                    <span class="discount">-18%</span>
-    
-                    <div class="links">
-                      <div class="Icon">
-                        <a href=""><i class="fa-regular fa-heart"></i></a>
-                        <span class="tooltiptext">Add to WishList</span>
-                      </div>
-                      <div class="Icon">
-                        <a href=""><i class="fa-regular fa-eye"></i></a>
-                        <span class="tooltiptext">Quick view</span>
-                      </div>
-                      <div class="Icon">
-                        <a href=""><i class="fa fa-arrow-up-right-from-square"></i></a>
-                        <span class="tooltiptext">Compare</span>
-                      </div>
-    
-                    </div>
-    
-    
-    
-                  </div>
-                  <div class="Content">
-                    <h3 class="product-title">
-                      Trivia Sofa / 154 x 82 CM 2S
-                    </h3>
-                    <del>9,960.00 EGP</del>
-                    <ins class="in">8,140.00 EGP</ins>
-                  </div>
-    
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-     -->
+
       <div class="recentpreview">
     
         <div class="innerprod">
@@ -498,6 +475,11 @@
         </div>
       </div>
       <script src="/../js/itemPage.js"></script>
+       <script type="text/javascript"  src="/js/ajax-cart.js"></script>
+      <script type="text/javascript"  src="/js/ajax-wishlist.js"></script>
+      <script>
+
+      </script>
 
       <%- include("./partials/chat.ejs")%>
       <%- include("./partials/footer.ejs")%>

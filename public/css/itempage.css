@@ -1024,3 +1024,39 @@ padding: 13px;
   height: 300px; /* Adjust the height as needed */
   overflow-y: auto;
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination-link {
+  padding: 5px 10px;
+  margin: 0 5px;
+  color: #000;
+  text-decoration: none;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+
+.current-page {
+  padding: 5px 10px;
+  margin: 0 5px;
+  color: #fff;
+  background-color: #333;
+  border-radius: 3px;
+}
+.no-products-message {
+  text-align: center;
+  padding: 50px;
+}
+
+.no-products-message i {
+  color: #FF3D00;
+  font-size: 48px;
+}
+
+.no-products-message span {
+  font-size: 18px;
+}

@@ -6,6 +6,7 @@
 .emptyWishlistContainer {
   display: none;
 }
+
 #yourWishlist {
   font-weight: bold;
   font-size: 25px;
@@ -21,11 +22,18 @@
     margin:auto;
   width: 100%;
 }
+.buttonxx{
+   /* hide a button */
+    display: none;
+    position: absolute;
+    
+
+}
 .wishlistItemContainer {
-    margin:10%;
+    margin:3% 10% 3% 10%;
     border:1px solid gray;
     width:80%;
-    padding: 10;
+    padding: 30px;
     display:flex;
     overflow: hidden;
 }
@@ -73,6 +81,14 @@ color: black;
 #eyeIcon{
     color:white;
     display: none;
+}
+.shoppingCartPage{
+    margin-left:45px;
+    margin:39.400px;
+    padding:15px;
+    
+    max-width: 1200px;
+
 }
 @media only screen and (max-width:600px){
     #insideInfo{

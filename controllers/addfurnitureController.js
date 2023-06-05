@@ -1,4 +1,5 @@
 import Furniture from "../models/furniture.js";
+import User  from "../models/user.js";
 const furnitureController = {};
 
 furnitureController.createFurniture = async (req, res) => {
@@ -67,6 +68,7 @@ furnitureController.createFurniture = async (req, res) => {
       size: measurements,
       sold: 0,
       offer: 0,
+      review: "",
     });
 
     // Save the new furniture item to the database
@@ -90,6 +92,30 @@ furnitureController.uploadImage = async (req, res) => {
   return res.status(200).json({ message: "File uploaded successfully" });
 };
 
-furnitureController.getreview = async (req, res) => {};
+furnitureController.getreview = async (req, res) => {
+  console.log("in function");
+  const {id, review,category}=req.body;
+const furniture = await Furniture.findById({_id:id});
+ if(furniture){
+    console.log("updated review");
+    furniture.review.push(review);
+    const updatedFurniture = await furniture.save();    
+    console.log(updatedFurniture);
+      console.log("after redirect ?");
+  }
+  const reviewuser=await User.findById({_id:req.session.user._id});
+  if(reviewuser){
+    console.log("updated review in user");
+    reviewuser.review.push(review);
+    const updatedUsereview = await reviewuser.save();    
+    console.log(updatedUsereview);
+  }
+  else{
+    console.log("errrroorr")
+  }
+  res.redirect("/product/itempage?id="+id+"&category="+category);
+  };
+
+
 // ...
 export default furnitureController;

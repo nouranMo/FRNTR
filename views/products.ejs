@@ -49,28 +49,47 @@
         color: white;
       }
     </style>
+    <link rel="stylesheet" href="../css/filter.css" />
     <title>Admin Products</title>
   </head>
 
   <body>
+
     <%- include("./partials/adminsidebar.ejs")%>
+    
     <div class="contenty">
       <%- include("./partials/adminnav.ejs")%>
+      
       <div class="sideCon">
         <a class="btn btn-make-admin" href="/adminproduct/addeditproduct"
           >Add Product</a
         >
         <div class="header">
           <h2>All Store Products</h2>
+          <div class="search-bar">
+            <form action="/adminproduct/product" method="GET">
+              <input type="text" name="search" placeholder="Search by name" />
+              <button type="submit">Search</button>
+            </form>
+          </div>
         </div>
-        <div class="search-bar">
-          <form action="/adminproduct/product" method="GET">
-            <input type="text" name="search" placeholder="Search by name" />
-            <button type="submit">Search</button>
-          </form>
+        <div class="dropDownContainer" style="display: block;">
+          <select id ="sortSelect" placeholder="Select a Sorting Method">
+            <option value="atoz">Alphabatically: A to Z</option>
+            <option value="ztoa">Alphabatically: Z to A</option>
+            <option value="lowtohigh">Price: Low To High</option>
+            <option value="hightolow">Price: High To Low</option>
+            <option value="oldtonew">Date: Old To New</option>
+          </select>
+          <button onclick="sortItems()">Sort</button>
         </div>
+      <%if(searchQuery){%>
+      
+      <input id = "searchinput" type="hidden" value="<%= searchQuery %>">
+      <%}%>
+        
         <div class="gallery">
-          <div class="row">
+          <div class="row" style="width:100%">
             <% products.forEach((product) => { %>
             <div class="content">
               <div class="product-image">
@@ -134,4 +153,25 @@
     </div>
     <%- include('./partials/chat.ejs')%>
   </body>
+  <script>
+    function sortItems() {
+      console.log("entered sort function")
+      var selectElement = document.getElementById("sortSelect");
+      console.log("found sortSelect")
+      var selectedValue = selectElement.value;
+      console.log("found sortselect value")
+      if(document.getElementById("searchinput")!==null){
+        var search = document.getElementById("searchinput").value;
+      }
+      
+      console.log("found search input")
+      if(search!==null && search!==undefined && search!=="")
+      {
+      window.location.href=`/adminproduct/product?sort=${selectedValue}&search=${search}`;
+      }
+      else{
+        window.location.href=`/adminproduct/product?sort=${selectedValue}`;
+      }
+    }
+  </script>
 </html>

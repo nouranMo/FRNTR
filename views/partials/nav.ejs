@@ -86,44 +86,38 @@
 
 
                 <div class="content">
-                  <a class="anor" href="/product/clientproduct/sofas">Sofas</a>
-                  <a class="anor" href="/product/clientproduct/beds">Beds</a>
-                  <a class="anor" href="/product/clientproduct/armchair">Arm chairs</a>
-                  <a class="anor" href="/product/clientproduct/chaise lounges">Chaise Lounges</a>
-                  <a class="anor" href="/product/clientproduct/benches">Ottmans & Benches</a>
-                  <a class="anor" href="/product/clientproduct/outdoors">outdoor Furniture</a>
-                  <a class="anor" href="/product/clientproduct/living room set">Living Room Sets</a>
-                  <a class="anor" href="/product/clientproduct/space friendly">Space Friendly</a>
-                  <a class="anor" href="/product/clientproduct/kids furniture">Kids Furniture</a>
-                  <a class="anor" href="/product/clientproduct/beanbags">Bean Bags</a>
-                  <a class="anor" href="/product/clientproduct/pets furniture">Pets Furniture</a>
+                  <a class="anor" href="/product/clientproduct/?category=sofas">Sofas</a>
+                  <a class="anor" href="/product/clientproduct/?category=beds">Beds</a>
+                  <a class="anor" href="/product/clientproduct/?category=armchairs">Arm chairs</a>
+                  <a class="anor" href="/product/clientproduct/?category=chaiselounges">Chaise Lounges</a>
+                  <a class="anor" href="/product/clientproduct/?category=benches">Ottmans & Benches</a>
+                  <a class="anor" href="/product/clientproduct/?category=outdoor">outdoor Furniture</a>
+                  <a class="anor" href="/product/clientproduct/?category=livingroomset">Living Room Sets</a>
+                  <a class="anor" href="/product/clientproduct/?category=spacefriendly">Space Friendly</a>
+                  <a class="anor" href="/product/clientproduct/?category=kidsfurniture">Kids Furniture</a>
+                  <a class="anor" href="/product/clientproduct/?category=beanbags">Bean Bags</a>
+                  <a class="anor" href="/product/clientproduct/?category=petsfurniture">Pets Furniture</a>
                 </div>
 
 
                 <button class="dropbtn"><a class="anor" href="/">Storage & Display</a>
                   <div class="content">
-                    <a class="anor" href="/product/clientproduct">Dressers</a>
-                    <a class="anor" href="/product/clientproduct">TV Units</a>
-                    <a class="anor" href="/product/clientproduct">Consoles</a>
-                    <a class="anor" href="/product/clientproduct">Make-up-Vanity</a>
+                    <a class="anor" href="/product/clientproduct/?category=dressers">Dressers</a>
+                    <a class="anor" href="/product/clientproduct/?category=tvunits">TV Units</a>
+                    <a class="anor" href="/product/clientproduct/?category=consoles">Consoles</a>
+                    <a class="anor" href="/product/clientproduct/?category=vanity">Make-up-Vanity</a>
                   </div>
                 </button>
                 <button class="dropbtn"><a class="anor" href="/">Tables</a>
                   <div class="content">
-                    <a class="anor" href="/product/clientproduct">Night Tables</a>
-                    <a class="anor" href="/product/clientproduct">Coffee Tables</a>
-                    <a class="anor" href="/product/clientproduct">Stands</a>
-                    <a class="anor" href="/product/clientproduct">Night Stands</a>
+                    <a class="anor" href="/product/clientproduct/?category=nightstands">Dining Tables</a>
+                    <a class="anor" href="/product/clientproduct/?category=coffeetables">Coffee Tables</a>
+                    <a class="anor" href="/product/clientproduct/?category=sidetables">Side Tables</a>
+                    <a class="anor" href="/product/clientproduct/?category=nightstands">Night Stands</a>
                   </div>
                 </button>
 
 
-                <button class="dropbtn"><a class="anor" href="/">FRNTR Moods</a>
-                  <div class="content">
-                    <a class="anor" href="/product/clientproduct">Modern</a>
-                    <a class="anor" href="/product/clientproduct">Boho</a>
-                  </div>
-                </button>
 
                 
             </nav>
@@ -139,8 +133,10 @@
                     <% if(user==="") {%>
                     <button class="side-btn"  onclick="signOpen()"><i class="material-icons">person</i></button> <% }else { %>
                       <button class="side-btn"  onclick="accOpen()"><i class="material-icons">person</i></button> <% } %>
-                    <a href="/User/wishlist"><button class="side-btn" onclick=><i class="material-icons">favorite</i></button></a>
-                    <button class="side-btn" onclick="cartOpen()"><i class="material-icons">shopping_cart</i></button>
+                      <% if(user!=="") {%>
+                    <a href="/user/wishlist"><button class="side-btn" onclick=><i class="material-icons">favorite</i></button></a>
+                    <a href="/user/cartPage"><button class="side-btn" onclick=><i class="material-icons">shopping_cart</i></button></a>
+                    <% } %>
                   </ul>
               </nav>
           </div>
@@ -186,65 +182,24 @@
      
     </div>
     <div class="sign">
-          <form name="search" action="#" method="get" id="search12">
-              <select id="options" class="element1" name="catego" placeholder="All Categories" >
-                <option value="*">All Categories</option>
-                <option value="Baby Bed">Baby Bed</option>
-                <option value="Bean Bag">Bean Bag</option>
-                <option value="Bean Bag Chairs">Bean Bag Chairs</option>
-                <option value="Bean Bags">Bean Bags</option>
-                <option value="Beds">Beds</option>
-                <option value="Benches">Benches</option>
-                <option value="Chair Bed">Chair Bed</option>
-                <option value="Chairs">Chairs</option>
-                <option value="Chaise Lounge">Chaise Lounge</option>
-                <option value="Chaise Lounges">Chaise Lounges</option>
-                <option value="Closet">Closet</option>
-                <option value="Coffee Tables">Coffee Tables</option>
-                <option value="Console Table">Console Table</option>
-                <option value="Dining Tables">Dining Tables</option>
-                <option value="Dresser">Dresser</option>
-                <option value="Duvet Covers">Duvet Covers</option>
-                <option value="Kid Chair">Kid Chair</option>
-                <option value="Kids Chairs">Kids Chairs</option>
-                <option value="Kids Chaise Lounge">Kids Chaise Lounge</option>
-                <option value="Kids Matresses">Kids Matresses</option>
-                <option value="Kids Seating Set">Kids Seating Set</option>
-                <option value="Lazy Boy Chair">Lazy Boy Chair</option>
-                <option value="Living Room Sets">Living Room Sets</option>
-                <option value="Lounge Chair">Lounge Chair</option>
-                <option value="Makeup Vanity">Makeup Vanity</option>
-                <option value="Mattress Protectors">Mattress Protectors</option>
-                <option value="Mattresses">Mattresses</option>
-                <option value="Mini Bed & Pouf">Mini Bed & Pouf</option>
-                <option value="Multifunctional Seating">Multifunctional Seating</option>
-                <option value="Neck Travel Pillow">Neck Travel Pillow</option>
-                <option value="Night Stands">Night Stands</option>
-                <option value="Office Furniture">Office Furniture</option>
-                <option value="Ottoman">Ottoman</option>
-                <option value="Ottomans">Ottomans</option>
-                <option value="Outdoor Set">Outdoor Set</option>
-                <option value="Pet Blanket">Pet Blanket</option>
-                <option value="Pet Couch">Pet Couch</option>
-                <option value="Pets Bed">Pets Bed</option>
-                <option value="Pets Cushion">Pets Cushion</option>
-                <option value="Pets Mat">Pets Mat</option>
-                <option value="Pillow">Pillow</option>
-                <option value="Pillows">Pillows</option>
-                <option value="Pouf">Pouf</option>
-                <option value="Side Tables">Side Tables</option>
-                <option value="Sofa Bed">Sofa Bed</option>
-                <option value="Sofas">Sofas</option>
-                <option value="Soft Foam Chair">Soft Foam Chair</option>
-                <option value="Stool">Stool</option>
-                <option value="Topper Mattress">Topper Mattress</option>
-                <option value="TV Tables">TV Tables</option>
-                <option value="TV Units">TV Units</option>
+          <form name="search" action="#" method="get" id="search12" onsubmit="validateSearchForm()">
+              <select id="options" class="element1" name="category" placeholder="All Categories" >
+                <option value="allcategories">All Categories</option>
+                <option value="beanbags">Bean Bags</option>
+                <option value="beds">Beds</option>
+                <option value="benches">Benches</option>
+                <option value="sofas">Sofas</option>
+                <option value="chaiselounges">Chaise Lounges</option>
+                <option value="livingroomset">Living Room Set</option>
+                <option value="kidsfurniture">Kids Furniture</option>
+                <option value="petsfurniture">Pets Furniture</option>
+                <option value="spacefriendly">Space Friendly</option>
+                <option value="outdoors">Outdoors</option>
               </select>
   
               
               <div id="con11">
-              <input id="search1"style="margin-top: 10px; margin-bottom: 5px;" type="text" class="element1" name="search1" placeholder="Search"><button class="material-icons" id="mi1">search</button>
+              <input id="search1"style="margin-top: 10px; margin-bottom: 5px;" type="text" class="element1" name="search" placeholder="Search"><button class="material-icons" id="mi1">search</button>
               </div>
               <div style="margin-top: 20px; margin-bottom: 30px;"></div>
             
@@ -319,7 +274,7 @@
         </div>
         <div class="viewandcheckcontainer">
           <button id="viewcart">
-            <a href="/User/cart">View Cart</a>
+            <a href="/user/cart">View Cart</a>
           </button>
           <button id="checkout">
             Checkout
@@ -332,4 +287,16 @@
       <script type="text/javascript"  src="/js/handler.js"></script>
       <script type="text/javascript"  src="/js/validations.js"></script>
     </body>
+    <script>
+      function submitForm(event) {
+      event.preventDefault(); // Prevent the default form submission
+      // Get the selected category and search query
+      const category = encodeSpaces(document.getElementById('options').value);
+      const searchQuery = encodeSpaces(document.getElementById('search1').value);
+      // Construct the URL with the encoded query parameters
+      const url = `/product/clientproduct/?category=${category}&search=${searchQuery}`;
+
+      window.location.href = url;
+  }
+    </script>
 </html>

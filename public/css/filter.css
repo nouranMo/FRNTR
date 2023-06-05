@@ -659,3 +659,25 @@ box-shadow: 0 0 6px rgba(0,0,0,0.05);
   font-size: 15px;
   margin-left:13px;
 }
+.dropDownContainer {
+  display: flex;
+  align-items: center;
+}
+
+.dropDownContainer select {
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.dropDownContainer button {
+  margin-left: 10px;
+  padding: 8px 16px;
+  font-size: 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}

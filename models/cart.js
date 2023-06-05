@@ -4,10 +4,24 @@ import User from "../models/user.js";
 
 const cartSchema = new mongoose.Schema({
     UserId: String,
+
     item:[{ productId: String,
     productName: String,
     productPrice: Number,
-    quantity: Number} ]
+    quantity:{ 
+      type: Number ,
+      default: 0
+     },
+    stock:{
+      type: Number,
+      default: 0
+    },
+  } ],
+
+     totalPrice:{
+      type: Number,
+      default: 0
+     }
     
   });
 const Cart = mongoose.model('Cart', cartSchema);

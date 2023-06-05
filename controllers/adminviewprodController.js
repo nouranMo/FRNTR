@@ -26,7 +26,27 @@ const productsController = {
           product.productName.toLowerCase().includes(searchQuery.toLowerCase())
         );
       }
-
+      
+      const sortQuery = req.query.sort;
+      if (sortQuery) {
+        if (sortQuery === "atoz") {
+          // Sort products alphabetically: A to Z
+          products.sort((a, b) => a.productName.localeCompare(b.productName));
+        } else if (sortQuery === "ztoa") {
+          // Sort products alphabetically: Z to A
+          products.sort((a, b) => b.productName.localeCompare(a.productName));
+        } else if (sortQuery === "lowtohigh") {
+          // Sort products by price: Low to High
+          products.sort((a, b) => a.price - b.price);
+        } else if (sortQuery === "hightolow") {
+          // Sort products by price: High to Low
+          products.sort((a, b) => b.price - a.price);
+        } else if (sortQuery === "oldtonew") {
+          // Sort products by date: Old to New
+          products.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+        }
+      }
+      
       // Calculate pagination variables
       const currentPage = parseInt(req.query.page) || 1; // Current page number
       const itemsPerPage = 10; // Number of products to display per page
@@ -39,10 +59,111 @@ const productsController = {
       const currentProducts = products.slice(startIndex, endIndex);
 
       res.render("products", {
+        user: req.session.user === undefined ? "" : req.session.user,
         products: currentProducts,
         currentPage,
         totalPages,
-        imagePath: currentProducts[0].imagePath,
+        searchQuery,
+      });
+    } catch (error) {
+      // Handle error if retrieval fails
+      console.error("Error retrieving products:", error);
+      res.render("404", {
+        message: "Failed to retrieve products",
+        user: req.session.user === undefined ? "" : req.session.user,
+      });
+    }
+  },
+  viewAllCategoryProducts: async (req, res) => {
+    try {
+      console.log("Inside viewAllProducts");
+
+      // Retrieve all products from the database
+      let products = await Furniture.find();
+
+      console.log("Retrieved products from the database:", products);
+
+      products.forEach((product) => {
+        if (product.photo && product.photo.length > 0) {
+          product.imagePath = product.photo.map((photo) =>
+            photo.replace(/\\/g, "/").replace("public/", "")
+          );
+        }
+      });
+
+      // Filter products by name if search query is provided
+      const searchQuery = req.query.search;
+      if (searchQuery) {
+        products = products.filter((product) =>
+          product.productName.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      }
+      const categoryQuery = req.query.category;
+      if(categoryQuery){
+        if(categoryQuery!="allcategories")
+        {
+        products = products.filter((product) =>
+          product.category.toLowerCase().includes(categoryQuery.toLowerCase())
+          
+        );
+        }
+      }
+      const sortQuery = req.query.sort;
+      if (sortQuery) {
+        if (sortQuery === "atoz") {
+          // Sort products alphabetically: A to Z
+          products.sort((a, b) => a.productName.localeCompare(b.productName));
+        } else if (sortQuery === "ztoa") {
+          // Sort products alphabetically: Z to A
+          products.sort((a, b) => b.productName.localeCompare(a.productName));
+        } else if (sortQuery === "lowtohigh") {
+          // Sort products by price: Low to High
+          products.sort((a, b) => a.price - b.price);
+        } else if (sortQuery === "hightolow") {
+          // Sort products by price: High to Low
+          products.sort((a, b) => b.price - a.price);
+        } else if (sortQuery === "oldtonew") {
+          // Sort products by date: Old to New
+          products.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+        }
+      }
+      // Calculate pagination variables
+      const currentPage = parseInt(req.query.page) || 1; // Current page number
+      const itemsPerPage = 10; // Number of products to display per page
+      const totalItems = products.length; // Total number of products
+      const totalPages = Math.ceil(totalItems / itemsPerPage); // Total number of pages
+
+      // Get the products for the current page
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+      const currentProducts = products.slice(startIndex, endIndex);
+
+      // Find the highest and lowest prices
+    const highestPrice = Math.max(...products.map((product) => product.price));
+    const lowestPrice = Math.min(...products.map((product) => product.price));
+    
+    console.log("Highest Price:", highestPrice);
+    console.log("Lowest Price:", lowestPrice);
+
+    // Check if a filter has been applied
+    const minPrice = parseInt(req.query.minPrice);
+    const maxPrice = parseInt(req.query.maxPrice);
+
+    if (!isNaN(minPrice) && !isNaN(maxPrice)) {
+      // Filter the products based on the price range
+      products = products.filter(
+        (product) => product.price >= minPrice && product.price <= maxPrice
+      );
+    }
+      res.render("clientproduct", {
+        user: req.session.user === undefined ? "" : req.session.user,
+        product: currentProducts,
+        lowestPrice,
+        highestPrice,
+        currentPage,
+        totalPages,
+        category:categoryQuery,
+        searchQuery,
       });
     } catch (error) {
       // Handle error if retrieval fails
@@ -88,7 +209,23 @@ const productsController = {
       });
     }
   },
-
+  revtoadmin:async(req,res)=>{
+    try{
+      console.log("inside reviews to admin");
+      const revadmin = await Furniture.find({ review: { $exists: true, $ne: [] } });
+      const usereview= await user.find({ review: { $exists: true, $ne: [] } });
+      console.log("Retrieved products with reviews from the database:", revadmin);
+        res.render("reviews", { revadmin,usereview});
+     
+    }
+    catch (error) {
+      console.error("Error retrieving review products:", error);
+      res.render("404", {
+        message: "Failed to retrieve reviewd products",
+        user: req.session.user === undefined ? "" : req.session.user,
+      });
+    }
+  },
   Offers: async (req, res) => {
     try {
       console.log("Inside offers");

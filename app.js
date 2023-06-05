@@ -133,44 +133,6 @@ next();
 }
 }
 
-// app.post("/account", (req, res) => {
-//   //req.session.userr = req.body.email;
-//   // req.session.pw = req.body.pas;
-//   let errors={};
-
-//   var data = { email: req.body.email };
-//   User.find(data)
-  
-//   .then((result) => {
-//     console.log(result[0]);
-//     console.log(result[0].firstName);
-//     req.session.user = result[0];
-//     if (req.body.email.trim() === "") {
-//       errors.email = "You must enter your email!";
-//     }
-  
-  
-//     if(result[0].password!=req.body.pas){
-//         errors.password="incoorect password !"
-//     }
-
-//   });
-  
-
-//   if (Object.keys(errors).length > 0) {
-//     // Return validation errors to the client
-//     return res.status(400).json({ errors });
-//   }
-//   res.render("account", { userP: req.session.user });
-//   req.session.x = "x";
-//   // res.redirect('/User/account',{userP:result[0]});
-// });
-
-
-
-
-
-
 app.get("/logout", (req, res) => {
   req.session.destroy();
   res.redirect("/");
