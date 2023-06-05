@@ -38,16 +38,13 @@
     <div class="signup1">
         <p class="sign1">Edit Profile</p>
     </div>
-
+  <!-- <% let errors=user.errors%>-->
     <div class="sign1">
-        <form name="sign-in" action="/auth/SignUp" method="post" onsubmit="return validate(this)">
-            <input type="hidden" name="userType" value="client">
-          
+        <form name="edit_profile" action="/user/editprofile" method="post" onsubmit="return validate(this)" >          
             <input id="fir" type="text" class="elemen" name="Firstname" placeholder="First Name" value="<%= user.firstName %>">
             <div id="first" class="err"><%= errors && errors.firstname ? errors.firstname : '' %></div>
-          
             <input id="las" type="text" class="elemen" name="last" placeholder="Last Name" value="<%= user.lastName %>">
-            <div id="last" class="err"><%= errors && errors.lastname ? errors.lastname : '' %></div>
+            <div id="last" class="err"><%= errors && errors.last ? errors.last : '' %></div>
           
             <input id="ema" type="email" class="elemen" name="email" placeholder="Email" value="<%= user.email %>">
             <div id="em" class="err"><% if(errors && errors.email) { %>
