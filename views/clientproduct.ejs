@@ -84,6 +84,33 @@
 .icon:hover .tooltiptext {
   visibility: visible;
 }
+/* Styling for the pagination container */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+/* Styling for the pagination links */
+.pagination-link {
+  margin: 0 5px;
+  padding: 5px 10px;
+  text-decoration: none;
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+/* Styling for the current page link */
+.current-page {
+  margin: 0 5px;
+  padding: 5px 10px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 3px;
+}
 
   </style>
   <link rel="stylesheet" href="/../css/style.css">
@@ -199,21 +226,22 @@
     </div>
     <div class="pagination">
       <% if (currentPage > 1) { %>
-        <a href="?page=<%= currentPage - 1 %>&category=<%= categoryQuery %>">Previous</a>
+        <a class="pagination-link" href="?page=<%= currentPage - 1 %>&category=<%= categoryQuery %>">Previous</a>
       <% } %>
       
       <% for (let i = 1; i <= totalPages; i++) { %>
         <% if (i === currentPage) { %>
-          <span class="current-page"><%= i %></span>
+          <span class="current-page current-page-link"><%= i %></span>
         <% } else { %>
-          <a href="?page=<%= i %>&category=<%= categoryQuery %>"><%= i %></a>
+          <a class="pagination-link" href="?page=<%= i %>&category=<%= categoryQuery %>"><%= i %></a>
         <% } %>
       <% } %>
     
       <% if (currentPage < totalPages) { %>
-        <a href="?page=<%= currentPage + 1 %>&category=<%= categoryQuery %>">Next</a>
+        <a class="pagination-link" href="?page=<%= currentPage + 1 %>&category=<%= categoryQuery %>">Next</a>
       <% } %>
     </div>
+    
   </div>
 
     <%- include("./partials/chat.ejs")%>

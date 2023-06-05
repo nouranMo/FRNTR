@@ -164,6 +164,7 @@ const productsController = {
         totalPages,
         category:categoryQuery,
         searchQuery,
+        categoryQuery,
       });
     } catch (error) {
       // Handle error if retrieval fails
