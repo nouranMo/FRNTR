@@ -57,11 +57,13 @@
               </div>
               <div class="rev">
                 <div class="container-z">
-                 <% usereview.forEach((user)=> {%>
-                 <% if(product.review ===user.review ){%>
-                 <p><%= product.review%>  review left by user <%= user.firstName%> <br> </p>
-                  <%}%>
-                 <%})%>
+                 <p><%= product.review%>  <br> </p>
+                 <div class="status">
+                  <p>
+                    <a class="approverev" href="/admin/approverev" onclick="printReview('<%= product.review %>')">Accept Review</a>
+                    <a class="deleterev" href="/admin/deleterevl/<%= product.id %>" onclick="deleteReview('<%= product.id %>')">Delete Review</a>
+                  </p>
+                </div>
                 </div>
               </div>
             </div>
