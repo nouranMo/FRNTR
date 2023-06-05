@@ -82,56 +82,6 @@ app.use("/auth", auth_router);
 app.use("/admin", admin_router);
 app.use("/adminproduct", adminproduct_router);
 
-//test pagination
-const products = [
-  {id: 1  , name:'product 1'},
-  {id: 2  , name:'product 2'},
-  {id: 3  , name:'product 3'},
-  {id: 4  , name:'product 4'},
-  {id: 5  , name:'product 5'},
-  {id: 6  , name:'product 6'},
-  {id: 7  , name:'product 7'},
-  {id: 8  , name:'product 8'},
-  {id: 9  , name:'product 9'},
-  {id: 10 , name:'product 10'},
-] 
-
-
-app.get('/product/clientproduct' , paginatedResults(Furniture),(req , res) =>{
- 
-  res.json(res.paginatedResults);
-})
-
-function paginatedResults(model){
-return (req , res , next) =>{
-  const page = parseInt(req.query.page)
-  const limit = parseInt(req.query.limit)
-
-  const startIndex = (page -1) *limit
-  const endIndex = page * limit
-
-
-  const results = {}
-  
-if(endIndex < model.length){
-  results.next = {
-    page: page + 1 ,
-    limit: limit
-  }
-}
-
-  if(startIndex > 0){
-
-  results.previous = {
-    page: page - 1 ,
-    limit: limit
-  }
-}
-results.results = model.slice(startIndex , endIndex)
-res.paginatedResults = results
-next();
-}
-}
 
 app.get("/logout", (req, res) => {
   req.session.destroy();
