@@ -45,6 +45,11 @@ const productsController = {
           // Sort products by date: Old to New
           products.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
         }
+        else if(sortQuery === "newtoold")
+          {
+            // Sort products by date: New to Old
+            products.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+          }
       }
       
       // Calculate pagination variables
@@ -100,7 +105,7 @@ const productsController = {
       }
       const categoryQuery = req.query.category;
       if(categoryQuery){
-        if(categoryQuery!="allcategories")
+        if(categoryQuery!="allcategories" && categoryQuery!="")
         {
         products = products.filter((product) =>
           product.category.toLowerCase().includes(categoryQuery.toLowerCase())
@@ -126,6 +131,12 @@ const productsController = {
           // Sort products by date: Old to New
           products.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
         }
+          else if(sortQuery === "newtoold")
+          {
+            // Sort products by date: New to Old
+            products.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+          }
+        
       }
       // Calculate pagination variables
       const currentPage = parseInt(req.query.page) || 1; // Current page number
@@ -233,7 +244,7 @@ const productsController = {
 
       // Retrieve products with quantities less than 10 from the database
       const offers = await Furniture.find({
-        offer: { $exists: true, $ne: null },
+        offer: { $exists: true, $ne: null , $ne: 0},
       });
 
       console.log("Retrieved products with offers from the database:", offers);
