@@ -68,7 +68,7 @@ furnitureController.createFurniture = async (req, res) => {
       size: measurements,
       sold: 0,
       offer: 0,
-      review: "",
+    
     });
 
     // Save the new furniture item to the database
