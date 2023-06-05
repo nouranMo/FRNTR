@@ -30,7 +30,7 @@
     display:none;
   }
   .emptyCartContainer{
-    display: none;
+    display: block;
   }
   .listOfItems{
     width:100%;
