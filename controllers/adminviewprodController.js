@@ -390,6 +390,36 @@ const productsController = {
       res.status(500).json({ error: "Failed to update user" });
     }
   },
+  approverev: async(req,res)=>{
+    console.log("inside approve review");
+   try{
+    console.log(review);
+   }
+    catch (error) {
+      // If an error occurs during the update process, you can send an error response
+      console.error("Error approving the review:", error);
+      res.status(500).json({ error: "Failed to accept the review" });
+    }
+  },
+  deleterev: async(req,res)=>{
+    console.log("inside approve review");
+   try{
+    const previewID = req.params.id;
+    console.log(reviewID);
+    const targetUser = await product.findById(previewID);
+    if (!targetUser) {
+      return res.render("404", { message: "review not found" });
+    } else {
+      await user.findByIdAndDelete(previewID);
+      // res.redirect("/admin/customers");
+    }
+   }
+    catch (error) {
+      // If an error occurs during the update process, you can send an error response
+      console.error("Error approving the review:", error);
+      res.status(500).json({ error: "Failed to accept the review" });
+    }
+  },
 };
 
 export default productsController;

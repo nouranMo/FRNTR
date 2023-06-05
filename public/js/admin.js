@@ -658,6 +658,14 @@ function confirmDeleteUser(userId, userEmail) {
 
   return false; // Prevent the default link action
 }
+function printReview()
+{
+
+}
+function deleteReview()
+{
+  
+}
 function validateProductDeletion(productID, productName) {
   showConfirmationModal(
     "Are you sure you want to delete the product with the name: " +
