@@ -110,12 +110,5 @@ router.get('/editprofile', function(req, res, next) {
 });
 
 
-
-
-
-
-
-
-
 // Export the router
 export default router;

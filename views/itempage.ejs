@@ -145,11 +145,14 @@
 
                     <% if(user!==""){%>
                     <button class="button-addto" onclick="addToCart(`<%=product._id%>` , `<%=product.productName%>` , `<%=product.price%>`, `<%=product.quantity%>` )"> <span class="">Add to cart</span></button>
-                    <a href="#"><i class="material-symbols-outlined">
-                        favorite
-                      </i></a>
+                    <button class="buttonxxx" onclick="addToWishlist(`<%=product._id%>` , `<%=product.productName%>` , `<%=product.price%>`, `<%=product.quantity%>` )" > <a><i class="material-symbols-outlined" >
+                        favorite </i></a></button>
                       <%}else{%>
+
                         <button class="button-addto" > <span class="">Login to Add to Cart</span></button>
+
+                        
+
                         <a href="#"><i class="material-symbols-outlined">
                             favorite
                           </i></a>
@@ -343,6 +346,29 @@
        <script type="text/javascript"  src="/js/ajax-cart.js"></script>
       <script type="text/javascript"  src="/js/ajax-wishlist.js"></script>
       <script>
+      async function addToWishlist(productid, productname , productprice , productQuantity) {
+  console.log("in ajax wishlist");
+    console.log(productid, productname, productprice, productQuantity, "done");
+
+      product = {
+      productId: productid,
+      productName: productname,
+      productPrice: productprice,
+      productQuantity: productQuantity,
+       }
+      console.log(product);
+                $.ajax({
+                  url:'/user/add-to-wishlist',
+                  method:'POST',
+                  contentType: 'application/json',
+                  data:JSON.stringify({ productId: productid, productName:productname,
+                  productPrice: productprice, productQuantity: productQuantity}),
+                  success:function(response){
+                   //$('#result').html(response);
+                  },
+                  error:function(err){}
+                })
+            }
 
       </script>
 
