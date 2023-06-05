@@ -69,6 +69,37 @@ async function addToCart(productid, productname , productprice , productQuantity
                   })             
 
    }
+   function deleteItem(productId) {
+    $.ajax({
+      url: '/user/deleteItem',
+      method: 'POST',
+      data: { productId: productId },
+      success: function(response) {
+        document.documentElement.innerHTML = response;
+history.pushState({}, null, "/user/cartPage");
+      },
+      error: function(xhr, status, error) {
+        // Handle the error here, if needed
+        console.error(error);
+      }
+    });
+  }
+  function addItemToCart(productId) {
+    $.ajax({
+      url: '/user/addItem',
+      method: 'POST',
+      data: { productId: productId },
+      success: function(response) {
+        document.documentElement.innerHTML = response;
+history.pushState({}, null, "/user/cartPage");
+      },
+      error: function(xhr, status, error) {
+        // Handle the error here, if needed
+        console.error(error);
+      }
+    });
+  }
+  
    function openPopup(){
     popup.classList.add("open-popup");
 }

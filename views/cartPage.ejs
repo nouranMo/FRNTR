@@ -24,26 +24,31 @@
   </head>
   <body>
     <%- include("./partials/nav.ejs")%>
-    <div class="emptyWishlistContainer">
-      <i class="material-icons" id="emptyWishlist">heart_broken</i>
-      <div id="yourWishlist">CART IS EMPTY.</div>
-      <div>You don't have any products in the cart yet.</div>
-      <div>You will find a lot of interesting products on our "Shop" page.</div>
-      <a href="index"><button id="returnButton">RETURN TO SHOP</button></a>
-    </div>
-    <div class="headerCart" style="
-    justify-content: center;
-    align-items: center; position: relative; padding:50px ; margin:0">
-        <h1 style=" text-align: center; margin: auto">Shopping Cart</h1>
-    </div>
-   
+    <% if(cart.item.length === 0) { %>
+      <div class="signup1">
+        <p class="sign1">Shopping cart</p>
+      </div>
+      <div class="emptyCartContainer">
+        <i class="material-icons" id="emptyCart">production_quantity_limits</i>
+        <div id="yourCart">YOUR CART IS EMPTY.</div>
+        <div>
+          Before proceed to checkout you must add some product to your shopping
+          cart
+        </div>
+        <div>You will find a lot of interesting products on our "Shop" page.</div>
+        <a href="/"><button id="returnButton">RETURN TO SHOP</button></a>
+      </div>
+   <% } else { %>
     <div class="fullWishlistContainer">
       
-        <%cart.item.forEach((items) => { %>
+        <% cart.item.forEach((item) => { %>
       <div class="wishlistItemContainer">
         
         <div class="wishlistImageContainer">
-            <img src="<%= products.find(products => products.id === items.productId).photo[0] %>" width="100px" height="100px" />
+          <% const foundProduct = products.find(product => product.id === item.productId); %>
+          <% if (foundProduct && foundProduct.photo && foundProduct.photo.length > 0) { %>
+            <img src="<%= foundProduct.photo[0] %>" width="100px" height="100px" />
+            <% } %>
           </div>
 
 
@@ -51,23 +56,24 @@
        
         <div class="wishlistTexts">
           <a href="index" id="websiteLink">FRNTR</a>
-          <div style="font-weight: bold"><%=items.productName%></div>
+          <div style="font-weight: bold"><%=item.productName%></div>
           <div>
-            <s>16,100.00 EGP</s> <span style="color: red"><%=items.productPrice%></span>
+            <s>16,100.00 EGP</s> <span style="color: red"><%=item.productPrice%></span>
           </div>
+          <input type="hidden" value="<%=item.productId%>" id="productId" />
            <span class="addOrRemove"
               ><span class="addRemoveContainer"
                 ><button
                   class="material-symbols-outlined"
                   id="trash"
-                  onclick="removeItem()"
+                  onclick="deleteItem(document.getElementById('productId').value)"
                 >
                   delete</button
-                ><span id="totalAmount"><%=items.quantity%></span
+                ><span id="totalAmount"><%=item.quantity%></span
                 ><button
                   class="material-symbols-outlined"
                   id="plus"
-                  onclick="addItem()"
+                  onclick="addItemToCart(document.getElementById('productId').value)"
                 >
                   add
                 </button>
@@ -86,17 +92,17 @@
         <div class="buttonContainer">
           <button id="viewButton">
             <span id="viewMessage">View</span>
-            <a href="/product/itempage?id=<%=items.productId %>&category=<%= products.find(products => products.id === items.productId).category %>">
+            <a href="/product/itempage?id=<%=item.productId %>&category=<%= products.find(products => products.id === item.productId).category %>">
                 <span class="material-symbols-outlined" id="eyeIcon"
               >visibility</span
             ></a>
           </button>
           <span id="finalPrice">
-            <span id="totalItemPrice"><%=items.productPrice%></span> EGP<button
+            <span id="totalItemPrice"><%=item.productPrice%></span> EGP<button
             class="material-symbols-outlined"
             id="trash"
 
-            onclick="removeFromCart(`<%=items.productId%>`,`<%=items.productName%>` , `<%=items.productPrice%>`, `<%=items.quantity%>`)">
+            onclick="removeFromCart(`<%=item.productId%>`,`<%=item.productName%>` , `<%=item.productPrice%>`, `<%=item.quantity%>`)">
             delete</button</span>
 
          
@@ -137,6 +143,7 @@
         </div>
       </div>
     </div>
+    <% } %>
     <%- include("./partials/chat.ejs")%> <%- include("./partials/footer.ejs")%>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
