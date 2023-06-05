@@ -31,7 +31,7 @@ async function addToWishlist(productid, productname , productprice , productQuan
                   data:JSON.stringify({ productId: productid, productName:productname,
                   productPrice: productprice, productQuantity: productQuantity}),
                   success:function(response){
-                   $('#result').html(response);
+                   //$('#result').html(response);
                   },
                   error:function(err){}
                 })
