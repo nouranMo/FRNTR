@@ -39,6 +39,7 @@
         'opsz' 48
     }
   </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <title>FRNTR</title>
 </head>
 <body>
@@ -107,7 +108,12 @@
                     . No interest. No fees. <a href="#">Learn more</a></span>
                 </div>
               </div>
-    
+              <div class="popup" id="popup">
+                <img src="/images/404-tick.png" alt="tick">
+                <h2>Added To Cart!</h2>
+                <p>Item has been added to cart successfully. Thanks!</p>
+                <button type="button" onclick="closePopup()">OK</button>
+            </div>
               <div class="sympl-widget">
                 <div class="paragraph">
                   <span>Pay over 5 payments of <strong style="color: #ff395a">1171.5 EGP </strong>with your
@@ -139,16 +145,16 @@
                   <div class="row1">
                     <div class="addone">
                       <button class="mins" onclick="decrement()"><i class="fa fa-minus"></i></button>
-                      <span class="number"></span>
+                      <span class="number" id="myNumber"></span>
                       <button class="plus" onclick="increment()"><i class="fa fa-plus"></i></button>
                     </div>
 
                     <% if(user!==""){%>
-                    <button class="button-addto" onclick="addToCart(`<%=product._id%>` , `<%=product.productName%>` , `<%=product.price%>`, `<%=product.quantity%>` )"> <span class="">Add to cart</span></button>
+                    <button class="button-addto" onclick="addToCart(`<%=product._id%>` , `<%=product.productName%>` , `<%=product.price%>`, `<%=product.quantity%>` , document.getElementById(`myNumber`).innerText)"> <span class="">Add to cart</span></button>
                     <button class="buttonxxx" onclick="addToWishlist(`<%=product._id%>` , `<%=product.productName%>` , `<%=product.price%>`, `<%=product.quantity%>` )" > <a><i class="material-symbols-outlined" >
                         favorite </i></a></button>
                       <%}else{%>
-
+                        
                         <button class="button-addto" > <span class="">Login to Add to Cart</span></button>
 
                         
@@ -157,6 +163,7 @@
                             favorite
                           </i></a>
                           <%}%>
+                          
                   </div>
                   <div class="row2">
                     <button class="buy">Buy it now</button>
@@ -346,6 +353,16 @@
        <script type="text/javascript"  src="/js/ajax-cart.js"></script>
       <script type="text/javascript"  src="/js/ajax-wishlist.js"></script>
       <script>
+        let popup = document.getElementById("popup");
+
+function openPopup(){
+    popup.classList.add("open-popup");
+}
+
+
+function closePopup(){
+    popup.classList.remove("open-popup");
+}
       async function addToWishlist(productid, productname , productprice , productQuantity) {
   console.log("in ajax wishlist");
     console.log(productid, productname, productprice, productQuantity, "done");

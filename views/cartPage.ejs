@@ -92,13 +92,13 @@
         <div class="buttonContainer">
           <button id="viewButton">
             <span id="viewMessage">View</span>
-            <a href="/product/itempage?id=<%=item.productId %>&category=<%= products.find(products => products.id === item.productId).category %>">
+            <a href="/product/itempage?id=<%=item.productId %>&category=foundProduct.category %>">
                 <span class="material-symbols-outlined" id="eyeIcon"
               >visibility</span
             ></a>
           </button>
           <span id="finalPrice">
-            <span id="totalItemPrice"><%=item.productPrice%></span> EGP<button
+            <span id="totalItemPrice"><%=item.productPrice * item.quantity%></span> EGP<button
             class="material-symbols-outlined"
             id="trash"
 
