@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 48
+        }
+    </style>
+  <link rel="stylesheet" href="../css/cartsidebar.css">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+
+
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <%- include("./partials/nav.ejs")%>
+    <div class="signup1">
+        <p class="sign1">Edit Profile</p>
+    </div>
+  <!-- <% let errors=user.errors%>-->
+    <div class="sign1">
+        <form name="edit_profile" action="/user/editprofile" method="post" onsubmit="return validate(this)" >          
+            <input id="fir" type="text" class="elemen" name="Firstname" placeholder="First Name" value="<%= user.firstName %>">
+            <div id="first" class="err"><%= errors && errors.firstname ? errors.firstname : '' %></div>
+            <input id="las" type="text" class="elemen" name="last" placeholder="Last Name" value="<%= user.lastName %>">
+            <div id="last" class="err"><%= errors && errors.last ? errors.last : '' %></div>
+          
+            <input id="ema" type="email" class="elemen" name="email" placeholder="Email" value="<%= user.email %>">
+            <div id="em" class="err"><% if(errors && errors.email) { %>
+                <%=errors.email%> 
+                <%}%>
+            </div>
+
+            <input id="add" type="text" class="elemen" name="address" placeholder="Address" value="<%= user.address %>">
+            <div id="ad" class="err"><%= errors && errors.address ? errors.address : '' %></div>
+
+            <input id="add2" type="text" class="elemen" name="address2" placeholder="Address 2" value="<%= user.address2 %>">
+            <div id="ad2" class="err"></div>
+          
+            <input class="subm" type="submit" value="Edit"><br>
+          </form>
+          
+    </div>
+    </div>
+    <%- include("./partials/chat.ejs")%>
+    <%- include("./partials/footer.ejs")%>
+    <script type="text/javascript" src="../js/handler.js"></script>
+    <script type="text/javascript" src="../js/validations.js"></script>
+
+</body>
+
+</html>
