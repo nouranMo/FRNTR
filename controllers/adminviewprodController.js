@@ -271,6 +271,76 @@ const productsController = {
       });
     }
   },
+  Sold: async (req, res) => {
+    try {
+      console.log("Inside orders");
+
+      // Retrieve products with quantities less than 10 from the database
+      const sold = await Furniture.find({
+        sold: { $exists: true, $ne: null , $ne: 0},
+      });
+
+      console.log("Retrieved products that were sold from the database:", sold);
+
+      sold.forEach((product) => {
+        if (product.photo && product.photo.length > 0) {
+          product.imagePath = product.photo.map((photo) =>
+            photo.replace(/\\/g, "/").replace("public/", "../")
+          );
+          console.log("orders", product.photo);
+        }
+      });
+      if (sold.length === 0) {
+        res.render("orders", { sold });
+      } else {
+        res.render("orders", { sold, imagePath: sold[0].imagePath });
+      }
+    } catch (error) {
+      // Handle error if retrieval fails
+      console.error("Error retrieving products sold:", error);
+      res.status(500).render("404", {
+        message: "Failed to retrieve products sold",
+        user: req.session.user === undefined ? "" : req.session.user,
+      });
+    }
+  },
+  TopSoldProducts: async (req, res) => {
+    try {
+      console.log("Inside TopSoldProducts function");
+  
+      // Retrieve 10 products with the highest "sold" value from the database
+      const topSoldProducts = await Furniture.find({
+        sold: { $exists: true, $ne: null, $ne: 0 },
+      })
+        .sort({ sold: -1 })
+        .limit(10);
+  
+      console.log("Retrieved top sold products from the database:", topSoldProducts);
+  
+      topSoldProducts.forEach((product) => {
+        if (product.photo && product.photo.length > 0) {
+          product.imagePath = product.photo.map((photo) =>
+            photo.replace(/\\/g, "/").replace("public/", "../")
+          );
+          console.log("statistics", product.photo);
+        }
+      });
+  
+      if (topSoldProducts.length === 0) {
+        res.render("statistics", { topSoldProducts: topSoldProducts });
+      } else {
+        res.render("statistics", { topSoldProducts: topSoldProducts, imagePath: topSoldProducts[0].imagePath });
+      }
+    } catch (error) {
+      // Handle error if retrieval fails
+      console.error("Error retrieving top sold products:", error);
+      res.status(500).render("404", {
+        message: "Failed to retrieve top sold products",
+        user: req.session.user === undefined ? "" : req.session.user,
+      });
+    }
+  },
+  
   viewAllUsers: async (req, res) => {
     try {
       console.log("Inside viewAllUsers");

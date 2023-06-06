@@ -40,55 +40,29 @@
           <h3 id="subhead">Your Top Selling Products</h3>
         </div>
         <div class="gallery">
+          <% if (topSoldProducts && topSoldProducts.length > 0) { %>
           <div class="row">
-            <div class="content">
-              <section class="hoveringimgs">
-                <div class="box">
-                  <img
-                    src="../images/Yerevan_11.webp"
-                    class="hoveredimg"
-                    alt="Sofa"
-                    style="width: 100%"
-                  />
-                  <img
-                    src="../images/Yerevan_10.webp"
-                    alt="Nyla Bbaby Blye sofa"
-                    class="hover_img"
-                    style="width: 100%"
-                  />
-                </div>
-                <div class="container">
-                  <h4><b>Malia Vanity Stool Chair</b></h4>
-                  <p>Hover function</p>
-                </div>
-              </section>
-            </div>
-            <div class="content">
-              <section class="hoveringimgs">
-                <div class="box">
-                  <img
-                    src="../images/NylaBabyBlue2.webp"
-                    class="hoveredimg"
-                    alt="Avatar"
-                    style="width: 100%"
-                  />
-                  <img
-                    src="../images/NylaBabyBlue3.webp"
-                    alt="texture"
-                    class="hover_img"
-                    style="width: 100%"
-                  />
-                </div>
-                <div class="container">
-                  <h4><b>Nyla Baby Blue</b></h4>
-                  <p>19200 EGP</p>
-                </div>
-              </section>
-            </div>
-          </div>
-        </div>
+              <% topSoldProducts.forEach((product) => { %>
+                  <div class="content">
+                      <div class="product-image">
+                          <% if (product.imagePath && product.imagePath.length > 0) { %>
+                           <% product.imagePath.forEach((path) => { %>
+                              <img src="<%= path %>" class="pic-1" style="width: 100%" />
+                              <% console.log("hello Image from offer Path:", path); %>
+                              <img src="<%= path %>" class="pic-2" style="width: 100%" />
+                                <% }); %>
+                                 <% } %>
+                      </div>
+                      <div class="container">
+                          <h4><b> <%= product.productName %> </b></h4>
+                           <p><%= product.sold %> item sold</p>
+                  </div>  </div>
+              <% }); %>
+        
+            <% } %>
       </div>
-      <%- include('./partials/chat.ejs')%>
-    </div> 
-  </body>
+  </div>
+  <%- include('./partials/chat.ejs')%>
+</div>
+</body>
 </html>
