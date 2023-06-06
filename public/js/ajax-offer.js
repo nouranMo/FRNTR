@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $.ajax({
-      url: '/admin/largestOffer',
+      url: '/product/largestOffer',
       method: 'GET',
       success: function (response) {
         $('#largestOffer').text(response);

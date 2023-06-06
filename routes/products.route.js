@@ -13,5 +13,5 @@ router.get('/clientproduct', productsController.viewAllCategoryProducts);
 
 router.get('/filter',userviewproduct.filtering);
 router.post('/review',furnitureController.getreview);
-
+router.get('/largestOffer', productsController.LargestOffers);
 export default router;

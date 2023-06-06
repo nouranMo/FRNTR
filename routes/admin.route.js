@@ -4,6 +4,7 @@ import productsController from "../controllers/adminviewprodController.js";
 // Create a new router instance
 var router = Router();
 const upload = multer({ dest: "public/images" });
+
 // Authentication, securing the admin dashboard.
 router.use((req, res, next) => {
   if (req.session.user !== undefined && req.session.user.userType === "admin") {
@@ -29,7 +30,7 @@ router.get("/offer", productsController.Offers);
 router.get("/reviews", productsController.revtoadmin);
 router.post("/editUser", upload.none(), productsController.editUser);
 router.get("/statistics", productsController.SoldStatistics);
-router.get('/largestOffer', productsController.LargestOffers);
+
 /* GET customers page. */
 // Export the router
 export default router;
