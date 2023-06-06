@@ -200,7 +200,7 @@
                       <input type="hidden" value=" <%= products.productName %>" name="productName">
                       <input type="hidden" value=" <%= products.price %>" name="productPrice">
                       <input type="hidden" value=" <%= products.quantity %>" name="productQuantity">
-                    <button type="button" class="confBtn" onclick="addToCart(`<%=products._id%>` , `<%=products.productName%>` , `<%=products.price%>`, `<%=products.quantity%>`,1 )"><i class="fa-solid fa-cart-plus"></i></button>
+                    <button type="button" class="confBtn" onclick="addToCart(`<%=products._id%>` , `<%=products.productName%>` , `<%=products.price%>`, `<%=products.quantity%>`, 1 )"><i class="fa-solid fa-cart-plus"></i></button>
                     
                     <span class="tooltiptext">Add To Cart</span>>
                      
@@ -233,7 +233,7 @@
         <h2>Added To Cart!</h2>
         <p>Item has been added to cart successfully. Thanks!</p>
         <button type="button" onclick="closePopup()">OK</button>
-    </div>
+      </div>
     <div class="errorpopup" id="errorpopup">
       <img src="/images/404-error.png" alt="tick">
       <h2>Failed to add to cart!</h2>

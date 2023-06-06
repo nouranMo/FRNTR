@@ -4,7 +4,8 @@ import Furniture from "../models/furniture.js";
 const cartController = {};
 
 cartController.addToCart = async (req, res) => {
-  const { productId, productName, productPrice, quantity, stock, value } = req.body;
+  const { productId, productName, productPrice, quantity, stock, value } =
+    req.body;
   console.log(productId, productName, productPrice, quantity, stock, "done");
   const userId = req.session.user._id;
   const furniture = await Furniture.findOne({ _id: productId });
@@ -22,14 +23,14 @@ cartController.addToCart = async (req, res) => {
 
       if (parseInt(value) > availableStock) {
         console.log("Insufficient quantity in stock");
-        res.redirect('/error');
+        res.redirect("/error");
         return;
       }
 
       if (item) {
         const newQuantity = item.quantity + parseInt(value);
         const newStock = furniture.quantity - parseInt(value);
-
+        const newSold = furniture.sold + parseInt(value);
         console.log("new quantity", newQuantity, "done here");
         console.log("new stock", newStock, "done here");
 
@@ -45,17 +46,20 @@ cartController.addToCart = async (req, res) => {
         );
         console.log("updating cart", cart, "done here");
 
-        await Furniture.updateOne({ _id: productId }, { $set: { "quantity": newStock } });
+        await Furniture.updateOne(
+          { _id: productId },
+          { $set: { quantity: newStock,
+               sold: newSold } }
+        );
         console.log("updating furniture", furniture, "done here");
-
       } else {
         console.log("Item does not exist", item, "done here");
         const newQuantity = parseInt(value);
         const newStock = furniture.quantity - parseInt(value);
-
+        const newSold = furniture.sold + parseInt(value);
         if (newStock < 0) {
           console.log("Cannot add item. Insufficient stock");
-          res.redirect('/error');
+          res.redirect("/error");
           return;
         }
 
@@ -67,7 +71,11 @@ cartController.addToCart = async (req, res) => {
           stock: parseInt(newStock),
         });
 
-        await Furniture.updateOne({ _id: productId }, { $set: { "quantity": newStock } });
+        await Furniture.updateOne(
+          { _id: productId },
+          { $set: { quantity: newStock,
+            sold: newSold} }
+        );
 
         // Need to update cart with the new item
         await Cart.updateOne(
@@ -92,31 +100,42 @@ cartController.addToCart = async (req, res) => {
       console.log("Cart does not exist", cart, "done here");
       const newQuantity = parseInt(value);
       const newStock = furniture.quantity - parseInt(value);
-
+      const newSold = furniture.sold + parseInt(value);
       if (newStock < 0) {
         console.log("Cannot add item. Insufficient stock");
-        res.redirect('/error');
+        res.redirect("/error");
         return;
       }
 
       const newCart = new Cart({
         UserId: userId,
-        item: [{ productId, productName, productPrice, quantity: newQuantity, stock: newStock }],
+        item: [
+          {
+            productId,
+            productName,
+            productPrice,
+            quantity: newQuantity,
+            stock: newStock,
+          },
+        ],
         totalPrice: productPrice * parseInt(value),
       });
 
       await newCart.save();
-      await Furniture.updateOne({ _id: productId }, { $set: { "quantity": newStock } });
+      await Furniture.updateOne(
+        { _id: productId },
+        { $set: { quantity: newStock, 
+                  sold:newSold} }
+      );
       console.log("saving new cart", newCart, "done here");
     }
 
-    res.status(200).json({ success: true, message: 'Item added to cart' });
+    res.status(200).json({ success: true, message: "Item added to cart" });
   } catch (error) {
     console.error("An error occurred while adding to cart:", error);
-    res.redirect('/error');
+    res.redirect("/error");
   }
 };
-
 
 cartController.getCart = async (req, res) => {
   try {
@@ -129,15 +148,19 @@ cartController.getCart = async (req, res) => {
       console.log("cart exists", cart, "done here");
 
       if (cart.item && cart.item.length > 0) {
-        const items = await Promise.all(cart.item.map((item) => {
-          return Furniture.findOne({ _id: item.productId });
-        }));
+        const items = await Promise.all(
+          cart.item.map((item) => {
+            return Furniture.findOne({ _id: item.productId });
+          })
+        );
 
         const validItems = items.filter((item) => item !== null);
         const validProductIds = validItems.map((item) => item._id.toString());
 
         // Remove invalid items from the cart
-        cart.item = cart.item.filter((item) => validProductIds.includes(item.productId.toString()));
+        cart.item = cart.item.filter((item) =>
+          validProductIds.includes(item.productId.toString())
+        );
 
         const products = validItems.map((item) => {
           if (item.photo && item.photo.length > 0) {
@@ -147,17 +170,17 @@ cartController.getCart = async (req, res) => {
           }
           return item;
         });
-        
+
         console.log("cart AT THE END ", cart, "done here");
         await cart.save(); // Save the updated cart
 
-        res.render('cartPage', {
+        res.render("cartPage", {
           cart: cart,
           user: req.session.user === undefined ? "" : req.session.user,
           products: products || [],
         });
       }
-      res.render('cartPage', {
+      res.render("cartPage", {
         cart: cart,
         user: req.session.user === undefined ? "" : req.session.user,
         products: [],
@@ -165,13 +188,9 @@ cartController.getCart = async (req, res) => {
     }
   } catch (error) {
     console.error("An error occurred while retrieving the cart:", error);
-    res.redirect('/error');
+    res.redirect("/error");
   }
 };
-
-
-
-
 
 cartController.removeFromCart = async (req, res) => {
   console.log("hello");
@@ -188,24 +207,29 @@ cartController.removeFromCart = async (req, res) => {
 
       const item = cart.item.find((item) => item.productId === productId);
       if (item) {
+        const furniture = await Furniture.findById(productId);
         const newQuantity = 0;
         const newStock = item.quantity;
+        const newSold = furniture.sold + newStock;
         console.log("new quantity", newQuantity, "done here");
         console.log("new stock", newStock, "done here");
 
         await Cart.updateOne(
           { UserId: userId },
-          { $pull: { item: { productId: productId }}, $inc: {totalPrice: -(item.quantity*item.productPrice)} }
+          {
+            $pull: { item: { productId: productId } },
+            $inc: { totalPrice: -(item.quantity * item.productPrice) },
+          }
         );
         console.log("removing item from cart", cart, "done here");
-        
+
         await Furniture.updateOne(
           { _id: productId },
-          { $inc: { quantity: newStock } }
+          { $inc: { quantity: newStock, sold: newSold } }
         );
         console.log("updating furniture stock", cart, "done here");
 
-        res.redirect('/user/cartPage');
+        res.redirect("/user/cartPage");
       } else {
         console.log("item does not exist in cart", item, "done here");
       }
@@ -214,11 +238,9 @@ cartController.removeFromCart = async (req, res) => {
     }
   } catch (error) {
     console.error("An error occurred while removing from cart:", error);
-    res.redirect('/error');
+    res.redirect("/error");
   }
 };
-
-
 
 cartController.deleteItem = async (req, res) => {
   const { productId } = req.body;
@@ -235,7 +257,10 @@ cartController.deleteItem = async (req, res) => {
         if (newQuantity === 0) {
           await Cart.updateOne(
             { UserId: userId },
-            { $pull: { item: { productId: productId } }, $inc: { totalPrice: -item.productPrice } }
+            {
+              $pull: { item: { productId: productId } },
+              $inc: { totalPrice: -item.productPrice },
+            }
           );
         } else {
           await Cart.updateOne(
@@ -244,24 +269,27 @@ cartController.deleteItem = async (req, res) => {
               $set: {
                 "item.$.quantity": newQuantity,
                 "item.$.stock": newStock,
-                "totalPrice": cart.totalPrice - item.productPrice,
+                totalPrice: cart.totalPrice - item.productPrice,
               },
               $inc: { totalPrice: -item.productPrice },
             }
           );
         }
 
-        await Furniture.updateOne({ _id: productId }, { $inc: { quantity: 1 } });
+        await Furniture.updateOne(
+          { _id: productId },
+          { $inc: { quantity: 1 } }
+        );
       } else {
         console.log("Item does not exist in cart");
       }
     } else {
       console.log("Cart does not exist");
     }
-    res.redirect('/user/cartPage');
+    res.redirect("/user/cartPage");
   } catch (error) {
     console.error("An error occurred while deleting item from cart:", error);
-    res.redirect('/error');
+    res.redirect("/error");
   }
 };
 cartController.addItem = async (req, res) => {
@@ -281,8 +309,8 @@ cartController.addItem = async (req, res) => {
           const newStock = product.quantity - 1;
 
           await Cart.updateOne(
-            { UserId: userId, 'item.productId': productId },
-            { $set: { 'item.$.quantity': newQuantity } }
+            { UserId: userId, "item.productId": productId },
+            { $set: { "item.$.quantity": newQuantity } }
           );
 
           await Furniture.updateOne(
@@ -293,19 +321,23 @@ cartController.addItem = async (req, res) => {
           cart.totalPrice += item.productPrice;
           await cart.save();
 
-          res.redirect('/user/cartPage');
+          res.redirect("/user/cartPage");
         } else {
-          res.status(400).json({ success: false, message: 'Insufficient stock' });
+          res
+            .status(400)
+            .json({ success: false, message: "Insufficient stock" });
         }
       } else {
-        res.status(404).json({ success: false, message: 'Item or product not found' });
+        res
+          .status(404)
+          .json({ success: false, message: "Item or product not found" });
       }
     } else {
-      res.status(404).json({ success: false, message: 'Cart not found' });
+      res.status(404).json({ success: false, message: "Cart not found" });
     }
   } catch (error) {
-    console.error('An error occurred while adding item to cart:', error);
-    res.status(500).json({ success: false, message: 'Internal server error' });
+    console.error("An error occurred while adding item to cart:", error);
+    res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
 
