@@ -1,6 +1,6 @@
 async function addToCart(productid, productname , productprice , productQuantity,value) {
     console.log(productid, productname, productprice, productQuantity, "done");
-    openPopup();
+    
                 console.log(productname);
                 $.ajax({
                   url:'/user/add-to-cart',
@@ -10,10 +10,13 @@ async function addToCart(productid, productname , productprice , productQuantity
                   productPrice: productprice, quantity:0 ,stock: productQuantity, value: value}),
                   success:function(response){
                   // $('#result').html(response);
-                  
+                  openPopup();
 
                   },
-                  error:function(err){}
+                  error:function(err){
+
+                    openerrorPopup();
+                  }
                 })
             
                   
@@ -85,4 +88,11 @@ history.pushState({}, null, "/user/cartPage");
 function closePopup(){
     popup.classList.remove("open-popup");
 }
-   
+function openerrorPopup(){
+  errorpopup.classList.add("open-popup");
+}
+
+
+function closeerrorPopup(){
+  errorpopup.classList.remove("open-popup");
+}
