@@ -26,14 +26,13 @@
     <%- include("./partials/nav.ejs")%>
     <% if(wishlist.item.length === 0) { %>
       <div class="signup1">
-        <p class="sign1">Shopping cart</p>
+        <p class="sign1">Wishlist</p>
       </div>
       <div class="emptyCartContainer">
-        <i class="material-icons" id="emptyCart">production_quantity_limits</i>
-        <div id="yourCart">YOUR CART IS EMPTY.</div>
+        <i class="material-icons" id="emptyCart">heart_broken</i>
+        <div id="yourCart">YOUR WISHLIST IS EMPTY.</div>
         <div>
-          Before proceed to checkout you must add some product to your shopping
-          cart
+          Please add items to your wishlist before accessing this page.
         </div>
         <div>You will find a lot of interesting products on our "Shop" page.</div>
         <a href="/"><button id="returnButton">RETURN TO SHOP</button></a>

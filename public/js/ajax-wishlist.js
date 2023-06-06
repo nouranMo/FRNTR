@@ -33,7 +33,10 @@ async function addToWishlist(productid, productname , productprice , productQuan
                   success:function(response){
                    //$('#result').html(response);
                   },
-                  error:function(err){}
+                  error:function(err){
+
+                    console.log(err);
+                  }
                 })
             }
 
