@@ -240,15 +240,15 @@
       <script type="text/javascript"  src="/js/ajax-offer.js"></script>
     </body>
     <script>
-      function submitForm(event) {
+      function validateSearchForm() {
       event.preventDefault(); // Prevent the default form submission
       // Get the selected category and search query
-      const category = encodeSpaces(document.getElementById('options').value);
-      const searchQuery = encodeSpaces(document.getElementById('search1').value);
+      const category = document.getElementById('options').value;
+      const searchQuery = document.getElementById('search1').value;
       // Construct the URL with the encoded query parameters
       const url = `/product/clientproduct/?category=${category}&search=${searchQuery}`;
 
-      window.location.href = url;
+      window.location.href = `/product/clientproduct/?category=${category}&search=${searchQuery}`;
   }
     </script>
 </html>
