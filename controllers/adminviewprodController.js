@@ -248,6 +248,7 @@ const productsController = {
       });
     }
   },
+
   Offers: async (req, res) => {
     try {
       console.log("Inside offers");
@@ -528,25 +529,39 @@ const productsController = {
       res.status(500).json({ error: "Failed to accept the review" });
     }
   },
+
   deleterev: async(req,res)=>{
-    console.log("inside approve review");
-   try{
-    const previewID = req.params.id;
-    console.log(reviewID);
-    const targetUser = await product.findById(previewID);
+    deleteReview: async (req, res) => {
+  try {
+    const reviewIndex = req.params.index;
+    const userID = req.params.id;
+    
+    // Assuming the reviews array is a property of the user document
+    const targetUser = await user.findById(userID);
     if (!targetUser) {
-      return res.render("404", { message: "review not found" });
+      return res.render("404", { message: "User not found" });
     } else {
-      await user.findByIdAndDelete(previewID);
-      // res.redirect("/admin/customers");
+      const reviews = targetUser.reviews;
+      
+      if (reviewIndex < 0 || reviewIndex >= reviews.length) {
+        return res.render("404", { message: "Review index out of range" });
+      }
+      
+      // Delete the review at the specified index
+      reviews.splice(reviewIndex, 1);
+      
+      // Save the updated user document
+      await targetUser.save();
+      
+      res.redirect("/admin/customers");
     }
-   }
-    catch (error) {
-      // If an error occurs during the update process, you can send an error response
-      console.error("Error approving the review:", error);
-      res.status(500).json({ error: "Failed to accept the review" });
-    }
-  },
+  } catch (error) {
+    console.error("Error deleting the review: ", error);
+    res.render("404", { message: "Failed to delete the review" });
+  }
+}
+},
+
 };
 
 export default productsController;
