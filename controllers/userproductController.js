@@ -1,7 +1,8 @@
 import Furniture from "../models/furniture.js";
 import Cart from '../models/cart.js';
-import Order from'../models/order.js';
-
+import Order from '../models/order.js';
+import User from '../models/user.js';
+import nodemailer from "nodemailer";
 const userviewproduct = {
   userview: async (req, res) => {
     const { category } = req.params;
@@ -34,7 +35,7 @@ const userviewproduct = {
         (product) => product.price >= minPrice && product.price <= maxPrice
       );
     }
-    
+
 
     res.render("clientproduct", {
       product: products,
@@ -44,91 +45,160 @@ const userviewproduct = {
     });
   },
   filtering: async (req, res) => {
-      const min = req.query.min;
-      const max = req.query.max;
-
-    
-      try {
-        // Use the min and max values to filter the products from the database
-        const products = await Furniture.find({ price: { $gte: min, $lte: max } });
-        if (products) {
-          products.forEach((product) => {
-            if (product.photo && product.photo.length > 0) {
-              product.photo = product.photo.map((photo) =>
-                photo.replace(/\\/g, "/").replace("public/", "/")
-              );
-            }
-          });
-        }
-        res.json({ products });
-        
-      } catch (error) {
-        console.error('Error:', error);
-        res.status(500).json({ error: 'An error occurred while filtering products.' });
-      }
-    },
+    const min = req.query.min;
+    const max = req.query.max;
 
 
-    checkout: async(req,res)=>{
-      console.log('hello');
-        const cart=req.query.cart;
-          const productlist= await Cart.findById({_id:cart});
-          console.log("found the product "+productlist);
-          if(productlist){
-           
-             res.render('checkout',{user:req.session.user===undefined?"":req.session.user, cart: productlist});
+    try {
+      // Use the min and max values to filter the products from the database
+      const products = await Furniture.find({ price: { $gte: min, $lte: max } });
+      if (products) {
+        products.forEach((product) => {
+          if (product.photo && product.photo.length > 0) {
+            product.photo = product.photo.map((photo) =>
+              photo.replace(/\\/g, "/").replace("public/", "/")
+            );
           }
+        });
+      }
+      res.json({ products });
 
-    },
-    order:async(req,res)=>{
-        const {user_id,address,address2,add,city,phone,cart}=req.body;
-console.log('order detail');
-const productlist= await Cart.findById({_id:cart});
-  // Create an array to hold the item objects
-  const items = [];
+    } catch (error) {
+      console.error('Error:', error);
+      res.status(500).json({ error: 'An error occurred while filtering products.' });
+    }
+  },
 
-  // Iterate through the productlist array
-  productlist.item.forEach((item) => {
-    // Create an object for each item
-    const newItem = {
-      productId: item.productId,
-      productName: item.productName,
-      productPrice: item.productPrice,
-      quantity: item.quantity || 0 // Default quantity to 0 if not provided
-    };
 
-    // Push the item object to the items array
-    items.push(newItem);
-  });
+  checkout: async (req, res) => {
+    console.log('hello');
+    const cart = req.query.cart;
+    const productlist = await Cart.findById({ _id: cart });
+    console.log("found the product " + productlist);
+    if (productlist) {
 
-  // Create a new order document using the Order model
-  const newOrder = new Order({
-    UserId: user_id,
-    item: items,
-    address: address,
-    address2: address2,
-    additionaladd: add,
-    city: city,
-    phone: phone
-  });
-  await newOrder.save();
- await Cart.findByIdAndUpdate({ _id: cart }, { $set: { item: [], totalPrice: 0 } });
+      res.render('checkout', { errors:'',user: req.session.user === undefined ? "" : req.session.user, cart: productlist });
+    }
 
-  // Save the new order document to the database
- 
-    if(newOrder){
+  },
+  order: async (req, res) => {
+
+
+    const { user_id, firstname,email,address, address2, add, city, phone, cart } = req.body;
+    console.log('order detail');
+    const productlist = await Cart.findById({ _id: cart });
+   let errors={};
+   if (firstname.trim() === "") {
+    errors.firstname = "You must enter your first name!";
+  }
+
+  if (email.trim() === "") {
+    errors.email = "You must enter your email!";
+  }
+
+  if (address.trim() === "") {
+    errors.address = "You must enter your address!";
+  }
+
+  if (address2.trim() === "") {
+    errors.address2 = "You must enter your address 2!";
+  }
+    if (city.trim() === "") {
+      errors.city = "You must enter your city!";
+    }
+  
+    if (phone.trim() === "") {
+      errors.phone = "You must enter your phone number!";
+    }
+    
+  if (Object.keys(errors).length > 0) {
+    // Return validation errors to the client
+    return res.render("checkout", { errors ,user: req.session.user === undefined ? "" : req.session.user, cart: productlist });
+  }
+
+    // Create an array to hold the item objects
+const items = [];
+    // Iterate through the productlist array
+    productlist.item.forEach((item) => {
+      // Create an object for each item
+      const newItem = {
+        productId: item.productId,
+        productName: item.productName,
+        productPrice: item.productPrice,
+        quantity: item.quantity || 0 // Default quantity to 0 if not provided
+      };
+
+      // Push the item object to the items array
+      items.push(newItem);
+    });
+
+    // Create a new order document using the Order model
+    const newOrder = new Order({
+      UserId: user_id,
+      item: items,
+      address: address,
+      address2: address2,
+      additionaladd: add,
+      city: city,
+      phone: phone
+    });
+     // Save the new order document to the database
+    await newOrder.save();
+    await Cart.findByIdAndUpdate({ _id: cart }, { $set: { item: [], totalPrice: 0 } });
+
+    userviewproduct.sendConfirmpassMail(firstname,email,newOrder._id);
+console.log('sent email');
+
+    if (newOrder) {
       console.log('Order saved:', newOrder);
       // Handle success and continue with your code
 
       res.redirect('/')
-    }}
-    
-
-  
+    }
+  },
 
 
+  sendConfirmpassMail: async (name,email,orderid) => {
+    try {
+        const transporter = nodemailer.createTransport({
+            service: 'Gmail',
+            auth: {
+                user: 'projectfrntr@gmail.com', // Sender Email
+                pass: 'szuzlstihutpziej', 
+            },
+        });
+        const emailMessage = `Hello ${name},
 
-    
-  };
+        Thank you for your order! We are pleased to confirm your order with the following details:
+        
+        Order ID: ${orderid}
+        
+        If you have any questions or need further assistance, please feel free to contact us. We will be happy to help.
+        
+        Best regards,
+        Your Company`;
+        const mailOptions = {
+            from: 'projectfrntr@gmail.com',
+            to: email,
+            subject: 'Order Confirmation',
+            text: emailMessage,
+        };
+
+        transporter.sendMail(mailOptions, (error) => {
+            if (error) {
+                console.error('Error sending reset password email:', error);
+            } else {
+                console.log('Order Confrimtion email sent successfully!');
+            }
+        });
+    } catch (error) {
+        console.log(error);
+    }
+
+  }
+
+
+
+};
 
 export default userviewproduct;

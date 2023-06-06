@@ -16,9 +16,9 @@ body {
     margin: 0 -16px;
   }
   
-  .col-25 {
-    -ms-flex: 25%; /* IE10 */
-    flex: 25%;
+  .col-35 {
+    -ms-flex: 35%; /* IE10 */
+    flex: 35%;
   }
   
   .col-50 {
@@ -26,14 +26,14 @@ body {
     flex: 50%;
   }
   
-  .col-75 {
-    -ms-flex: 75%; /* IE10 */
-    flex: 75%;
+  .col-65 {
+    -ms-flex: 65%; /* IE10 */
+    flex: 65%;
   }
   
-  .col-25,
+  .col-35,
   .col-50,
-  .col-75 {
+  .col-65 {
     padding: 0 16px;
   }
   
@@ -100,4 +100,12 @@ body {
     .col-25 {
       margin-bottom: 20px;
     }
+  }
+  .err {
+
+    color: red;
+    font-size: small;
+    position: sticky;
+    right: 5%;
+    margin-bottom: 10px;
   }
