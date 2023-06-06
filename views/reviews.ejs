@@ -51,15 +51,19 @@
                 </div>
               </div>
               <div class="rev">
+                <% if (product.review && product.review.length > 0) { %>
+                  <% product.review.forEach((reviewItem) =>{%>
                 <div class="container-z">
-                 <p><%= product.review%>  <br> </p>
+                 <p><%= reviewItem%>  <br> </p>
                  <div class="status">
                   <p>
                     <a class="approverev" href="/admin/approverev" onclick="printReview('<%= product.review %>')">Accept Review</a>
-                    <a class="deleterev" href="/admin/deleterevl/<%= product.id %>" onclick="deleteReview('<%= product.id %>')">Delete Review</a>
+                    <a class="deleterev" href="/admin/deleterev/<%= product.id %>" onclick="deleteReview('<%= product.id %>')">Delete Review</a>
                   </p>
                 </div>
                 </div>
+                <% }); %>
+                <% } %>
               </div>
             </div>
           <% }); %>
