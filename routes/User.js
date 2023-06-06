@@ -40,7 +40,7 @@ router.post('/remove-from-cart', cartController.removeFromCart);
 
 router.get('/checkout',userviewproduct.checkout);
  
-
+router.post('/order',userviewproduct.order);
 
 router.get('/editprofile', function(req, res, next) {
   let errors = {};

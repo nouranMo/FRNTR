@@ -1,5 +1,6 @@
 import Furniture from "../models/furniture.js";
 import Cart from '../models/cart.js';
+import Order from'../models/order.js';
 
 const userviewproduct = {
   userview: async (req, res) => {
@@ -70,15 +71,64 @@ const userviewproduct = {
 
     checkout: async(req,res)=>{
       console.log('hello');
-        const{cart}=req.query;
+        const cart=req.query.cart;
           const productlist= await Cart.findById({_id:cart});
           console.log("found the product "+productlist);
           if(productlist){
            
-             res.render('checkout',{user:req.session.user===undefined?"":req.session.user,productlist});
+             res.render('checkout',{user:req.session.user===undefined?"":req.session.user, cart: productlist});
           }
-      
+
     },
+    order:async(req,res)=>{
+        const {user_id,address,address2,add,city,phone,cart}=req.body;
+console.log('order detail');
+const productlist= await Cart.findById({_id:cart});
+  // Create an array to hold the item objects
+  const items = [];
+
+  // Iterate through the productlist array
+  productlist.item.forEach((item) => {
+    // Create an object for each item
+    const newItem = {
+      productId: item.productId,
+      productName: item.productName,
+      productPrice: item.productPrice,
+      quantity: item.quantity || 0 // Default quantity to 0 if not provided
+    };
+
+    // Push the item object to the items array
+    items.push(newItem);
+  });
+
+  // Create a new order document using the Order model
+  const newOrder = new Order({
+    UserId: user_id,
+    item: items,
+    address: address,
+    address2: address2,
+    additionaladd: add,
+    city: city,
+    phone: phone
+  });
+  await newOrder.save();
+ await Cart.findByIdAndUpdate({ _id: cart }, { $set: { item: [], totalPrice: 0 } });
+
+  // Save the new order document to the database
+ 
+    if(newOrder){
+      console.log('Order saved:', newOrder);
+      // Handle success and continue with your code
+
+      res.redirect('/')
+    }}
+    
+
+  
+
+
+
+    
   };
 
 export default userviewproduct;
