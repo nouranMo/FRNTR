@@ -40,25 +40,22 @@
     </div>
   <!-- <% let errors=user.errors%>-->
     <div class="sign1">
-        <form name="edit_profile" action="/user/editprofile" method="post" onsubmit="return validate(this)" >          
+        <form name="edit_profile" action="/user/editprofile" method="post" onsubmit="return validate2(this)" >          
             <input id="fir" type="text" class="elemen" name="Firstname" placeholder="First Name" value="<%= user.firstName %>">
-            <div id="first" class="err"><%= errors && errors.firstname ? errors.firstname : '' %></div>
+            <div id="first" class="err"><% if(myerrors && myerrors.Firstname) {%><%= myerrors.Firstname %>  <%}%></div>
+            
             <input id="las" type="text" class="elemen" name="last" placeholder="Last Name" value="<%= user.lastName %>">
-            <div id="last" class="err"><%= errors && errors.last ? errors.last : '' %></div>
-          
-            <input id="ema" type="email" class="elemen" name="email" placeholder="Email" value="<%= user.email %>">
-            <div id="em" class="err"><% if(errors && errors.email) { %>
-                <%=errors.email%> 
-                <%}%>
-            </div>
+            <div id="last" class="err"><% if(myerrors && myerrors.last) {%>  <%=myerrors.last%>  <%}%></div>
+         
 
             <input id="add" type="text" class="elemen" name="address" placeholder="Address" value="<%= user.address %>">
-            <div id="ad" class="err"><%= errors && errors.address ? errors.address : '' %></div>
+            <div id="ad" class="err"><% if(myerrors && myerrors.address) {%>  <%=myerrors.address%>  <%}%></div>
 
             <input id="add2" type="text" class="elemen" name="address2" placeholder="Address 2" value="<%= user.address2 %>">
             <div id="ad2" class="err"></div>
-          
-            <input class="subm" type="submit" value="Edit"><br>
+            <input type="hidden" name="id" value="<%= user._id %>" >      
+                 <input class="subm" type="submit" value="Edit"><br>
+
           </form>
           
     </div>

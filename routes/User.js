@@ -43,7 +43,8 @@ router.get('/checkout',userviewproduct.checkout);
 
 
 router.get('/editprofile', function(req, res, next) {
-  res.render('editprofile',{user:req.session.user===undefined?"":req.session.user});
+  let errors = {};
+  res.render('editprofile',{myerrors:errors,user:req.session.user===undefined?"":req.session.user});
 });
 
 
