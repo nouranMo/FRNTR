@@ -129,7 +129,6 @@
       <input id = "categoryinput" type="hidden" value="<%= category %>">
       <%}%>
       <%if(searchQuery){%>
-      
       <input id = "searchinput" type="hidden" value="<%= searchQuery %>">
       <%}%>
     </div>
@@ -210,7 +209,7 @@
         console.log("found sortselect value")
         var category = document.getElementById("categoryinput").value;
         console.log("found category value and added it")
-        var search = document.getElementById("searchinput")
+        var search = document.getElementById("searchinput").value;
         console.log("found search input")
         if(search!==null)
         {
