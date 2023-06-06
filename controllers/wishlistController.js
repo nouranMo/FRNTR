@@ -97,8 +97,14 @@ wishlistController.addToWishlist = async (req, res) => {
           }
           return item;
         });
-        res.render('wishlist', { wishlist , user: req.session.user===undefined?"":req.session.user , products: products});
-      }}
+        res.render('wishlist', { wishlist: wishlist , user: req.session.user===undefined?"":req.session.user , products: products});
+      }
+      else{
+        console.log("wishlist does not exist", wishlist, "done here");
+        res.render('wishlist', { wishlist: wishlist , user: req.session.user===undefined?"":req.session.user , products: null});
+      }
+    }
+      
     }
      catch (error) {
       console.error("An error occurred while retrieving the wishlist:", error);
