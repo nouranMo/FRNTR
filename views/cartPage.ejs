@@ -66,8 +66,8 @@
                 ><button
                   class="material-symbols-outlined"
                   id="trash"
-                  onclick="deleteItem(document.getElementById('productId').value)"
-                >
+                  onclick="removeFromCart(`<%=item.productId%>`,`<%=item.productName%>` , `<%=item.productPrice%>`, `<%=item.quantity%>`)">
+                
                   delete</button
                 ><span id="totalAmount"><%=item.quantity%></span
                 ><button

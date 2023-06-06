@@ -6,8 +6,14 @@ const wishlistSchema = new mongoose.Schema({
     UserId: String,
     item:[{ productId: String,
     productName: String,
-    productPrice: Number,
-    productQuantity: Number
+    productPrice:{ 
+      type: Number ,
+      default: 0
+     },
+    productQuantity:{
+      type: Number,
+      default: 0
+    },
   } ],
     
   });

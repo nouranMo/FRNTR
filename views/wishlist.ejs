@@ -24,14 +24,21 @@
   </head>
   <body>
     <%- include("./partials/nav.ejs")%>
-    <div class="emptyWishlistContainer">
-      <i class="material-icons" id="emptyWishlist">heart_broken</i>
-      <div id="yourWishlist">WISHLIST IS EMPTY.</div>
-      <div>You don't have any products in the wishlist yet.</div>
-      <div>You will find a lot of interesting products on our "Shop" page.</div>
-      <a href="index"><button id="returnButton">RETURN TO SHOP</button></a>
-    </div>
-
+    <% if(wishlist.item.length === 0) { %>
+      <div class="signup1">
+        <p class="sign1">Shopping cart</p>
+      </div>
+      <div class="emptyCartContainer">
+        <i class="material-icons" id="emptyCart">production_quantity_limits</i>
+        <div id="yourCart">YOUR CART IS EMPTY.</div>
+        <div>
+          Before proceed to checkout you must add some product to your shopping
+          cart
+        </div>
+        <div>You will find a lot of interesting products on our "Shop" page.</div>
+        <a href="/"><button id="returnButton">RETURN TO SHOP</button></a>
+      </div>
+    <% } else { %>
     <div class="fullWishlistContainer">
       <%wishlist.item.forEach((items) => { %>
       <div class="wishlistItemContainer">
@@ -48,7 +55,7 @@
           <span>Stock:  <%=items.productQuantity%></span><button
           class="material-symbols-outlined" style="padding:0;"
           id="trash"
-          onclick="removeFromWishlist('<%=items.productId%>','<%=items.productName%>' , '<%=items.productPrice%>', '<%=items.productQuantity%>')">
+          onclick="deleteFromWishlist(`<%=items.productId%>`,`<%=items.productName%>` , `<%=items.productPrice%>`, `<%=items.quantity%>`)">
           delete</button>
 
           <div id="insideInfo">
@@ -72,6 +79,7 @@
       </div>
       <%});%>
     </div>
+    <% } %>
     <%- include("./partials/chat.ejs")%> <%- include("./partials/footer.ejs")%>
     <script type="text/javascript" src="../js/handler.js"></script>
     <script type="text/javascript"  src="/js/ajax-wishlist.js"></script>

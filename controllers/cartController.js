@@ -146,7 +146,7 @@ cartController.getCart = async (req, res) => {
 
     if (cart) {
       console.log("cart exists", cart, "done here");
-
+      console.log("cart items length", cart.item.length, "done here");
       if (cart.item && cart.item.length > 0) {
         const items = await Promise.all(
           cart.item.map((item) => {

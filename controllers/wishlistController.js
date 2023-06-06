@@ -19,12 +19,12 @@ wishlistController.addToWishlist = async (req, res) => {
   
       if (wishlist) {
         console.log("wishlist exists", wishlist, "done here");
+        console.log("whishlist items length", wishlist.item.length, "done here");
   
         const item = wishlist.item.find((item) => item.productId === productId);
 
         if (item) {
           console.log("item exists in wishlist", item, "done here");
-  
         } else {
           console.log("item does not exist in wishlist", item, "done here");
           wishlist.item.push({
@@ -106,51 +106,38 @@ wishlistController.addToWishlist = async (req, res) => {
     }
   };
 
-
-  
-wishlistController.deleteItem = async (req, res) => {
-
-    // try {
-    //   const productId = req.params.id;
-    //   const targetItem = await Cart.findOne({ productId });
-    //   if (!targetItem) {
-    //     return res.render("404", { message: "Product not found" });
-    //   }
-    //   else{
-    //     await Cart.findOneAndUpdate(
-    //       { UserId: req.session.user._id },
-    //       { $pull: { item: { items: { productId }} } }, 
-    //       { multi: false, new: true });
-        
-    //     res.redirect('/cart');
-    //   }
-    // } catch (error) {
-    //   console.error("Error deleting item:", error);
-    //   res.render("404", { message: "Failed to delete item" });
-    // }
-  
+ 
+  wishlistController.deleteFromWishlist = async (req, res) => {
+    console.log("in delete");
+    const { productId } = req.body;
+    const userId = req.session.user._id;
   
     try {
-      const wishlist = await Wishlist.findOne({ userId });
-      if (!wishlist) {
-        return res.status(404).render('404', { message: 'wishlist not found' });
+      let wishlist = await Wishlist.findOne({ UserId: userId });
+      if (wishlist) {
+        const item = wishlist.item.find((item) => item.productId === productId);
+        if (item) {
+          
+          await Wishlist.updateOne(
+            { UserId: userId },
+            {
+              $pull: { item: { productId: productId } },
+            });
+  
+          console.log("Item deleted from wishlist");
+          
+        } else {
+          console.log("Item does not exist in wishlist");
+        }
+      } else {
+        console.log("wishlist does not exist");
       }
-      
+      res.redirect("/user/wishlist");
+    } catch (error) {
+      console.error("An error occurred while deleting item from wishlist:", error);
+      //res.redirect("/error");
+    }
   
-  const itemIndex = wishlist.item.findIndex(item => item.productId === productId);
-  if (itemIndex === -1) {
-    return res.status(404).render('404', { message: 'Item not found' });
-  }
-  
-  wishlist.item.splice(itemIndex, 1);
-  await wishlist.save();
-  
-  res.redirect('/wishlist');
-  } catch (error) {
-  console.error('Error deleting item:', error);
-  res.status(500).render('500', { message: 'Failed to delete item' });
-  
-  }
-  };
+    };
 
   export default wishlistController;

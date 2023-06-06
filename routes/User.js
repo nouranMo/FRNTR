@@ -23,8 +23,8 @@ router.post('/editprofile', editprofileController1.editprofile);
 
 
 router.post('/add-to-wishlist', wishlistController.addToWishlist); 
-
 router.get('/wishlist',wishlistController.getWishlist);
+router.post('/deleteFromWishlist', wishlistController.deleteFromWishlist );
 
 
 /* GET Wishlist page. */
