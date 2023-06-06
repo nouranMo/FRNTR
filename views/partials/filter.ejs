@@ -131,6 +131,9 @@
       <%if(searchQuery){%>
       <input id = "searchinput" type="hidden" value="<%= searchQuery %>">
       <%}%>
+      <%if(sortQuery){%>
+      <input id = "sortinput" type="hidden" value="<%= sortQuery %>">
+      <%}%>
     </div>
 
     <div class="filterDiv" id="filter-button1">
@@ -209,7 +212,13 @@
         console.log("found sortselect value")
         var category = document.getElementById("categoryinput").value;
         console.log("found category value and added it")
-        var search = document.getElementById("searchinput").value;
+        if(document.getElementById("searchinput")!==null)
+        {
+          var search = document.getElementById("searchinput").value;
+        }
+        else{
+          var search = null;
+        }
         console.log("found search input")
         if(search!==null)
         {
@@ -217,6 +226,42 @@
         }
         else{
           window.location.href=`/product/clientproduct/?category=${category}&sort=${selectedValue}`;
+        }
+      }
+      function applyFilter()
+      {
+        var min = document.querySelector(".input-min").value;
+        var max = document.querySelector(".input-max").value;
+        var category = document.getElementById("categoryinput").value;
+        
+        if(document.getElementById("searchinput")!==null)
+        {
+          var search = document.getElementById("searchinput").value;
+        }
+        else{
+          var search = null;
+        }
+        if(document.getElementById("sortinput")!==null)
+        {
+          var sort = document.getElementById("sortinput").value;
+        }
+        else{
+          var sort = null;
+        }
+        if(search!==null && sort!==null)
+        {
+        window.location.href=`/product/clientproduct/?category=${category}&min=${min}&max=${max}&search=${search}&sort=${sort}`;
+        }
+        else if(search!==null)
+        {
+        window.location.href=`/product/clientproduct/?category=${category}&min=${min}&max=${max}&search=${search}`;
+        }
+        else if(sort!==null)
+        {
+        window.location.href=`/product/clientproduct/?category=${category}&min=${min}&max=${max}&sort=${sort}`;
+        }
+        else{
+          window.location.href=`/product/clientproduct/?category=${category}&min=${min}&max=${max}`;
         }
       }
     </script>

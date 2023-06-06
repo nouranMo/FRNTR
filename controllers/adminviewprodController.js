@@ -139,6 +139,14 @@ const productsController = {
           }
         
       }
+      const min = req.query.min;
+      const max = req.query.max;
+      if(min && max){
+        products = products.filter((product) =>
+          product.price >= min && product.price <= max
+        );
+      }
+
       // Calculate pagination variables
       const currentPage = parseInt(req.query.page) || 1; // Current page number
       const itemsPerPage = 10; // Number of products to display per page
@@ -177,6 +185,7 @@ const productsController = {
         category:categoryQuery,
         searchQuery,
         categoryQuery,
+        sortQuery,
       });
     } catch (error) {
       // Handle error if retrieval fails
