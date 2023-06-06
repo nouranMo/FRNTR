@@ -1,4 +1,5 @@
 import Furniture from "../models/furniture.js";
+// import Furniture from "../models/furniture.js";
 import user from "../models/user.js";
 console.log("Retrieved products from the database:");
 const productsController = {
@@ -304,11 +305,11 @@ const productsController = {
       });
     }
   },
-  TopSoldProducts: async (req, res) => {
+  SoldStatistics: async (req, res) => {
     try {
-      console.log("Inside TopSoldProducts function");
+      console.log("Inside SoldStatistics function");
   
-      // Retrieve 10 products with the highest "sold" value from the database
+      // Retrieve 10 top sold products from the database
       const topSoldProducts = await Furniture.find({
         sold: { $exists: true, $ne: null, $ne: 0 },
       })
@@ -317,29 +318,47 @@ const productsController = {
   
       console.log("Retrieved top sold products from the database:", topSoldProducts);
   
+      // Retrieve 10 worst sold products from the database
+      const worstSoldProducts = await Furniture.find({
+        sold: { $exists: true, $ne: null },
+      })
+        .sort({ sold: 1 })
+        .limit(10);
+  
+      console.log("Retrieved worst sold products from the database:", worstSoldProducts);
+  
       topSoldProducts.forEach((product) => {
         if (product.photo && product.photo.length > 0) {
           product.imagePath = product.photo.map((photo) =>
             photo.replace(/\\/g, "/").replace("public/", "../")
           );
-          console.log("statistics", product.photo);
+          console.log("offer", product.photo);
         }
       });
   
-      if (topSoldProducts.length === 0) {
-        res.render("statistics", { topSoldProducts: topSoldProducts });
-      } else {
-        res.render("statistics", { topSoldProducts: topSoldProducts, imagePath: topSoldProducts[0].imagePath });
-      }
+      worstSoldProducts.forEach((product) => {
+        if (product.photo && product.photo.length > 0) {
+          product.imagePath = product.photo.map((photo) =>
+            photo.replace(/\\/g, "/").replace("public/", "../")
+          );
+          console.log("offer", product.photo);
+        }
+      });
+  
+      res.render("statistics", {
+        topSoldProducts: topSoldProducts,
+        worstSoldProducts: worstSoldProducts,
+      });
     } catch (error) {
       // Handle error if retrieval fails
-      console.error("Error retrieving top sold products:", error);
+      console.error("Error retrieving sold products:", error);
       res.status(500).render("404", {
-        message: "Failed to retrieve top sold products",
+        message: "Failed to retrieve sold products",
         user: req.session.user === undefined ? "" : req.session.user,
       });
     }
   },
+  
   
   viewAllUsers: async (req, res) => {
     try {
