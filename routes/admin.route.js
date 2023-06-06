@@ -25,7 +25,7 @@ router.get("/orders",  productsController.Sold);
 router.get("/offer", productsController.Offers);
 router.get("/reviews", productsController.revtoadmin);
 router.post("/editUser", upload.none(), productsController.editUser);
-router.get("/statistics", productsController.TopSoldProducts);
+router.get("/statistics", productsController.SoldStatistics);
 /* GET customers page. */
 // Export the router
 export default router;
