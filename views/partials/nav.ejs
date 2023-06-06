@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
   <link href='https://unpkg.com/css.gg@2.0.0/icons/css/coffee.css' rel='stylesheet'>
   <link href='https://unpkg.com/css.gg@2.0.0/icons/css/edit-fade.css' rel='stylesheet'>
@@ -54,7 +55,7 @@
       <div class="container">
         <div class="announcement">
 
-          <p class="black">Winter Sale Discount <strong class="strong1">40%</strong> off <a class="shop-now" href="/product/clientproduct"
+          <p class="black">Summer Sale Discount <strong class="strong1"><span id="largestOffer"></span>% off </strong></span><a class="shop-now" href="/product/clientproduct"
               title="All Products">Shop Now</a></p>
 
         </div>
@@ -236,6 +237,7 @@
 
       
       <script type="text/javascript"  src="/js/validations.js"></script>
+      <script type="text/javascript"  src="/js/ajax-offer.js"></script>
     </body>
     <script>
       function submitForm(event) {
