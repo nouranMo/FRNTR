@@ -45,20 +45,22 @@
             <div class="fullrev">
               <div class="content-z">
                 <div class="content-x">
-                </div>
-                <div class="container-x">
-                  <h6><%= product.productName%></h6>
+                      <img src="<%= product.photo[0] %>" width="120px" height="120px">
+                   
                 </div>
               </div>
               <div class="rev">
+                <div class="container-x">
+                  <h6><%= product.productName%></h6>
+                </div>
                 <% if (product.review && product.review.length > 0) { %>
-                  <% product.review.forEach((reviewItem) =>{%>
+                  <% product.review.forEach((reviewItem,index) =>{%>
                 <div class="container-z">
                  <p><%= reviewItem%>  <br> </p>
                  <div class="status">
                   <p>
-                    <a class="approverev" href="/admin/approverev" onclick="printReview('<%= product.review %>')">Accept Review</a>
-                    <a class="deleterev" href="/admin/deleterev/<%= product.id %>" onclick="deleteReview('<%= product.id %>')">Delete Review</a>
+                    <a class="approverev" href="" onclick="printReview('<%= reviewItem %>')">Accept Review</a>
+                    <a class="deleterev" href="" onclick="confirmDeleteRev('<%= product.id %>','<%=index%>')">Delete Review</a>
                   </p>
                 </div>
                 </div>

@@ -645,13 +645,13 @@ function confirmChangeUserToClient(userId) {
 
   return false; // Prevent the default link action
 }
-function confirmDeleteRev(userId) {
+function confirmDeleteRev(userId,index) {
   showConfirmationModal(
-    "Are you sure you want to change this user to an admin?",
+    "Are you sure you want to delete this review?",
     (confirmed) => {
       if (confirmed) {
         // Proceed with the link action
-        window.location.href = `/admin/deleterev/${userId}`;
+        window.location.href = `/admin/deleteReview/${userId}/${index}`;
       }
     }
   );
