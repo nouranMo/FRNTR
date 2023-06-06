@@ -15,7 +15,10 @@ router.use((req, res, next) => {
   }
 });
 
-router.get("/", productsController.LowInStock);
+router.get("/", productsController.LowInStock, productsController.LargestOffers, (req, res) => {
+  // Access the data returned by the LargestOffers middleware
+  const largestOfferProduct = res.locals.largestOfferProduct;
+});
 router.get("/customers", productsController.viewAllUsers);
 router.get("/beAdmin/:id", productsController.beAdmin);
 router.get("/beClient/:id", productsController.beClient);
@@ -26,6 +29,7 @@ router.get("/offer", productsController.Offers);
 router.get("/reviews", productsController.revtoadmin);
 router.post("/editUser", upload.none(), productsController.editUser);
 router.get("/statistics", productsController.SoldStatistics);
+router.get('/largestOffer', productsController.LargestOffers);
 /* GET customers page. */
 // Export the router
 export default router;

@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,10 +14,10 @@
         border: 1px solid #555;
 }
     </style>
+    
 </head>
 
 <body>
-
   <div class="header">
 <div>
     <div  style="background-color: black;" class="row-1">
@@ -32,7 +33,8 @@
             <div class="container-y">
                 <div class="announcement-y">
 
-                    <p class="black">Winter Sale Discount <strong class="strong1">40%</strong> off <a class="shop-now"
+                    <p class="black">Winter Sale Discount <strong class="strong1"><span id="largestOffer"></span>% off</strong></span>
+                      <a class="shop-now"
                             href="#" title="All Products">Shop Now</a></p>
                 </div>
             </div>
@@ -135,6 +137,8 @@
       <script type="text/javascript"  src="/js/handler.js"></script>
       <script type="text/javascript"  src="/js/validations.js"></script>
       <script type="text/javascript"  src="/js/admin.js"></script>
+      <script type="text/javascript"  src="/js/ajax-offer.js"></script>
+
 </body>
 
 </html>

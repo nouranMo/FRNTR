@@ -272,6 +272,35 @@ const productsController = {
       });
     }
   },
+  LargestOffers: async (req, res) => {
+    try {
+      console.log("Inside Largest Offer");
+  
+      // Retrieve product with the largest offer from the database
+      const largestOfferProduct = await Furniture.findOne({
+        offer: { $exists: true, $ne: null, $ne: 0 },
+      })
+        .sort({ offer: -1 })
+        .limit(1);
+        
+      if (largestOfferProduct) {
+        const offer = largestOfferProduct.offer;
+        console.log("Retrieved product with the largest offer from the database:", largestOfferProduct);
+        res.send(offer.toString()); // Convert offer to string before sending the response
+      } else {
+        console.log("No product found with the largest offer");
+        res.send('0'); // Send '0' if no product with offer is found
+      }
+    } catch (error) {
+      // Handle error if retrieval fails
+      console.error("Error retrieving product with the largest offer:", error);
+      res.status(500).render("404", {
+        message: "Failed to retrieve product with the largest offer",
+        user: req.session.user === undefined ? "" : req.session.user,
+      });
+    }
+  },
+  
   Sold: async (req, res) => {
     try {
       console.log("Inside orders");
