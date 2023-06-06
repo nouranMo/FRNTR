@@ -235,9 +235,20 @@ const productsController = {
     try{
       console.log("inside reviews to admin");
       const revadmin = await Furniture.find({ review: { $exists: true, $ne: [] } });
-      const usereview= await user.find({ review: { $exists: true, $ne: [] } });
-      console.log("Retrieved products with reviews from the database:", revadmin);
-        res.render("reviews", { revadmin,usereview});
+      console.log("revadmin before modification:");
+      if (revadmin && revadmin.length > 0) {
+        revadmin.forEach((product) => {
+          if (product.photo && product.photo.length > 0) {
+            product.photo = product.photo.map((photo) =>
+              photo.replace(/\\/g, "/").replace("public/", "/")
+            );
+          }
+        });
+        
+      }
+
+      //console.log("Retrieved products with reviews from the database:", revadmin);
+        res.render("reviews", { revadmin});
      
     }
     catch (error) {
@@ -531,37 +542,39 @@ const productsController = {
   },
 
   deleterev: async(req,res)=>{
-    deleteReview: async (req, res) => {
-  try {
-    const reviewIndex = req.params.index;
-    const userID = req.params.id;
     
-    // Assuming the reviews array is a property of the user document
-    const targetUser = await user.findById(userID);
-    if (!targetUser) {
-      return res.render("404", { message: "User not found" });
-    } else {
-      const reviews = targetUser.reviews;
-      
-      if (reviewIndex < 0 || reviewIndex >= reviews.length) {
-        return res.render("404", { message: "Review index out of range" });
-      }
-      
-      // Delete the review at the specified index
-      reviews.splice(reviewIndex, 1);
-      
-      // Save the updated user document
-      await targetUser.save();
-      
-      res.redirect("/admin/customers");
-    }
+  try {
+    const reviewIndex = parseInt(req.params.index);
+    const productId = req.params.id;
+    
+    console.log(reviewIndex);
+     
+        const product = await Furniture.findById(productId);
+        
+        if (!product) {
+          return res.status(404).json({ message: 'Product not found' });
+        }
+        console.log("reviewIndex:", reviewIndex);
+        console.log("product.review.length:", product.review.length);
+        
+        if (reviewIndex >= 0 && reviewIndex < product.review.length) {
+          product.review.splice(reviewIndex, 1); // Remove the review at the specified index
+          await product.save();
+          console.log("hh")
+          return res.redirect('/admin/reviews')
+        } else {
+          return res.status(404).json({ message: 'Review not found' });
+        }
+     
+    
+    
   } catch (error) {
     console.error("Error deleting the review: ", error);
     res.render("404", { message: "Failed to delete the review" });
   }
 }
-},
-
 };
+
+
 
 export default productsController;

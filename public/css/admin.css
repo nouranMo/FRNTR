@@ -1403,3 +1403,24 @@ div.contenty {
 .search-bar button[type="submit"]:hover {
   background-color: #45a049;
 }
+
+.deleterev,
+.approverev{
+text-decoration: none;
+padding: 8px;
+color:#fff;
+background-color: #222222;
+border-color: #000;
+border-radius: 60px;
+transition: 0.5s;
+position: relative;
+top:6px;}
+
+
+.deleterev:hover,
+.approverev:hover{
+transition: 0.5s;
+  color:#222222;
+  background-color: #fff;
+  border-color: #000;
+}
