@@ -202,3 +202,22 @@ function accOpen(){
       return false;
     }
   }
+
+  function validate2(form) {
+    document.addEventListener('submit', event => {
+      event.preventDefault();
+    
+    let fail = true;
+    fail &= validateFirstName(form.Firstname.value.trim());
+    fail &= validateLastName(form.last.value.trim());
+    fail &= validateAddress(form.address.value.trim());
+  
+    if (fail) {
+      event.target.submit();
+    }
+    else {
+      return false;
+
+    }
+  })
+  }

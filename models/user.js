@@ -17,12 +17,12 @@ const userSchema = new mongoose.Schema({
   address: {
     type: String,
     required: true,
-    unique: true
+    
   },
   address2: {
     type: String,
-    required: true,
-    unique: true
+    required: false,
+  
   },
   password: {
     type: String,
