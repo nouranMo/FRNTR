@@ -114,6 +114,12 @@
                 <p>Item has been added to cart successfully. Thanks!</p>
                 <button type="button" onclick="closePopup()">OK</button>
             </div>
+            <div class="errorpopup" id="errorpopup">
+              <img src="/images/404-error.png" alt="tick">
+              <h2>Failed to add to cart!</h2>
+              <p>Item out of stock!</p>
+              <button type="button" onclick="closeerrorPopup()">OK</button>
+          </div>
               <div class="sympl-widget">
                 <div class="paragraph">
                   <span>Pay over 5 payments of <strong style="color: #ff395a">1171.5 EGP </strong>with your
@@ -172,7 +178,7 @@
               </div>
               </div>
               <div class="info-images">
-                <img src="Images/CVH33.webp" alt="" class="images">
+                <img src="/images/CVH33.webp" alt="" class="images">
               </div>
               <div class="description">
                <%=product.comments%>

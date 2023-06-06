@@ -24,7 +24,7 @@
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-  <link rel="stylesheet" href="/../css/categories.css" />
+
 
   <style>
     .material-symbols-outlined {
@@ -113,8 +113,6 @@
 }
 
   </style>
-  <link rel="stylesheet" href="/../css/style.css">
-  <link rel="stylesheet" href="/../css/cartsidebar.css">
   <link rel="stylesheet" href="/../css/categories.css" />
   <link rel="stylesheet" href="/../css/furniture.css" />
   <link rel="stylesheet" href="/../css/cartsidebar.css">
@@ -134,7 +132,7 @@
     <%- include("./partials/nav.ejs")%>
     <div style="text-align: center;" data-mce-fragment="1" data-mce-style="text-align: center;">
     <div class="mainPicFarrah">
-      <%if(product){%>
+      <%if(product.length!==0){%>
       <img class="sofaMainFarrah" style="max-width: 60%;" src='/../images/<%=product[0].category%>banner.webp'>
       <%}%>
     </div>
@@ -236,6 +234,12 @@
         <p>Item has been added to cart successfully. Thanks!</p>
         <button type="button" onclick="closePopup()">OK</button>
     </div>
+    <div class="errorpopup" id="errorpopup">
+      <img src="/images/404-error.png" alt="tick">
+      <h2>Failed to add to cart!</h2>
+      <p>Item out of stock!</p>
+      <button type="button" onclick="closeerrorPopup()">OK</button>
+  </div>
     <div class="pagination">
       <% if (currentPage > 1) { %>
         <a class="pagination-link" href="?page=<%= currentPage - 1 %>&category=<%= categoryQuery %>">Previous</a>
@@ -269,8 +273,15 @@
       function closePopup(){
           popup.classList.remove("open-popup");
       }
+      let errorpopup=document.getElementById("errorpopup");
+      function openerrorPopup(){
+          errorpopup.classList.add("open-popup");
+      }
 
 
+      function closeerrorPopup(){
+          errorpopup.classList.remove("open-popup");
+      }
       const addToCartHandler = async() =>{
         const existItem = cart
       }
@@ -308,7 +319,7 @@
             }
 
     </script>
-    <script type="text/javascript"  src="/js/pagination.js"></script>
+    
     <script type="text/javascript"  src="/js/ajax-cart.js"></script>
     <script type="text/javascript"  src="/js/ajax-wishlist.js"></script>
     <%- include("./partials/footer.ejs")%>
