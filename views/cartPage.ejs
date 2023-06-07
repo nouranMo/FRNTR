@@ -58,7 +58,7 @@
           <a href="index" id="websiteLink">FRNTR</a>
           <div style="font-weight: bold"><%=item.productName%></div>
           <div>
-            <s>16,100.00 EGP</s> <span style="color: red"><%=item.productPrice%></span>
+           <span> <b>Price:</b> <%=item.productPrice%></span>
           </div>
           <input type="hidden" value="<%=item.productId%>" id="productId" />
            <span class="addOrRemove"
@@ -83,9 +83,7 @@
 
           <div id="insideInfo">
             <p style="font-size: 10px">
-              This bed is uniquie, the headboard is in glam deco style, with
-              velvety panels rising in an arching pattern, giving it a new take
-              on traitional channel tufting. Product...
+              <%=foundProduct.comments%>
             </p>
           </div>
         </div>
