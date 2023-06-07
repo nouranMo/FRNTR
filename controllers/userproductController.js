@@ -84,7 +84,7 @@ const userviewproduct = {
   order: async (req, res) => {
 
 
-    const { user_id, firstname,lastname,email,address, address2, add, city, phone, cart } = req.body;
+    const { user_id, firstname,lastname,email,address,  add, city, phone, cart } = req.body;
     console.log('order detail');
     const productlist = await Cart.findById({ _id: cart });
    let errors={};
