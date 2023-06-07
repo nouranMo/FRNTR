@@ -48,11 +48,28 @@ router.get('/login',function(req,res,next){
   res.render('login',{errors,user:req.session.user===undefined?"":req.session.user});
 });
 
+router.post("/login", loginController.login);
+router.use((req,res,next)=>{
+
+  if(req.session.user!==undefined )
+  {
+    
+    next();
+
+  }
+  else
+  {
+
+  res.render('404',{user:req.session.user===undefined?"":req.session.user});
+  
+  }
+  });
+
 router.get('/account',function(req,res,next){
 res.render("account",{user:req.session.user===undefined?"":req.session.user});
 });
 
-router.post("/login", loginController.login);
+
 
 // Export the router
 export default router;
