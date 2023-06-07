@@ -139,7 +139,6 @@ const items = [];
       UserId: user_id,
       item: items,
       address: address,
-      address2: address2,
       additionaladd: add | "",
       city: city,
       phone: phone
