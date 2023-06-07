@@ -143,7 +143,7 @@ const items = [];
       item: items,
       address: address,
       address2:address2,
-      additionaladd: add | "",
+      additionaladd: add ,
       city: city,
       phone: phone
     });
