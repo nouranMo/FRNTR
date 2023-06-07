@@ -59,8 +59,8 @@
                  <p style="padding: 10px;"><%= reviewItem%>  <br> </p>
                  <div class="status">
                   <p>
-                    <button class="approverev"  onclick="printReview('<%= reviewItem %>')">Accept Review</button>
-                    <button class="deleterev"  onclick="confirmDeleteRev('<%= product.id %>','<%=index%>')">Delete Review</button>
+                    <button class="approverev" onclick="EditReview('<%= product.id %>','<%=index%>')">Accept Review</button>
+                    <button class="deleterev" onclick="confirmDeleteRev('<%= product.id %>','<%=index%>')">Delete Review</button>
                   </p>
                 </div>
                 </div>
