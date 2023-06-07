@@ -84,12 +84,16 @@ const userviewproduct = {
   order: async (req, res) => {
 
 
-    const { user_id, firstname,email,address, address2, add, city, phone, cart } = req.body;
+    const { user_id, firstname,lastname,email,address, address2, add, city, phone, cart } = req.body;
     console.log('order detail');
     const productlist = await Cart.findById({ _id: cart });
    let errors={};
    if (firstname.trim() === "") {
     errors.firstname = "You must enter your first name!";
+  }
+
+  if (lastname.trim() === "") {
+    errors.lastname = "You must enter your last name!";
   }
 
   if (email.trim() === "") {
@@ -100,9 +104,7 @@ const userviewproduct = {
     errors.address = "You must enter your address!";
   }
 
-  if (address2.trim() === "") {
-    errors.address2 = "You must enter your address 2!";
-  }
+ 
     if (city.trim() === "") {
       errors.city = "You must enter your city!";
     }
