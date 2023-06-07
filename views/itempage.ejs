@@ -281,12 +281,34 @@
 
                         <button class="review-btn" ><i class="fa fa-sliders"></i></button>
                       </div>
-                      <div class="rev-link">Be the first to&nbsp;<a href="#">write a review</a></div> 
-                    </div>
+                      <h5>FeedBack</h5>
+                      <% if (product.approved && product.approved.length > 0) { %>
+                        <% product.approved.forEach((apprev, index) => { %>
+                          <div class="rev-link">
+                            <ul>
+                              <li>
+                                <span>Review(<span><%= index + 1 %></span>): </span>
+                                <%= apprev %>
+                              </li>
+                            </ul>
+                          </div> 
+                        <% }) %>
+                      <% } %>
+                      
                     <%} else{%>
-                      <div class="viewreview">
-                        <textarea name="view-review" id="view-review" cols="123" rows="50"></textarea>
-                       </div>
+                      <h5 style="text-align: center;">FeedBack of Clients:</h5>
+                      <% if (product.approved && product.approved.length > 0) { %>
+                        <% product.approved.forEach((apprev, index) => { %>
+                          <div class="rev-link">
+                            <ul>
+                              <li>
+                                <span>Review(<span><%= index + 1 %></span>): </span>
+                                <%= apprev %>
+                              </li>
+                            </ul>
+                          </div> 
+                        <% }) %>
+                      <% } %>
                        <%}%>
                   </div>
                 </div>
@@ -321,20 +343,7 @@
                        <%}else{%>
                         <span class="discount" style="display: none;"></span>
                         <%}%>
-                    <div class="links">
-                      <div class="Icon">
-                        <a href=""><i class="fa-regular fa-heart"></i></a>
-                        <span class="tooltiptext">Add to WishList</span>
-                      </div>
-                      <div class="Icon">
-                        <a href=""><i class="fa-regular fa-eye"></i></a>
-                        <span class="tooltiptext">Quick view</span>
-                      </div>
-                      <div class="Icon">
-                        <a href=""><i class="fa fa-arrow-up-right-from-square"></i></a>
-                        <span class="tooltiptext">Compare</span>
-                      </div>
-    
+                   
                     </div>
     
                   </div>

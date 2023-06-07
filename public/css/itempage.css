@@ -651,7 +651,7 @@ padding: 13px;
 }
 
 .accordion .contentBox.active .conteent{
-    height:150px;
+    height:100%;
     padding: 10px;
 }
 .review-bottom .review-bottom-1{
@@ -696,7 +696,7 @@ padding: 13px;
     margin-right: 10px;
 }
 .review-bottom .rev-link{
-    text-align: center;
+    text-align: left;
     font-size: 16px;
     padding: 0 0 0 50px;
 }
@@ -707,6 +707,20 @@ padding: 13px;
     cursor: pointer;
 }
 
+.review-bottom .rev-link  {
+  width: 100%;
+  height: 150px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical;
+  background-color: white;
+}
+
+.review-bottom .rev-link li{
+list-style: none;
+}
 
 /* ##################  End of the reviews section################## */
 /* ##################  moreproduct section & recentpreview section ################## */
