@@ -38,7 +38,9 @@
             <div id="adr" class="err"><%= errors &&  errors.email  ?  errors.email : '' %></div>
             <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
             <input type="text" id="adr" name="address" placeholder="542 W. 15th Street"value="<%=user.address%>">
-            <div id="adr" class="err"><%= errors &&  errors.address  ?  errors.address  : '' %></div>
+            <label for="adr"><i class="fa fa-address-card-o"></i> Address2</label>
+            <input type="text" id="adr" name="address2" placeholder="542 W. 15th Street"value="<%=user.address2%>">
+            <div id="adr" class="err"><%= errors &&  errors.address2  ?  errors.address2  : '' %></div>
             <label for="adr"><i class="fa fa-address-card-o"></i>  Additional Address</label>
             <input type="text" id="adr" name="add" placeholder="(Optional*)">
             <label for="city"><i class="fa fa-institution"></i> City</label>
