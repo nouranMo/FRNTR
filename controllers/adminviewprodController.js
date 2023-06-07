@@ -232,6 +232,16 @@ const productsController = {
         .limit(5);
   
       console.log("Retrieved top sold items:", topSoldItems);
+      // Retrieve the number of all users
+    const totalUsers = await user.countDocuments();
+
+    // Retrieve the number of all products
+    const totalProducts = await Furniture.countDocuments();
+
+    // Retrieve the number of total orders
+    const totalOrders = await Furniture.countDocuments({ sold: { $exists: true, $ne: null, $ne: 0 } });
+
+
    topSoldItemsWithOffers.forEach((product) => {
         if (product.photo && product.photo.length > 0) {
           product.imagePath = product.photo.map((photo) =>
@@ -249,16 +259,22 @@ const productsController = {
       if (lowStock.length === 0) {
         // If no low stock items, render the page without passing lowStock or imagePath
         res.render("dashboard", { 
-          lowStock,
-          topSoldItemsWithOffers,
-          topSoldItems, });
+        lowStock,
+        topSoldItemsWithOffers,
+        topSoldItems,
+        totalUsers,
+        totalProducts,
+        totalOrders, });
       } else {
         // If there are low stock items, render the page with lowStock, imagePath, topSoldItemsWithOffers, and topSoldItems
         res.render("dashboard", {
           lowStock,
           imagePath: lowStock[0].imagePath,
           topSoldItemsWithOffers,
-          topSoldItems,
+        topSoldItems,
+        totalUsers,
+        totalProducts,
+        totalOrders,
         });
       }
     } catch (error) {

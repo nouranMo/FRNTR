@@ -1,121 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <link rel="stylesheet" href="./css/admin.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    />
-    <style>
-      body {
-        margin: 0;
-        font-family: "Lato", sans-serif;
-      }
 
-      .sidebar a.dashboard {
-        background-color: black;
-        color: white;
-      }
+<head>
+  <link rel="stylesheet" href="./css/admin.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  <style>
+    body {
+      margin: 0;
+      font-family: "Lato", sans-serif;
+    }
 
-      .sidebar a:hover:not(.dashboard) {
-        background-color: #555;
-        color: white;
-      }
-     
-    </style>
-    <title>Admin Dashboard</title>
-  </head>
-  <body>
-    <%- include("./partials/adminsidebar.ejs")%>
+    .sidebar a.dashboard {
+      background-color: black;
+      color: white;
+    }
+
+    .sidebar a:hover:not(.dashboard) {
+      background-color: #555;
+      color: white;
+    }
+
+    .content span {
+      font-size: 16px;
+      font-weight: bold;
+      margin-right: 20px;
+    }
+
+    .content span:last-child {
+      margin-right: 0;
+    }
+  </style>
+  <title>Admin Dashboard</title>
+</head>
+
+<body>
+  <%- include("./partials/adminsidebar.ejs")%>
     <div class="contenty">
       <%- include("./partials/adminnav.ejs")%>
-      <div class="sideCon">
-        <div class="header">
-          <h2>Your Dashboard</h2>
-          <h3 id="subhead">Your Top Selling Products</h3>
-        </div>
-        <div class="gallery">
-          <% if (topSoldItems && topSoldItems.length > 0) { %>
-            <div class="row">
-              <% topSoldItems.forEach((product) => { %>
-                <div class="content">
-                  <div class="product-image">
-                    <% if (product.imagePath && product.imagePath.length > 0) { %>
-                      <% product.imagePath.forEach((path) => { %>
-                        <img src="<%= path %>" class="pic-1" style="width: 100%" />
-                        <% console.log("hello Image Path:", path); %>
-                        <img src="<%= path %>" class="pic-2" style="width: 100%" />
-                      <% }); %>
-                    <% } %>
-                  </div>
-                  <div class="container">
-                    <h4><b><%= product.productName %></b></h4>
-                    <p><%= product.category %><br> Sold: <%= product.sold %></p>
-                  </div>
-                </div>
-              <% }); %>
+        <div class="sideCon">
+          <div class="header">
+            <h2>Your Dashboard</h2>
+            <div class="row" style="display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 20px;">
+              <div class="content" style="display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f0f0f0;
+            padding: 10px;">
+                <span>Total Users: <%= totalUsers %> </span>
+                <span> Total Products: <%= totalProducts %></span>
+                <span> Total Orders: <%= totalOrders %></span>
+              </div>
             </div>
-          <% } %>
-          
-          
-          <% if (lowStock && lowStock.length > 0) { %>
-            <h3 id="subhead">Low in stock</h3>
-            <div class="row">
-              <% lowStock.forEach((product) => { %>
-                <div class="content">
-                  <div class="product-image">
-                    <% if (product.imagePath && product.imagePath.length > 0) { %>
-                      <% product.imagePath.forEach((path) => { %>
-                        <img src="<%= path %>" class="pic-1" style="width: 100%" />
-                        <% console.log("hello Image Path:", path); %>
-                        <img src="<%= path %>" class="pic-2" style="width: 100%" />
+            <h3 id="subhead">Your Top Selling Products</h3>
+          </div>
+          <div class="gallery">
+            <% if (topSoldItems && topSoldItems.length> 0) { %>
+              <div class="row">
+                <% topSoldItems.forEach((product)=> { %>
+                  <div class="content">
+                    <div class="product-image">
+                      <% if (product.imagePath && product.imagePath.length> 0) { %>
+                        <% product.imagePath.forEach((path)=> { %>
+                          <img src="<%= path %>" class="pic-1" style="width: 100%" />
+                          <% console.log("hello Image Path:", path); %>
+                            <img src="<%= path %>" class="pic-2" style="width: 100%" />
+                            <% }); %>
+                              <% } %>
+                    </div>
+                    <div class="container">
+                      <h4><b>
+                          <%= product.productName %>
+                        </b></h4>
+                      <p>
+                        <%= product.category %><br> Sold: <%= product.sold %>
+                      </p>
+                    </div>
+                  </div>
+                  <% }); %>
+              </div>
+              <% } %>
+
+
+                <% if (lowStock && lowStock.length> 0) { %>
+                  <h3 id="subhead">Low in stock</h3>
+                  <div class="row">
+                    <% lowStock.forEach((product)=> { %>
+                      <div class="content">
+                        <div class="product-image">
+                          <% if (product.imagePath && product.imagePath.length> 0) { %>
+                            <% product.imagePath.forEach((path)=> { %>
+                              <img src="<%= path %>" class="pic-1" style="width: 100%" />
+                              <% console.log("hello Image Path:", path); %>
+                                <img src="<%= path %>" class="pic-2" style="width: 100%" />
+                                <% }); %>
+                                  <% } %>
+                        </div>
+                        <div class="container">
+                          <h4><b>
+                              <%= product.productName %>
+                            </b></h4>
+                          <p>
+                            <%= product.category %><br> Remianing left: <%= product.quantity %>
+                          </p>
+                        </div>
+                      </div>
                       <% }); %>
-                    <% } %>
                   </div>
-                  <div class="container">
-                    <h4><b><%= product.productName %></b></h4>
-                    <p><%= product.category %><br> Remianing left: <%= product.quantity %></p>
-                  </div>
-                </div>
-              <% }); %>
-            </div>
-          <% } %>
-          
-         
-          <% if (topSoldItemsWithOffers && topSoldItemsWithOffers.length > 0) { %>
-            <h3 id="subhead">The people Loved these offers !</h3>
-            <div class="row">
-              <% topSoldItemsWithOffers.forEach((product) => { %>
-                <div class="content">
-                  <div class="product-image">
-                    <% if (product.imagePath && product.imagePath.length > 0) { %>
-                      <% product.imagePath.forEach((path) => { %>
-                        <img src="<%= path %>" class="pic-1" style="width: 100%" />
-                        <% console.log("hello Image Path:", path); %>
-                        <img src="<%= path %>" class="pic-2" style="width: 100%" />
-                      <% }); %>
-                    <% } %>
-                  </div>
-                  <div class="container">
-                    <h4><b>" <%= product.productName %> " on SALE up to <%= product.offer%> %</b></h4>
-                     <p class="deals"><%= product.price %> EGP</p>
-                    <p>Now for ONLY <%= product.price -(product.price * (product.offer)/100) %> EGP</p>
-                    <p>sold : <%= product.sold%></p>
-                  </div>
-                </div>
-              <% }); %>
-            </div>
-          <% } %>
+                  <% } %>
+
+
+                    <% if (topSoldItemsWithOffers && topSoldItemsWithOffers.length> 0) { %>
+                      <h3 id="subhead">The people Loved these offers !</h3>
+                      <div class="row">
+                        <% topSoldItemsWithOffers.forEach((product)=> { %>
+                          <div class="content">
+                            <div class="product-image">
+                              <% if (product.imagePath && product.imagePath.length> 0) { %>
+                                <% product.imagePath.forEach((path)=> { %>
+                                  <img src="<%= path %>" class="pic-1" style="width: 100%" />
+                                  <% console.log("hello Image Path:", path); %>
+                                    <img src="<%= path %>" class="pic-2" style="width: 100%" />
+                                    <% }); %>
+                                      <% } %>
+                            </div>
+                            <div class="container">
+                              <h4><b>" <%= product.productName %> " on SALE up to <%= product.offer%> %</b></h4>
+                              <p class="deals">
+                                <%= product.price %> EGP
+                              </p>
+                              <p>Now for ONLY <%= product.price -(product.price * (product.offer)/100) %> EGP</p>
+                              <p>sold : <%= product.sold%>
+                              </p>
+                            </div>
+                          </div>
+                          <% }); %>
+                      </div>
+                      <% } %>
+          </div>
         </div>
-        </div>
-      
-      </div>
-      <%- include('./partials/chat.ejs')%>
+
     </div>
-  </body>
+    <%- include('./partials/chat.ejs')%>
+      </div>
+</body>
+
 </html>
