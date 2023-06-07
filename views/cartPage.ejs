@@ -66,14 +66,14 @@
                 ><button
                   class="material-symbols-outlined"
                   id="trash"
-                  onclick="removeFromCart(`<%=item.productId%>`,`<%=item.productName%>` , `<%=item.productPrice%>`, `<%=item.quantity%>`)">
+                  onclick="deleteItem(`<%=item.productId%>`)">
                 
                   delete</button
                 ><span id="totalAmount"><%=item.quantity%></span
                 ><button
                   class="material-symbols-outlined"
                   id="plus"
-                  onclick="addItemToCart(document.getElementById('productId').value)"
+                  onclick="addItemToCart(`<%=item.productId%>`)"
                 >
                   add
                 </button>
