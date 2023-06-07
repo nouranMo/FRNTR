@@ -655,9 +655,20 @@ function confirmDeleteRev(userId,index) {
       }
     }
   );
-
-  return false; // Prevent the default link action
 }
+function EditReview(userId,index) {
+  showConfirmationModal(
+    "Are you sure you want to Approve this review?",
+    (confirmed) => {
+      if (confirmed) {
+        // Proceed with the link action
+        console.log("zeina");
+        window.location.href = `/admin/approverev/${userId}/${index}`;
+      }
+    }
+  );
+  }
+
 function confirmDeleteUser(userId, userEmail) {
   showConfirmationModal(
     `Are you sure you want to delete the user with the email: ${userEmail}`,

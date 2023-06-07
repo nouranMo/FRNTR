@@ -46,6 +46,10 @@ const furnitureSchema = new mongoose.Schema({
     type:[String],
     required:false,
   },
+  approved:{
+    type:[String],
+    required:false,
+  },
   photo: {
     type: [String], // Array of strings
     required: true

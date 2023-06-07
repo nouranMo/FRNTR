@@ -28,6 +28,7 @@ router.get("/lowInStock", productsController.LowInStock);
 router.get("/orders",  productsController.Sold);
 router.get("/offer", productsController.Offers);
 router.get("/reviews", productsController.revtoadmin);
+router.get('/approverev/:id/:index',productsController.approverev);
 router.get('/deleteReview/:id/:index',productsController.deleterev);
 router.post("/editUser", upload.none(), productsController.editUser);
 router.get("/statistics", productsController.SoldStatistics);

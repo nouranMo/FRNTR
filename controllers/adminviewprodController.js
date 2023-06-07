@@ -567,17 +567,39 @@ const productsController = {
       res.status(500).json({ error: "Failed to update user" });
     }
   },
-  approverev: async(req,res)=>{
-    console.log("inside approve review");
-   try{
-    console.log(review);
-   }
-    catch (error) {
-      // If an error occurs during the update process, you can send an error response
-      console.error("Error approving the review:", error);
-      res.status(500).json({ error: "Failed to accept the review" });
+  approverev: async (req, res) => {
+    try {
+      console.log("inside the function");
+      const reviewIndex = parseInt(req.params.index);
+      const productId = req.params.id;
+  
+      console.log(reviewIndex);
+  
+      const product = await Furniture.findById(productId);
+  
+      if (!product) {
+        return res.status(404).json({ message: 'Product not found' });
+      }
+  
+      console.log("reviewIndex:", reviewIndex);
+      console.log("product.review.length:", product.review.length);
+  
+      if (reviewIndex >= 0 && reviewIndex < product.review.length) {
+        const review = product.review[reviewIndex]; // Get the review at the specified index
+        // product.review.splice(reviewIndex, 1); // Remove the review from the original array
+        product.approved.push(review); // Add the review to the 'approved' array
+        await product.save();
+        return res.redirect('/admin/reviews');
+      } else {
+        return res.status(404).json({ message: 'Review not found' });
+      }
+    } catch (error) {
+      console.log("error not in function of accept review");
+      console.error("Error adding the review to the 'approved' array: ", error);
+      //res.render("404", { message: "Failed to add the review to the 'approved' array" ,user:req.session.user===undefined?"":req.session.user});
     }
   },
+  
 
   deleterev: async(req,res)=>{
     
@@ -598,7 +620,6 @@ const productsController = {
         if (reviewIndex >= 0 && reviewIndex < product.review.length) {
           product.review.splice(reviewIndex, 1); // Remove the review at the specified index
           await product.save();
-          console.log("hh")
           return res.redirect('/admin/reviews')
         } else {
           return res.status(404).json({ message: 'Review not found' });
