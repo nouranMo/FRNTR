@@ -200,10 +200,11 @@ const productsController = {
   LowInStock: async (req, res) => {
     try {
       console.log("Inside LowInStock");
+  
       const lowStock = await Furniture.find({ quantity: { $lt: 10 } });
-
+  
       console.log("Retrieved low stock products from the database:", lowStock);
-
+  
       lowStock.forEach((product) => {
         if (product.photo && product.photo.length > 0) {
           product.imagePath = product.photo.map((photo) =>
@@ -212,15 +213,52 @@ const productsController = {
           console.log(product.photo);
         }
       });
+     
+      // Retrieve 5 most sold items with offers
+      const topSoldItemsWithOffers = await Furniture.find({
+        sold: { $exists: true, $ne: null, $ne: 0 },
+        offer: { $exists: true, $ne: null,$ne: 0 },
+      }) 
+      .sort({ sold: -1 })
+      .limit(5);
 
+      console.log("Retrieved top sold items with offers:", topSoldItemsWithOffers);
+  
+      // Retrieve 5 most sold items in general
+      const topSoldItems = await Furniture.find({
+        sold: { $exists: true, $ne: null, $ne: 0 },
+      })
+        .sort({ sold: -1 })
+        .limit(5);
+  
+      console.log("Retrieved top sold items:", topSoldItems);
+   topSoldItemsWithOffers.forEach((product) => {
+        if (product.photo && product.photo.length > 0) {
+          product.imagePath = product.photo.map((photo) =>
+            photo.replace(/\\/g, "/").replace("public/", "../")
+          );
+        }
+      });
+      topSoldItems.forEach((product) => {
+        if (product.photo && product.photo.length > 0) {
+          product.imagePath = product.photo.map((photo) =>
+            photo.replace(/\\/g, "/").replace("public/", "../")
+          );
+        }
+      });
       if (lowStock.length === 0) {
         // If no low stock items, render the page without passing lowStock or imagePath
-        res.render("dashboard", { lowStock });
+        res.render("dashboard", { 
+          lowStock,
+          topSoldItemsWithOffers,
+          topSoldItems, });
       } else {
-        // If there are low stock items, render the page with lowStock and imagePath
+        // If there are low stock items, render the page with lowStock, imagePath, topSoldItemsWithOffers, and topSoldItems
         res.render("dashboard", {
           lowStock,
           imagePath: lowStock[0].imagePath,
+          topSoldItemsWithOffers,
+          topSoldItems,
         });
       }
     } catch (error) {
@@ -230,7 +268,7 @@ const productsController = {
         user: req.session.user === undefined ? "" : req.session.user,
       });
     }
-  },
+  },  
   revtoadmin:async(req,res)=>{
     try{
       console.log("inside reviews to admin");
