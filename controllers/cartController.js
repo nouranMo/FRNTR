@@ -269,7 +269,6 @@ cartController.deleteItem = async (req, res) => {
               $set: {
                 "item.$.quantity": newQuantity,
                 "item.$.stock": newStock,
-                totalPrice: cart.totalPrice - item.productPrice,
               },
               $inc: { totalPrice: -item.productPrice },
             }
