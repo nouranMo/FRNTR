@@ -169,11 +169,21 @@
     background-color: black;
     color: white;
     transition: 0.3s;
-
+    text-decoration: none;
+    
+}
+#checkoutButton a{
+  text-decoration: none;
+}
+#checkoutButton span{
+  color: white;
 }
 #checkoutButton:hover{
-    background-color: #59533f;
+    background-color: white;
     cursor: pointer;
+}
+#checkoutButton:hover span{
+  color:black;
 }
 #arrowicon{
     background-color: transparent;
