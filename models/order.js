@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 import Furniture from "../models/furniture.js";
-import User from "../models/user.js";
 
 const orderSchema = new mongoose.Schema({
-  UserId: String,
+  UserId:{
+   type:mongoose.Schema.Types.ObjectId, ref: 'User'} ,
 
   item: [{
     productId: String,
