@@ -41,7 +41,8 @@ editprofileController.editprofile = async (req, res) => {
       return res.status(404).send("User not found");
     }
     // Redirect to the account page with the updated user
-    return res.render("account", { user: updatedUser });
+   req.session.user = updatedUser;
+    return res.render("account", {user:req.session.user });
   } catch (error) {
     console.error("Error saving user:", error);
     return res.redirect("/");
