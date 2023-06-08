@@ -25,11 +25,18 @@
     .content span {
       font-size: 16px;
       font-weight: bold;
-      margin-right: 20px;
+      margin-bottom: 10px;
     }
 
     .content span:last-child {
-      margin-right: 0;
+      margin-bottom: 0;
+    }
+    @media only screen and (max-width: 600px) {
+
+      .content {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
   </style>
   <title>Admin Dashboard</title>
@@ -42,17 +49,17 @@
         <div class="sideCon">
           <div class="header">
             <h2>Your Dashboard</h2>
-            <div class="row" style="display: flex;
+            <div class="row" style="display:flex ;
           justify-content: center;
           align-items: center;
           margin-bottom: 20px;">
-              <div class="content" style="display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #f0f0f0;
-            padding: 10px;">
-                <span>Total Users: <%= totalUsers %> </span>
-                <span> Total Products: <%= totalProducts %></span>
+              <div class="content" style="display: flow-root;
+              justify-content: space-between;
+              align-items: center;
+              background-color: #f0f0f0;
+              padding: 10px;">
+                <span>Total Users: <%= totalUsers %> </span><br>
+                <span> Total Products: <%= totalProducts %></span><br>
                 <span> Total Orders: <%= totalOrders %></span>
               </div>
             </div>
