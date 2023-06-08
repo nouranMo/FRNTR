@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <link rel="stylesheet" href="../css/admin.css">
     <link rel="stylesheet" href="../css/cartsidebar.css" />
@@ -7,9 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
-        
-        
-
         .sidebar a.orders {
             background-color: black;
             color: white;
@@ -19,44 +17,58 @@
             background-color: #555;
             color: white;
         }
-       
+    .content {
+        background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 20px;
+         
+        }
+        .container h4 {
+            margin-bottom: 10px;
+        }
+        .container p:last-child {
+            margin-top: 10px;
+        }
+
     </style>
     <title>Admin Orders</title>
 </head>
-<body>
-    <%- include("./partials/adminsidebar.ejs")%>
-    <div class="contenty">
-        <%- include("./partials/adminnav.ejs")%>
-        <div class="sideCon">
-            
-            <div class="header">
 
+<body>
+    <%- include("./partials/adminsidebar.ejs") %>
+    <div class="contenty">
+        <%- include("./partials/adminnav.ejs") %>
+        <div class="sideCon">
+            <div class="header">
                 <h2>All Previous Orders</h2>
+                <div class="gallery">
+                    <% if (sold && sold.length > 0) { %>
+                        <div class="row">
+                            <% sold.forEach((product) => {  const foundProduct = users.find(user => user.id === product.UserId);%>
+                                <div class="content" style=" width: auto;">  <p style=" color: #555;
+                                    line-height: 1.5;
+                                    margin: 0;  font-weight: bold;
+            margin-bottom: 5px;">  user : <%= foundProduct.firstName %></p>
+                                    <div class="container"> <br>
+                                        They bought :
+                                        <% product.item.forEach((orders) => { %>
+                                            <h4><b>
+                                                 <p>  <br> <%= orders.productName %>  </p>
+                                            </b></h4>
+                                        <% }); %><p> Total price they paid was : <%= product.totalPrice %></p>
+                                    </div>
+                                </div>
+                            <% }); %>
+                        </div>
+                    <% } %>
+                </div>
             </div>
-            <div class="gallery">
-                <% if (sold && sold.length > 0) { %>
-                <div class="row">
-                    <% sold.forEach((product) => { %>
-                        <div class="content">
-                            <div class="product-image">
-                                <% if (product.imagePath && product.imagePath.length > 0) { %>
-                                 <% product.imagePath.forEach((path) => { %>
-                                    <img src="<%= path %>" class="pic-1" style="width: 100%" />
-                                    <% console.log("hello Image from offer Path:", path); %>
-                                    <img src="<%= path %>" class="pic-2" style="width: 100%" />
-                                      <% }); %>
-                                       <% } %>
-                            </div>
-                            <div class="container">
-                                <h4><b> <%= product.productName %> </b></h4>
-                                 <p><%= product.sold %> item sold</p>
-                        </div>  </div>
-                    <% }); %>
-              
-                  <% } %>
-            </div>
+            <%- include('./partials/chat.ejs') %>
         </div>
-        <%- include('./partials/chat.ejs')%>
-      </div>
-      </body>
-      </html>
+    </div>
+</body>
+
+</html>
