@@ -188,18 +188,18 @@
     <script>
       function sortItems() {
         console.log("entered sort function")
-        var selectElement = document.getElementById("sortSelect");
+        let selectElement = document.getElementById("sortSelect");
         console.log("found sortSelect")
-        var selectedValue = selectElement.value;
+        let selectedValue = selectElement.value;
         console.log("found sortselect value")
-        var category = document.getElementById("categoryinput").value;
+        let category = document.getElementById("categoryinput").value;
         console.log("found category value and added it")
         if(document.getElementById("searchinput")!==null)
         {
-          var search = document.getElementById("searchinput").value;
+          let search = document.getElementById("searchinput").value;
         }
         else{
-          var search = null;
+          let search = null;
         }
         console.log("found search input")
         if(search!==null)
@@ -212,23 +212,23 @@
       }
       function applyFilter()
       {
-        var min = document.querySelector(".input-min").value;
-        var max = document.querySelector(".input-max").value;
-        var category = document.getElementById("categoryinput").value;
+        let min = document.querySelector(".input-min").value;
+        let max = document.querySelector(".input-max").value;
+        let category = document.getElementById("categoryinput").value;
         
         if(document.getElementById("searchinput")!==null)
         {
-          var search = document.getElementById("searchinput").value;
+          let search = document.getElementById("searchinput").value;
         }
         else{
-          var search = null;
+          let search = null;
         }
         if(document.getElementById("sortinput")!==null)
         {
-          var sort = document.getElementById("sortinput").value;
+          let sort = document.getElementById("sortinput").value;
         }
         else{
-          var sort = null;
+          let sort = null;
         }
         if(search!==null && sort!==null)
         {

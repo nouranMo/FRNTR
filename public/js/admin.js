@@ -1,8 +1,8 @@
 Dropzone.autoDiscover = false;
-var uploadedImagePaths = [];
+let uploadedImagePaths = [];
 $(document).ready(function () {
   // Initialize Dropzone
-  var myDropzone = new Dropzone("#my-dropzone", {
+  let myDropzone = new Dropzone("#my-dropzone", {
     // Configuration options for Dropzone
     paramName: "file", // The name that will be used to transfer the file
     url: "/adminproduct/upload", // The URL where the file should be uploaded
@@ -11,16 +11,16 @@ $(document).ready(function () {
     autoProcessQueue: true,
     // Customized initialization function
     init: function () {
-      var previewElement = document.getElementById("preview");
+      let previewElement = document.getElementById("preview");
 
       this.on("addedfile", function (file) {
         // Action to be performed when a file is added
         console.log("File added: " + file.name);
         // Display the file thumbnail
         // You can replace this with your own desired action
-        var reader = new FileReader();
+        let reader = new FileReader();
         reader.onload = function (e) {
-          var thumbnail = document.createElement("div");
+          let thumbnail = document.createElement("div");
           thumbnail.classList.add("thumbnail");
           thumbnail.setAttribute("data-dz-name", file.name); // Add a custom attribute with the file name
           thumbnail.setAttribute("data-file-id", file.upload.uuid); // Add a custom attribute with the file ID
@@ -37,7 +37,7 @@ $(document).ready(function () {
       this.on("success", function (file, response) {
         console.log("File uploaded successfully: " + file.name);
         console.log("Server response: " + response);
-        var imagePath = "public/images/" + file.name;
+        let imagePath = "public/images/" + file.name;
         uploadedImagePaths.push(imagePath);
         console.log(uploadedImagePaths[0]);
         // Update the preview element based on the server's response
@@ -47,7 +47,7 @@ $(document).ready(function () {
         console.log("Error uploading file: " + file.name);
         console.log("Error message: " + errorMessage);
         // Update the preview element to indicate the error
-        var errorText = document.createElement("p");
+        let errorText = document.createElement("p");
         errorText.innerHTML = "Upload Error: " + errorMessage;
         errorText.style.color = "red"; // Adjust the style as needed
         previewElement.appendChild(errorText);
@@ -57,9 +57,9 @@ $(document).ready(function () {
       previewElement.addEventListener("click", function (e) {
         if (e.target.classList.contains("remove-btn")) {
           e.stopPropagation(); // Stop event propagation to prevent triggering the parent click event
-          var thumbnail = e.target.parentNode;
-          var filename = thumbnail.getAttribute("data-dz-name");
-          var fileId = thumbnail.getAttribute("data-file-id");
+          let thumbnail = e.target.parentNode;
+          let filename = thumbnail.getAttribute("data-dz-name");
+          let fileId = thumbnail.getAttribute("data-file-id");
 
           // Make an AJAX request to delete the file from the server
           $.ajax({
@@ -74,7 +74,7 @@ $(document).ready(function () {
                 uploadedImagePaths.indexOf("public/images/" + filename),
                 1
               );
-              var fileObject = myDropzone.files.find(function (file) {
+              let fileObject = myDropzone.files.find(function (file) {
                 return file.upload.uuid === fileId;
               });
               if (fileObject) {
@@ -102,12 +102,12 @@ $(document).ready(function () {
       // Submit the form with AJAX
       $("#product-form").submit(function (event) {
         event.preventDefault();
-        var isProductNameValid = validateProductName();
-        var isColorValid = validateColor();
-        var isPriceValid = validatePrice();
-        var isQuantityValid = validateQuantity();
-        var isImagesValid = validateImages();
-        var isMeasurementsValid = validateMeasurements();
+        let isProductNameValid = validateProductName();
+        let isColorValid = validateColor();
+        let isPriceValid = validatePrice();
+        let isQuantityValid = validateQuantity();
+        let isImagesValid = validateImages();
+        let isMeasurementsValid = validateMeasurements();
         if (
           !isProductNameValid ||
           !isColorValid ||
@@ -119,9 +119,9 @@ $(document).ready(function () {
           return false;
         }
 
-        var form = $(this);
-        var url = form.attr("action");
-        var formData = new FormData(form[0]);
+        let form = $(this);
+        let url = form.attr("action");
+        let formData = new FormData(form[0]);
         // Append the uploadedImagePaths to the form data
         formData.append(
           "uploadedImagePaths",
@@ -157,7 +157,7 @@ $(document).ready(function () {
   });
 });
 $(document).ready(function () {
-  var myDropzone = new Dropzone("#my-dropzoneedit", {
+  let myDropzone = new Dropzone("#my-dropzoneedit", {
     // Configuration options for Dropzone
     paramName: "file", // The name that will be used to transfer the file
     url: "/adminproduct/upload", // The URL where the file should be uploaded
@@ -165,13 +165,13 @@ $(document).ready(function () {
     acceptedFiles: ".jpg,.png,.gif,.webp,jpeg", // Allowed file types
     autoProcessQueue: true,
     init: function () {
-      var previewElement = document.getElementById("preview");
+      let previewElement = document.getElementById("preview");
       // Get the img elements and extract the src attribute
-      var productImages = document.querySelectorAll("#previous-images img");
-      for (var i = 0; i < productImages.length; i++) {
-        var imageSrc = productImages[i].getAttribute("src");
-        var imagePath = imageSrc.replace(/\//g, "/");
-        var imagePathWithPublic = "public" + imagePath;
+      let productImages = document.querySelectorAll("#previous-images img");
+      for (let i = 0; i < productImages.length; i++) {
+        let imageSrc = productImages[i].getAttribute("src");
+        let imagePath = imageSrc.replace(/\//g, "/");
+        let imagePathWithPublic = "public" + imagePath;
         console.log(imagePathWithPublic + " added to uploadedImagePaths");
         uploadedImagePaths.push(imagePathWithPublic);
       }
@@ -180,9 +180,9 @@ $(document).ready(function () {
         console.log("File added: " + file.name);
         // Display the file thumbnail
         // You can replace this with your own desired action
-        var reader = new FileReader();
+        let reader = new FileReader();
         reader.onload = function (e) {
-          var thumbnail = document.createElement("div");
+          let thumbnail = document.createElement("div");
           thumbnail.classList.add("thumbnail");
           thumbnail.setAttribute("data-dz-name", file.name); // Add a custom attribute with the file name
           thumbnail.setAttribute("data-file-id", file.upload.uuid); // Add a custom attribute with the file ID
@@ -199,7 +199,7 @@ $(document).ready(function () {
       this.on("success", function (file, response) {
         console.log("File uploaded successfully: " + file.name);
         console.log("Server response: " + response);
-        var imagePath = "public/images/" + file.name;
+        let imagePath = "public/images/" + file.name;
         uploadedImagePaths.push(imagePath);
         console.log(uploadedImagePaths[0]);
         // Update the preview element based on the server's response
@@ -209,7 +209,7 @@ $(document).ready(function () {
         console.log("Error uploading file: " + file.name);
         console.log("Error message: " + errorMessage);
         // Update the preview element to indicate the error
-        var errorText = document.createElement("p");
+        let errorText = document.createElement("p");
         errorText.innerHTML = "Upload Error: " + errorMessage;
         errorText.style.color = "red"; // Adjust the style as needed
         previewElement.appendChild(errorText);
@@ -219,9 +219,9 @@ $(document).ready(function () {
       previewElement.addEventListener("click", function (e) {
         if (e.target.classList.contains("remove-button")) {
           e.stopPropagation(); // Stop event propagation to prevent triggering the parent click event
-          var thumbnail = e.target.parentNode;
-          var filename = thumbnail.getAttribute("data-dz-name");
-          var fileId = thumbnail.getAttribute("data-file-id");
+          let thumbnail = e.target.parentNode;
+          let filename = thumbnail.getAttribute("data-dz-name");
+          let fileId = thumbnail.getAttribute("data-file-id");
 
           // Make an AJAX request to delete the file from the server
           $.ajax({
@@ -236,7 +236,7 @@ $(document).ready(function () {
                 uploadedImagePaths.indexOf("public/images/" + filename),
                 1
               );
-              var fileObject = myDropzone.files.find(function (file) {
+              let fileObject = myDropzone.files.find(function (file) {
                 return file.upload.uuid === fileId;
               });
               if (fileObject) {
@@ -253,9 +253,9 @@ $(document).ready(function () {
       });
       // Attach event listener to the remove button for previous images
       $("#previous-images").on("click", ".remove-btn", function () {
-        var listItem = $(this).closest("li");
-        var imagePath = listItem.find("img").attr("src");
-        var imageName = imagePath.substring(imagePath.lastIndexOf("/") + 1);
+        let listItem = $(this).closest("li");
+        let imagePath = listItem.find("img").attr("src");
+        let imageName = imagePath.substring(imagePath.lastIndexOf("/") + 1);
         // Make an AJAX request to delete the image from the server
         $.ajax({
           url: "/adminproduct/delete",
@@ -267,7 +267,7 @@ $(document).ready(function () {
             listItem.remove(); // Remove the image from the list
 
             // Remove the image path from the uploadedImagePaths array
-            var index = uploadedImagePaths.indexOf(
+            let index = uploadedImagePaths.indexOf(
               "public/images/" + imageName
             );
             if (index !== -1) {
@@ -289,11 +289,11 @@ $(document).ready(function () {
       // Submit the form with AJAX
       $("#formedit").submit(function (event) {
         event.preventDefault();
-        var isProductNameValid = validateProductName();
-        var isColorValid = validateColor();
-        var isPriceValid = validatePrice();
-        var isQuantityValid = validateQuantity();
-        var isMeasurementsValid = validateMeasurements();
+        let isProductNameValid = validateProductName();
+        let isColorValid = validateColor();
+        let isPriceValid = validatePrice();
+        let isQuantityValid = validateQuantity();
+        let isMeasurementsValid = validateMeasurements();
         if (
           !isProductNameValid ||
           !isColorValid ||
@@ -304,13 +304,13 @@ $(document).ready(function () {
           return false;
         }
 
-        var form = $(this);
-        var url = form.attr("action");
-        var formData1 = new FormData(form[0]);
-        for (var i = 0; i < uploadedImagePaths.length; i++) {
+        let form = $(this);
+        let url = form.attr("action");
+        let formData1 = new FormData(form[0]);
+        for (let i = 0; i < uploadedImagePaths.length; i++) {
           console.log(uploadedImagePaths[i]);
         }
-        var productID = $("#my-dropzoneedit").data("product-id");
+        let productID = $("#my-dropzoneedit").data("product-id");
         // Append the uploadedImagePaths to the form data
         formData1.append(
           "uploadedImagePaths",
@@ -428,7 +428,7 @@ function validateQuantity() {
 }
 function validateImages() {
   if (uploadedImagePaths.length === 0) {
-    var imagesError = document.getElementById("images-error");
+    let imagesError = document.getElementById("images-error");
     imagesError.innerHTML = "Please upload at least one image";
     return false;
   }

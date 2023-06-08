@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import addemailController from '../controllers/addemailController.js';
-var router = Router();
+let router = Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

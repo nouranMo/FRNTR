@@ -1,10 +1,10 @@
 // ##################  START SLIDE SHOW SCRIPT ######################
-var counter = 1;
-var imageSlide;
-var buttons;
+let counter = 1;
+let imageSlide;
+let buttons;
 
 function displayImage(num) {
-  for (var i = 0; i < imageSlide.length; i++) {
+  for (let i = 0; i < imageSlide.length; i++) {
     if (i == num) {
       imageSlide[i].style.display = "block";
       buttons[i].style.background = "black";
@@ -21,7 +21,7 @@ function displayFirst() {
 }
 
 function nextSlide() {
-  for (var i = 0; i < imageSlide.length; i++) {
+  for (let i = 0; i < imageSlide.length; i++) {
     if (imageSlide[i].style.display == "block") {
       if (i === imageSlide.length - 1) {
         imageSlide[i].style.display = "none";
@@ -57,11 +57,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 function addItem() {
-  var x = parseFloat(document.getElementById("totalAmount").innerText);
-  var y = parseFloat(
+  let x = parseFloat(document.getElementById("totalAmount").innerText);
+  let y = parseFloat(
     document.getElementById("totalItemPrice").innerText.replace(/,/g, "")
   );
-  var z = parseFloat(
+  let z = parseFloat(
     document.getElementById("subtotalNum").innerText.replace(/,/g, "")
   );
   z = z - y;
@@ -77,12 +77,12 @@ function addItem() {
   ).toLocaleString();
 }
 function removeItem() {
-  var x = parseInt(document.getElementById("totalAmount").innerText);
+  let x = parseInt(document.getElementById("totalAmount").innerText);
   if (x != 1) {
-    var y = parseFloat(
+    let y = parseFloat(
       document.getElementById("totalItemPrice").innerText.replace(/,/g, "")
     );
-    var z = parseFloat(
+    let z = parseFloat(
       document.getElementById("subtotalNum").innerText.replace(/,/g, "")
     );
     z = z - y;
@@ -100,8 +100,8 @@ function removeItem() {
 }
 
 function addItemCart() {
-  var x = parseFloat(document.getElementById("totalAmountBar").innerText);
-  var y = parseFloat(
+  let x = parseFloat(document.getElementById("totalAmountBar").innerText);
+  let y = parseFloat(
     document.getElementById("priceAfterSale").innerText.replace(/,/g, "")
   );
   y /= x;
@@ -109,9 +109,9 @@ function addItemCart() {
   document.getElementById("totalAmountBar").innerText = x;
 }
 function removeItemCart() {
-  var x = parseInt(document.getElementById("totalAmountBar").innerText);
+  let x = parseInt(document.getElementById("totalAmountBar").innerText);
   if (x != 1) {
-    var y = parseFloat(
+    let y = parseFloat(
       document.getElementById("priceAfterSale").innerText.replace(/,/g, "")
     );
     y /= x;
