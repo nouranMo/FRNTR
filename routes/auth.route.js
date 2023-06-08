@@ -6,7 +6,7 @@ import loginController from '../controllers/loginControllers.js';
 import verifiyController from'../controllers/verifiyController.js';
 import forgetpassController from '../controllers/forgetpassController.js';
 // Create a new router instance
-var router = Router();
+let router = Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

@@ -174,7 +174,7 @@ function accOpen(){
       document.getElementById("em1").innerHTML = "";
       document.getElementById("ema1").style.borderColor = "black";
     }
-    let regular_expressions =
+     const regular_expressions =
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return regular_expressions.test(String(email).toLocaleLowerCase());
   }

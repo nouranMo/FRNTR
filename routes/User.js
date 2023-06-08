@@ -6,7 +6,7 @@ import editprofileController1 from "../controllers/editprofileController.js"
 import userviewproduct from '../controllers/userproductController.js';
 
 // Create a new router instance
-var router = express.Router();
+let router = express.Router();
 import bodyParser from "body-parser";
 import cartController from "../controllers/cartController.js";
 import wishlistController from "../controllers/wishlistController.js";

@@ -2,7 +2,7 @@ import { Router } from "express";
 import multer from "multer";
 import productsController from "../controllers/adminviewprodController.js";
 // Create a new router instance
-var router = Router();
+let router = Router();
 const upload = multer({ dest: "public/images" });
 
 // Authentication, securing the admin dashboard.
