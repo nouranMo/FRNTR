@@ -888,9 +888,6 @@ footer {
   display: inline-flex;
   flex-wrap: wrap;
   margin: auto;
-  /* vertical-align: center; */
-  /* max-width: 700px;
-margin: auto; */
 }
 
 .contact1,
@@ -904,7 +901,9 @@ margin: auto; */
 .contact1 p{
   text-align: left!important;
 }
-
+.contact1{
+  
+}
 
 .contact1 p i {
   font-size: 14px;
@@ -915,23 +914,6 @@ margin: auto; */
 .contact h3 {
   font-size: 16px;
 }
-
-/* @media (max-width: 880px) {
-
-  .footer-distributed .footer-left,
-  .footer-distributed .footer-center,
-  .footer-distributed .footer-right {
-      display: block;
-      width: 100%;
-      margin-bottom: 40px;
-      text-align: center;
-  }
-
-  .footer-distributed .footer-center i {
-      margin-left: 0;
-  }
-} */
-
 .customers ul,
 .category ul {
   padding: 0px;
