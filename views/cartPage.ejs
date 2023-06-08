@@ -58,7 +58,13 @@
           <a href="index" id="websiteLink">FRNTR</a>
           <div style="font-weight: bold"><%=item.productName%></div>
           <div>
-           <span> <b>Price:</b> <%=item.productPrice%></span>
+            <% const foundProd = products.find(product => product.id === item.productId); %>
+            <% if (foundProd && foundProd.offer ) { %>
+           <span> <b>Price:</b>  <del><%= item.productPrice %> EGP</del>
+            <ins class="in" style="text-decoration: none; color: red;"><%= item.productPrice -(item.productPrice * (foundProd.offer)/100) %> EGP</ins></span>
+            <%} else {%>
+              <span> <b>Price:</b>  <ins style="text-decoration: none;"><%= item.productPrice %> EGP</ins>
+                <%}%>
           </div>
           <input type="hidden" value="<%=item.productId%>" id="productId" />
            <span class="addOrRemove"
@@ -96,14 +102,24 @@
             ></a>
           </button>
           <span id="finalPrice">
-            <span id="totalItemPrice"><%=item.productPrice * item.quantity%></span> EGP<button
+            <% const foundP = products.find(product => product.id === item.productId); %>
+            <% if (foundP && foundP.offer ) { %>
+            <span id="totalItemPrice"><%=(item.productPrice -(item.productPrice * (foundP.offer)/100))* item.quantity%></span> EGP<button
             class="material-symbols-outlined"
             id="trash"
 
             onclick="removeFromCart(`<%=item.productId%>`,`<%=item.productName%>` , `<%=item.productPrice%>`, `<%=item.quantity%>`)">
             delete</button</span>
 
-         
+         <%} else {%>
+          <span id="totalItemPrice"><%=item.productPrice * item.quantity%></span> EGP<button
+          class="material-symbols-outlined"
+          id="trash"
+
+          onclick="removeFromCart(`<%=item.productId%>`,`<%=item.productName%>` , `<%=item.productPrice%>`, `<%=item.quantity%>`)">
+          delete</button</span>
+          <%}%>
+
         </div>
       </div>
 
