@@ -58,7 +58,7 @@ app.use(bodyParser.json());
 app.set("view engine", "ejs");
 
 // Serve static files from the 'public' directory
-app.use(express.static("public", { maxAge: 604800000 }));
+app.use(express.static("public", { maxAge: "7d" }));
 app.use("/images", image("images"));
 
 
