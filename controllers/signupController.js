@@ -8,9 +8,9 @@ const signupController = {};
 
 function validatePassword(password)
 {
-  var uppercasePattern = /[A-Z]/;
-  var digitPattern = /[0-9]/;
-  var pattern = /[\u0021-\u002F\u003A-\u0040\u005B-\u0060\u007B-\u007E$#&().|\\[\]{}]/;
+  const uppercasePattern = /[A-Z]/;
+  const digitPattern = /[0-9]/;
+  const pattern = /[\u0021-\u002F\u003A-\u0040\u005B-\u0060\u007B-\u007E$#&().|\\[\]{}]/;
 // Characters:  ! to /, : to @, [ to `, { to ~, $, #, &, (, ), |, \, ], }
 
   return uppercasePattern.test(password) && digitPattern.test(password) && pattern.test(password);
