@@ -1,5 +1,5 @@
 import Furniture from "../models/furniture.js";
-// import Furniture from "../models/furniture.js";
+import order from "../models/order.js";
 import user from "../models/user.js";
 console.log("Retrieved products from the database:");
 const productsController = {
@@ -375,18 +375,25 @@ const productsController = {
       });
     }
   },
-  
   Sold: async (req, res) => {
     try {
       console.log("Inside orders");
-
       // Retrieve products with quantities less than 10 from the database
-      const sold = await Furniture.find({
-        sold: { $exists: true, $ne: null , $ne: 0},
-      });
-
+      const sold = await order.find();
+      const users = await user.find();
+      // const sold = await order.aggregate([
+      //   {
+      //     $lookup: {
+      //       from: 'user',
+      //       localField: 'UserId',
+      //       foreignField: '_id',
+      //       as: 'customer_info'
+      //     }
+      //   }
+      // ]).exec();
+  
       console.log("Retrieved products that were sold from the database:", sold);
-
+      console.log("Retrieved users in sold func from the database:", users);
       sold.forEach((product) => {
         if (product.photo && product.photo.length > 0) {
           product.imagePath = product.photo.map((photo) =>
@@ -395,10 +402,11 @@ const productsController = {
           console.log("orders", product.photo);
         }
       });
+  
       if (sold.length === 0) {
-        res.render("orders", { sold });
+        res.render("orders", { sold,users });
       } else {
-        res.render("orders", { sold, imagePath: sold[0].imagePath });
+        res.render("orders", { sold, imagePath: sold[0].imagePath,users });
       }
     } catch (error) {
       // Handle error if retrieval fails
@@ -408,7 +416,7 @@ const productsController = {
         user: req.session.user === undefined ? "" : req.session.user,
       });
     }
-  },
+  },   
   SoldStatistics: async (req, res) => {
     try {
       console.log("Inside SoldStatistics function");
