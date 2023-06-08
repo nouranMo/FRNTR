@@ -695,11 +695,7 @@ padding: 13px;
     color: #000000;
     margin-right: 10px;
 }
-.review-bottom .rev-link{
-    text-align: left;
-    font-size: 16px;
-    padding: 0 0 0 50px;
-}
+
 .review-bottom .rev-link a{
     color: #000;
     font-size: 16px;
@@ -709,17 +705,22 @@ padding: 13px;
 
 .review-bottom .rev-link  {
   width: 100%;
-  height: 150px;
+  height: 50px;
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
   resize: vertical;
   background-color: white;
+  text-align: left;
+  font-size: 16px;
+  padding: 5px 0 0 50px;
+  margin-top: 4px;
 }
 
 .review-bottom .rev-link li{
 list-style: none;
+padding-top: 5px;
 }
 
 /* ##################  End of the reviews section################## */
