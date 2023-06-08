@@ -84,7 +84,7 @@ const userviewproduct = {
   order: async (req, res) => {
 
 
-    const { user_id, firstname,lastname,email,address,address2,  add, city, phone, cart } = req.body;
+    const { user_id, firstname,lastname,email,address,address2,addressadd, city, phone,apartment, cart } = req.body;
     console.log('order detail');
     const productlist = await Cart.findById({ _id: cart });
    let errors={};
@@ -99,15 +99,24 @@ const userviewproduct = {
   if (email.trim() === "") {
     errors.email = "You must enter your email!";
   }
-
+ 
   if (address.trim() === "") {
     errors.address = "You must enter your address!";
+  }
+  const existingadd = await Order.findOne({ address:address });
+  if (existingadd) {
+    errors.address = "This address is already exisit!";
+
   }
   if (address2.trim() === "") {
     errors.address2 = "You must enter your address2!";
   }
 
- 
+  const existingadd2 = await Order.findOne({ address2:address2 });
+  if (existingadd2) {
+    errors.address2 = "This address  is already exisit";
+
+  }
     if (city.trim() === "") {
       errors.city = "You must enter your city!";
     }
@@ -115,7 +124,8 @@ const userviewproduct = {
     if (phone.trim() === "") {
       errors.phone = "You must enter your phone number!";
     }
-    
+   
+   
   if (Object.keys(errors).length > 0) {
     // Return validation errors to the client
     return res.render("checkout", { errors ,user: req.session.user === undefined ? "" : req.session.user, cart: productlist });
@@ -143,9 +153,10 @@ const items = [];
       item: items,
       address: address,
       address2:address2,
-      additionaladd: add ,
+      additionaladd:addressadd || "",
       city: city,
-      phone: phone
+      phone: phone,
+      Apartment:apartment||""
     });
      // Save the new order document to the database
     await newOrder.save();
