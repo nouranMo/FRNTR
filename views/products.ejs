@@ -157,13 +157,17 @@
   </body>
   <script>
     function sortItems() {
+      let search;
       console.log("entered sort function")
       let selectElement = document.getElementById("sortSelect");
       console.log("found sortSelect")
       let selectedValue = selectElement.value;
       console.log("found sortselect value")
       if(document.getElementById("searchinput")!==null){
-        let search = document.getElementById("searchinput").value;
+        search = document.getElementById("searchinput").value;
+      }
+      else{
+        search = null;
       }
       
       console.log("found search input")
