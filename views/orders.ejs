@@ -52,20 +52,23 @@
                                <% const foundProduct = users.find(user => user.id.toString() === product.UserId.toString());%>
                                <%console.log('foundProduct:', foundProduct)%>
 
-                                <div class="content" style=" width: auto;">  <p style=" color: #555;
+                                <div class="content" style=" width: auto; ">  <p style=" color: #555;
                                     line-height: 1.5;
                                     margin: 0;  font-weight: bold;
             margin-bottom: 5px;">  user : <%= foundProduct.firstName %></p>
                                  <p> email : <%= foundProduct.email %></p>
-                                 <p>  Address1: <%= foundProduct.address %></p>
-                                 <p> Address2 :  <%= foundProduct.address2 %> </p> 
                                     <div class="container"> <br>
                                         They bought :
                                         <% product.item.forEach((orders) => { %>
                                             <h4><b>
                                                  <p>  <%= orders.productName %>  </p>
                                             </b></h4>
-                                        <% }); %><p> Total price they paid was : <%= product.totalPrice %></p>
+                                        <% }); %>
+                                        <p> Total price they paid was : <%= product.totalPrice %></p>
+                                        <p> City : <%= product.city %></p>
+                                        <br>    
+                                        <p> Address1 : <%= product.address %></p>
+                                        <p>Address2 : <%= product.address2 %></p>
 
                                     </div>
                                 </div>
