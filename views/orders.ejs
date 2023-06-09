@@ -48,21 +48,29 @@
                     <% if (sold && sold.length > 0) { %>
                         <div class="row">
                             <% sold.forEach((product) => {  const foundProduct = users.find(user => user.id === product.UserId);%>
-                                <div class="content" style=" width: auto;">  <p style=" color: #555;
-                                    line-height: 1.5;
-                                    margin: 0;  font-weight: bold;
-            margin-bottom: 5px;">  user : <%= foundProduct.firstName %></p>
-                                  email : <%= foundProduct.email %></p>
-                                    <div class="container"> <br>
-                                        They bought :
-                                        <% product.item.forEach((orders) => { %>
-                                            <h4><b>
-                                                 <p>  <br> <%= orders.productName %>  </p>
-                                            </b></h4>
-                                        <% }); %><p> Total price they paid was : <%= product.totalPrice %></p>
+                        
+                                    <div class="content" style="width: auto;"> 
+                                      <% if (foundProduct) { %>
+                                        <% if (foundProduct.firstName) { %>
+                                            <p style="color: #555; line-height: 1.5; margin: 0; font-weight: bold; margin-bottom: 5px;">
+                                             User: <%= foundProduct.firstName %>
+                                            </p>
+                                        <% } %>
+                                        <% if (foundProduct.email) { %>
+                                            <p>Email: <%= foundProduct.email %></p>
+                                        <% } %>  
+                                          <% } %>
+                                        <div class="container">
+                                            <br>
+                                            They bought:
+                                            <% product.item.forEach((orders) => { %>
+                                                <h4><b><%= orders.productName %></b></h4>
+                                            <% }); %>
+                                            <p>Total price they paid was: <%= product.totalPrice %></p>
+                                        </div>
                                     </div>
-                                </div>
-                            <% }); %>
+                            
+                            <% }); %> 
                         </div>
                     <% } %>
                 </div>
