@@ -19,7 +19,7 @@ const upload = multer({ storage });
 // Import controller modules
 
 // Create a new router instance
-var router = Router();
+let router = Router();
 
 // Authentication, securing the admin dashboard.
 

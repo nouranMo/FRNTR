@@ -103,7 +103,7 @@
               <div class="tabbyPromo">
                 <div class="tabbyframe">
                   <span>4 payments of
-                    <strong>1,952.50 EGP</strong>
+                    <strong><%= product.price %> EGP </strong>
                     . No interest. No fees. <a href="#">Learn more</a></span>
                 </div>
               </div>
@@ -121,7 +121,7 @@
           </div>
               <div class="sympl-widget">
                 <div class="paragraph">
-                  <span>Pay over 5 payments of <strong style="color: #ff395a">1171.5 EGP </strong>with your
+                  <span>Pay over 5 payments of <strong style="color: #ff395a"><%= product.price %> EGP </strong>with your
                     bank
                     card.</span>
                   <span><strong style="font-weight: bold;">0 interest. 0 registration.</strong><a href="#">learn
@@ -254,15 +254,7 @@
                       <div class="review-bottom-1"> 
                         <%if(user.userType==='client'){%>
                         <div class="rate">
-                          <span class="stars-rate">
-                            <ul>
-                              <li><i class="fa-regular fa-star" style="color: #f08e05;"></i></li>
-                              <li><i class="fa-regular fa-star" style="color: #f08e05;"></i></li>
-                              <li><i class="fa-regular fa-star" style="color: #f08e05;"></i></li>
-                              <li><i class="fa-regular fa-star" style="color: #f08e05;"></i></li>
-                              <li><i class="fa-regular fa-star" style="color: #f08e05;"></i></li>
-                            </ul>
-                          </span>
+                          
                         </div>
                        
                         <button class="review-btn" onclick="showReviewForm()">Write a review</button>
@@ -358,11 +350,14 @@
                       <%}%>
                   </div>
                 </div>
-              </div>
     
               <% }) %>
-
-     
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    
       <script src="/../js/itemPage.js"></script>
        <script type="text/javascript"  src="/js/ajax-cart.js"></script>
       <script type="text/javascript"  src="/js/ajax-wishlist.js"></script>

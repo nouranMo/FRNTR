@@ -48,6 +48,7 @@
                     <% if (sold && sold.length > 0) { %>
                         <div class="row">
                             <% sold.forEach((product) => {  const foundProduct = users.find(user => user.id === product.UserId);%>
+
                                 <div class="content" style=" width: auto;">  <p style=" color: #555;
                                     line-height: 1.5;
                                     margin: 0;  font-weight: bold;
@@ -62,9 +63,10 @@
                                                  <p>  <%= orders.productName %>  </p>
                                             </b></h4>
                                         <% }); %><p> Total price they paid was : <%= product.totalPrice %></p>
+
                                     </div>
-                                </div>
-                            <% }); %>
+                            
+                            <% }); %> 
                         </div>
                     <% } %>
                 </div>

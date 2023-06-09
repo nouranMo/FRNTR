@@ -1,5 +1,5 @@
 /*##############addone############*/
-var data = 1;
+let data = 1;
 document.querySelector('.number').innerText = data;
 function decrement() {
     if (data <= 1) {
@@ -15,11 +15,11 @@ function increment() {
 }
 /*##################image Section ###############*/
 document.addEventListener('DOMContentLoaded', function() {
-    var smallDivs = document.querySelectorAll('.cp');
+    let smallDivs = document.querySelectorAll('.cp');
     smallDivs.forEach(function(smallDiv, index) {
-      var anchorLink = smallDiv.querySelector('a');
-      var targetImageId = "image" + (index + 1);
-      var targetImage = document.getElementById(targetImageId);
+      let anchorLink = smallDiv.querySelector('a');
+      let targetImageId = "image" + (index + 1);
+      let targetImage = document.getElementById(targetImageId);
   
       anchorLink.addEventListener('click', function(event) {
         event.preventDefault();
@@ -51,8 +51,8 @@ function showReviewForm() {
     });
   
     console.log("inside add review button");
-    var reviewForm = document.getElementById("review-form");
-    var closeButton = document.getElementById("close-button");
+    let reviewForm = document.getElementById("review-form");
+    let closeButton = document.getElementById("close-button");
   
     closeButton.addEventListener('click', function() {
       reviewForm.style.display = "none";
@@ -71,6 +71,6 @@ function showReviewForm() {
     }
   }
   function closeReviewForm() {
-    var reviewForm = document.getElementById("review-form");
+    let reviewForm = document.getElementById("review-form");
     reviewForm.style.display = "none";
   }

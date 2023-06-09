@@ -74,55 +74,74 @@ const userviewproduct = {
     console.log('hello');
     const cart = req.query.cart;
     const productlist = await Cart.findById({ _id: cart });
+    const furniture = await Furniture.find();
     console.log("found the product " + productlist);
     if (productlist) {
+      furniture.forEach((product) => {
+        if (product.photo && product.photo.length > 0) {
+          product.photo = product.photo.map((photo) =>
+            photo.replace(/\\/g, "/").replace("public/", "/")
+          );
+        }
+      });
+      
 
-      res.render('checkout', { errors:'',user: req.session.user === undefined ? "" : req.session.user, cart: productlist });
+      res.render('checkout', { errors: '', user: req.session.user === undefined ? "" : req.session.user, cart: productlist ,furniture});
     }
 
   },
   order: async (req, res) => {
 
 
-    const { user_id, firstname,lastname,email,address,address2,  add, city, phone, cart } = req.body;
+    const { user_id, firstname, lastname, email, address, address2, addressadd, city, phone, apartment, cart } = req.body;
     console.log('order detail');
     const productlist = await Cart.findById({ _id: cart });
-   let errors={};
-   if (firstname.trim() === "") {
-    errors.firstname = "You must enter your first name!";
-  }
+    let errors = {};
+    if (firstname.trim() === "") {
+      errors.firstname = "You must enter your first name!";
+    }
 
-  if (lastname.trim() === "") {
-    errors.lastname = "You must enter your last name!";
-  }
+    if (lastname.trim() === "") {
+      errors.lastname = "You must enter your last name!";
+    }
 
-  if (email.trim() === "") {
-    errors.email = "You must enter your email!";
-  }
+    if (email.trim() === "") {
+      errors.email = "You must enter your email!";
+    }
 
-  if (address.trim() === "") {
-    errors.address = "You must enter your address!";
-  }
-  if (address2.trim() === "") {
-    errors.address2 = "You must enter your address2!";
-  }
+    if (address.trim() === "") {
+      errors.address = "You must enter your address!";
+    }
+    const existingadd = await Order.findOne({ address: address });
+    if (existingadd) {
+      errors.address = "This address is already exisit!";
 
- 
+    }
+    if (address2.trim() === "") {
+      errors.address2 = "You must enter your address2!";
+    }
+
+    const existingadd2 = await Order.findOne({ address2: address2 });
+    if (existingadd2) {
+      errors.address2 = "This address  is already exisit";
+
+    }
     if (city.trim() === "") {
       errors.city = "You must enter your city!";
     }
-  
+
     if (phone.trim() === "") {
       errors.phone = "You must enter your phone number!";
     }
-    
-  if (Object.keys(errors).length > 0) {
-    // Return validation errors to the client
-    return res.render("checkout", { errors ,user: req.session.user === undefined ? "" : req.session.user, cart: productlist });
-  }
+
+
+    if (Object.keys(errors).length > 0) {
+      // Return validation errors to the client
+      return res.render("checkout", { errors, user: req.session.user === undefined ? "" : req.session.user, cart: productlist});
+    }
 
     // Create an array to hold the item objects
-const items = [];
+    const items = [];
     // Iterate through the productlist array
     productlist.item.forEach((item) => {
       // Create an object for each item
@@ -130,7 +149,8 @@ const items = [];
         productId: item.productId,
         productName: item.productName,
         productPrice: item.productPrice,
-        quantity: item.quantity || 0 // Default quantity to 0 if not provided
+        quantity: item.quantity || 0, // Default quantity to 0 if not provided
+       
       };
 
       // Push the item object to the items array
@@ -142,17 +162,19 @@ const items = [];
       UserId: user_id,
       item: items,
       address: address,
-      address2:address2,
-      additionaladd: add ,
+      address2: address2,
+      additionaladd: addressadd || "",
       city: city,
-      phone: phone
+      phone: phone,
+      Apartment: apartment || "",
+      totalPrice: productlist.totalPrice
     });
-     // Save the new order document to the database
+    // Save the new order document to the database
     await newOrder.save();
     await Cart.findByIdAndUpdate({ _id: cart }, { $set: { item: [], totalPrice: 0 } });
 
-    userviewproduct.sendConfirmpassMail(firstname,email,newOrder._id);
-console.log('sent email');
+    userviewproduct.sendConfirmpassMail(firstname, email, newOrder._id);
+    console.log('sent email');
 
     if (newOrder) {
       console.log('Order saved:', newOrder);
@@ -163,16 +185,16 @@ console.log('sent email');
   },
 
 
-  sendConfirmpassMail: async (name,email,orderid) => {
+  sendConfirmpassMail: async (name, email, orderid) => {
     try {
-        const transporter = nodemailer.createTransport({
-            service: 'Gmail',
-            auth: {
-                user: 'projectfrntr@gmail.com', // Sender Email
-                pass: 'szuzlstihutpziej', 
-            },
-        });
-        const emailMessage = `Hello ${name},
+      const transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+          user: 'projectfrntr@gmail.com', // Sender Email
+          pass: 'szuzlstihutpziej',
+        },
+      });
+      const emailMessage = `Hello ${name},
 
         Thank you for your order! We are pleased to confirm your order with the following details:
         
@@ -182,22 +204,22 @@ console.log('sent email');
         
         Best regards,
         Your Company`;
-        const mailOptions = {
-            from: 'projectfrntr@gmail.com',
-            to: email,
-            subject: 'Order Confirmation',
-            text: emailMessage,
-        };
+      const mailOptions = {
+        from: 'projectfrntr@gmail.com',
+        to: email,
+        subject: 'Order Confirmation',
+        text: emailMessage,
+      };
 
-        transporter.sendMail(mailOptions, (error) => {
-            if (error) {
-                console.error('Error sending reset password email:', error);
-            } else {
-                console.log('Order Confrimtion email sent successfully!');
-            }
-        });
+      transporter.sendMail(mailOptions, (error) => {
+        if (error) {
+          console.error('Error sending reset password email:', error);
+        } else {
+          console.log('Order Confrimtion email sent successfully!');
+        }
+      });
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
 
   }

@@ -34,16 +34,36 @@ cartController.addToCart = async (req, res) => {
         console.log("new quantity", newQuantity, "done here");
         console.log("new stock", newStock, "done here");
 
-        await Cart.updateOne(
-          { "item.productId": productId },
-          {
-            $set: {
-              "item.$.quantity": newQuantity,
-              "item.$.stock": newStock,
-            },
-            $inc: { totalPrice: productPrice * parseInt(value) },
-          }
-        );
+        if (furniture.offer && furniture.offer) {
+          const offerValue = furniture.offer;
+          const totalPrice = productPrice * parseInt(value);
+
+          // Apply the offer calculation
+          const discountedPrice = totalPrice - (totalPrice * offerValue) / 100;
+
+          await Cart.updateOne(
+            { "item.productId": productId },
+            {
+              $set: {
+                "item.$.quantity": newQuantity,
+                "item.$.stock": newStock,
+              },
+              $inc: { totalPrice: discountedPrice },
+            }
+          );
+        } else {
+          // No offer, use the original price for the calculation
+          await Cart.updateOne(
+            { "item.productId": productId },
+            {
+              $set: {
+                "item.$.quantity": newQuantity,
+                "item.$.stock": newStock,
+              },
+              $inc: { totalPrice: productPrice * parseInt(value) },
+            }
+          );
+        }
         console.log("updating cart", cart, "done here");
 
         await Furniture.updateOne(
@@ -61,6 +81,18 @@ cartController.addToCart = async (req, res) => {
           console.log("Cannot add item. Insufficient stock");
           res.redirect("/error");
           return;
+        }
+
+        let totalPrice;
+        if (furniture.offer && furniture.offer) {
+          const offerValue = furniture.offer;
+          totalPrice = productPrice * parseInt(value);
+
+          // Apply the offer calculation
+          totalPrice = totalPrice - (totalPrice * offerValue) / 100;
+        } else {
+          // No offer, use the original price for the calculation
+          totalPrice = productPrice * parseInt(value);
         }
 
         cart.item.push({
@@ -90,7 +122,7 @@ cartController.addToCart = async (req, res) => {
                 stock: parseInt(newStock),
               },
             },
-            $inc: { totalPrice: productPrice * parseInt(value) },
+            $inc: { totalPrice: totalPrice },
           }
         );
         console.log("updating cart with new item in user", userId, "done here");
@@ -107,6 +139,21 @@ cartController.addToCart = async (req, res) => {
         return;
       }
 
+
+      let totalPrice;
+      if (furniture.offer && furniture.offer) {
+        const offerValue = furniture.offer;
+        totalPrice = productPrice * parseInt(value);
+
+
+        // Apply the offer calculation
+        totalPrice = totalPrice - (totalPrice * offerValue) / 100;
+        console.log(totalPrice)
+      } else {
+        // No offer, use the original price for the calculation
+        totalPrice = productPrice * parseInt(value);
+      }
+
       const newCart = new Cart({
         UserId: userId,
         item: [
@@ -118,7 +165,7 @@ cartController.addToCart = async (req, res) => {
             stock: newStock,
           },
         ],
-        totalPrice: productPrice * parseInt(value),
+        totalPrice: totalPrice,
       });
 
       await newCart.save();
@@ -139,14 +186,12 @@ cartController.addToCart = async (req, res) => {
 
 cartController.getCart = async (req, res) => {
   try {
-    // found the cart for the user
-    console.log("getting user:", req.session.user._id);
-    const cart = await Cart.findOne({ UserId: req.session.user._id });
-    console.log("getting cart", cart, "done here");
+    const userId = req.session.user._id;
+
+    // Find the cart for the user
+    const cart = await Cart.findOne({ UserId: userId });
 
     if (cart) {
-      console.log("cart exists", cart, "done here");
-      console.log("cart items length", cart.item.length, "done here");
       if (cart.item && cart.item.length > 0) {
         const items = await Promise.all(
           cart.item.map((item) => {
@@ -171,7 +216,6 @@ cartController.getCart = async (req, res) => {
           return item;
         });
 
-        console.log("cart AT THE END ", cart, "done here");
         await cart.save(); // Save the updated cart
 
         res.render("cartPage", {
@@ -179,12 +223,16 @@ cartController.getCart = async (req, res) => {
           user: req.session.user === undefined ? "" : req.session.user,
           products: products || [],
         });
+      } else {
+        res.render("cartPage", {
+          cart: cart,
+          user: req.session.user === undefined ? "" : req.session.user,
+          products: [],
+        });
       }
-      res.render("cartPage", {
-        cart: cart,
-        user: req.session.user === undefined ? "" : req.session.user,
-        products: [],
-      });
+    } else {
+      console.log("Cart does not exist");
+      res.redirect("/error");
     }
   } catch (error) {
     console.error("An error occurred while retrieving the cart:", error);
@@ -193,26 +241,20 @@ cartController.getCart = async (req, res) => {
 };
 
 cartController.removeFromCart = async (req, res) => {
-  console.log("hello");
   const { productId } = req.body;
   const userId = req.session.user._id;
-  console.log("Removing from cart", productId, "done here");
 
   try {
-    let cart = await Cart.findOne({ UserId: userId });
-    console.log(userId, cart, "done here");
+    const cart = await Cart.findOne({ UserId: userId });
 
     if (cart) {
-      console.log("Cart exists", cart, "done here");
-
       const item = cart.item.find((item) => item.productId === productId);
+
       if (item) {
         const furniture = await Furniture.findById(productId);
         const newQuantity = 0;
         const newStock = item.quantity;
         const newSold = furniture.sold + newStock;
-        console.log("new quantity", newQuantity, "done here");
-        console.log("new stock", newStock, "done here");
 
         await Cart.updateOne(
           { UserId: userId },
@@ -221,20 +263,20 @@ cartController.removeFromCart = async (req, res) => {
             $inc: { totalPrice: -(item.quantity * item.productPrice) },
           }
         );
-        console.log("removing item from cart", cart, "done here");
 
         await Furniture.updateOne(
           { _id: productId },
           { $inc: { quantity: newStock, sold: newSold } }
         );
-        console.log("updating furniture stock", cart, "done here");
 
         res.redirect("/user/cartPage");
       } else {
-        console.log("item does not exist in cart", item, "done here");
+        console.log("Item does not exist in cart");
+        res.redirect("/error");
       }
     } else {
-      console.log("Cart does not exist", cart, "done here");
+      console.log("Cart does not exist");
+      res.redirect("/error");
     }
   } catch (error) {
     console.error("An error occurred while removing from cart:", error);
@@ -247,9 +289,11 @@ cartController.deleteItem = async (req, res) => {
   const userId = req.session.user._id;
 
   try {
-    let cart = await Cart.findOne({ UserId: userId });
+    const cart = await Cart.findOne({ UserId: userId });
+
     if (cart) {
       const item = cart.item.find((item) => item.productId === productId);
+
       if (item) {
         const newQuantity = item.quantity - 1;
         const newStock = item.stock + 1;
@@ -281,9 +325,11 @@ cartController.deleteItem = async (req, res) => {
         );
       } else {
         console.log("Item does not exist in cart");
+        res.redirect("/error");
       }
     } else {
       console.log("Cart does not exist");
+      res.redirect("/error");
     }
     res.redirect("/user/cartPage");
   } catch (error) {
@@ -291,12 +337,13 @@ cartController.deleteItem = async (req, res) => {
     res.redirect("/error");
   }
 };
+
 cartController.addItem = async (req, res) => {
   const { productId } = req.body;
   const userId = req.session.user._id;
 
   try {
-    let cart = await Cart.findOne({ UserId: userId });
+    const cart = await Cart.findOne({ UserId: userId });
 
     if (cart) {
       const item = cart.item.find((item) => item.productId === productId);
@@ -322,14 +369,10 @@ cartController.addItem = async (req, res) => {
 
           res.redirect("/user/cartPage");
         } else {
-          res
-            .status(400)
-            .json({ success: false, message: "Insufficient stock" });
+          res.status(400).json({ success: false, message: "Insufficient stock" });
         }
       } else {
-        res
-          .status(404)
-          .json({ success: false, message: "Item or product not found" });
+        res.status(404).json({ success: false, message: "Item or product not found" });
       }
     } else {
       res.status(404).json({ success: false, message: "Cart not found" });

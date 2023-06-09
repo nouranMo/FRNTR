@@ -50,9 +50,12 @@
             <div id="last" class="err"><%= errors && errors.lastname ? errors.lastname : '' %></div>
           
             <input id="ema" type="email" class="elemen" name="email" placeholder="Email">
-            <div id="em" class="err"><% if(errors && errors.email) { %>
-                <%=errors.email%> <a href="/auth/forgetpassword">"reset your password</a>
+            <div id="em" class="err"><% if(errors && errors.email) { %> <%=errors.email%> <%}%>
+                <% if(errors && errors.email1) { %> <%=errors.email1%> <%}%>
+                <% if(errors && errors.email2) { %>
+                <%=errors.email2%> <a href="/auth/forgetpassword">"reset your password</a>
                 <%}%>
+                
             </div>
 
              <input id="add" type="text" class="elemen" name="address" placeholder="Address">
@@ -70,6 +73,9 @@
             <input class="subm" type="submit" value="Register"><br>
           </form>
           
+          <div>
+            <a href="/auth/login" class="forgot">Already have an account? Login here</a>
+          </div>
     </div>
     </div>
     <%- include("./partials/chat.ejs")%>

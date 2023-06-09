@@ -16,6 +16,13 @@ function validatePassword(password)
   return uppercasePattern.test(password) && digitPattern.test(password) && pattern.test(password);
 }
 
+function validateEmail(email)
+{
+  const regular_expressions =
+  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+return regular_expressions.test(String(email).toLocaleLowerCase());
+}
+
 signupController.signup = async (req, res) => {
   console.log("Signup request received");
 
@@ -36,6 +43,12 @@ signupController.signup = async (req, res) => {
   if (email.trim() === "") {
     errors.email = "You must enter your email!";
   }
+  else if(!validateEmail(email))
+  {
+    errors.email1 = "Valid email required!";
+
+  }
+
 
   if (address.trim() === "") {
     errors.address = "You must enter your address!";
@@ -43,7 +56,7 @@ signupController.signup = async (req, res) => {
 
   const existingUser = await User.findOne({ email });
   if (existingUser) {
-    errors.email = "Email already exists!.If this account is yours, you can";
+    errors.email2 = "Email already exists!.If this account is yours, you can";
   }
 
   if (pas === "") {
