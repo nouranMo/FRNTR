@@ -47,7 +47,10 @@
                 <div class="gallery">
                     <% if (sold && sold.length > 0) { %>
                         <div class="row">
-                            <% sold.forEach((product) => {  const foundProduct = users.find(user => user.id === product.UserId);%>
+
+                            <% sold.forEach((product) => {  %>
+                               <% const foundProduct = users.find(user => user.id.toString() === product.UserId.toString());%>
+                               <%console.log('foundProduct:', foundProduct)%>
 
                                 <div class="content" style=" width: auto;">  <p style=" color: #555;
                                     line-height: 1.5;
