@@ -108,7 +108,7 @@ Page Description: The page uses the same EJS file as the add product page, with 
 ![Edit Product](readmescreenshots/editproduct.png)
 
 ### Orders Page:
-Page Description: Displays all previous orders and the number of times each product has been sold.
+Page Description: Displays all the orders done with the address details, cart details and total amount paid.
 
 - **Unique Aspects**: The page showcases hover animations on all products, displaying different angles for each item.
 
