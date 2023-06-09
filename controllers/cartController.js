@@ -144,7 +144,7 @@ cartController.addToCart = async (req, res) => {
       if (furniture.offer && furniture.offer) {
         const offerValue = furniture.offer;
         totalPrice = productPrice * parseInt(value);
-console.log("bbb");
+
 
         // Apply the offer calculation
         totalPrice = totalPrice - (totalPrice * offerValue) / 100;

@@ -74,10 +74,19 @@ const userviewproduct = {
     console.log('hello');
     const cart = req.query.cart;
     const productlist = await Cart.findById({ _id: cart });
+    const furniture = await Furniture.find();
     console.log("found the product " + productlist);
     if (productlist) {
+      furniture.forEach((product) => {
+        if (product.photo && product.photo.length > 0) {
+          product.photo = product.photo.map((photo) =>
+            photo.replace(/\\/g, "/").replace("public/", "/")
+          );
+        }
+      });
+      
 
-      res.render('checkout', { errors: '', user: req.session.user === undefined ? "" : req.session.user, cart: productlist });
+      res.render('checkout', { errors: '', user: req.session.user === undefined ? "" : req.session.user, cart: productlist ,furniture});
     }
 
   },
@@ -128,7 +137,7 @@ const userviewproduct = {
 
     if (Object.keys(errors).length > 0) {
       // Return validation errors to the client
-      return res.render("checkout", { errors, user: req.session.user === undefined ? "" : req.session.user, cart: productlist });
+      return res.render("checkout", { errors, user: req.session.user === undefined ? "" : req.session.user, cart: productlist});
     }
 
     // Create an array to hold the item objects

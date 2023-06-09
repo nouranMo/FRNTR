@@ -78,13 +78,25 @@
       <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b><%=cart.item.length%></b></span></h4>
       <% cart.item.forEach((items)=>{%>
       <div class ="prodcutlist" style="margin: 20px;">
-        
-        
-        <%=items.productName%><span class="price"><%=items.productPrice%>EGP</span>
-        
+<div class="imagee">
+  <% const findprod = furniture.find(furn=> furn.id===items.productId)%>
+  <% if (findprod && findprod.photo && findprod.photo.length > 0) { %>
+    <img src="<%= findprod.photo[0] %>" width="100px" height="100px" />
+    <% } %>
+</div>
+
+ </div>
+<div class="innerdetail">
+        <% const findproduct = furniture.find(furn=> furn.id===items.productId)%>
+        <%if(findproduct && findproduct.offer){%>
+       <div> <%=items.productName%></div><span class="price"><del><%= items.productPrice %> EGP</del>
+          <ins class="in" style="text-decoration: none; color: red;"><%= items.productPrice -(items.productPrice * (findproduct.offer)/100) %> EGP</ins></span>
+        <%} else {%>
+          <div><%=items.productName%></div><span class="price"><ins style="text-decoration: none;"><%= items.productPrice %> EGP</ins>
     
-    
+    <%}%>
     </div>
+   
     <%})%>
       <hr>
       <p>Total <span class="price" style="color:black"><b><%=cart.totalPrice%>EGP</b></span></p>
