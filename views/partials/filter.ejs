@@ -187,6 +187,7 @@
     <script type="text/javascript" src="/../js/ajax-filter.js"></script>
     <script>
       function sortItems() {
+        let search;
         console.log("entered sort function")
         let selectElement = document.getElementById("sortSelect");
         console.log("found sortSelect")
@@ -196,10 +197,10 @@
         console.log("found category value and added it")
         if(document.getElementById("searchinput")!==null)
         {
-          let search = document.getElementById("searchinput").value;
+          search = document.getElementById("searchinput").value;
         }
         else{
-          let search = null;
+          search = null;
         }
         console.log("found search input")
         if(search!==null)
@@ -212,23 +213,25 @@
       }
       function applyFilter()
       {
+        let sort;
+        let search;
         let min = document.querySelector(".input-min").value;
         let max = document.querySelector(".input-max").value;
         let category = document.getElementById("categoryinput").value;
         
         if(document.getElementById("searchinput")!==null)
         {
-          let search = document.getElementById("searchinput").value;
+          search = document.getElementById("searchinput").value;
         }
         else{
-          let search = null;
+          search = null;
         }
         if(document.getElementById("sortinput")!==null)
         {
-          let sort = document.getElementById("sortinput").value;
+          sort = document.getElementById("sortinput").value;
         }
         else{
-          let sort = null;
+          sort = null;
         }
         if(search!==null && sort!==null)
         {
