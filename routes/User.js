@@ -16,6 +16,22 @@ router.use(bodyParser.json());
 /* GET cart page. */
 
 
+
+router.use((req,res,next)=>{
+
+  if(req.session.user!==undefined)
+  {
+    
+    next();
+
+  }
+  else
+  {
+
+  res.render('404',{user:req.session.user===undefined?"":req.session.user});
+  
+  }
+  });
 //Create Route for add item into cart
 router.post('/add-to-cart', cartController.addToCart ); 
 
@@ -42,22 +58,6 @@ router.get('/checkout',userviewproduct.checkout);
  
 router.post('/order',userviewproduct.order);
 
-router.use((req,res,next)=>{
-
-  if(req.session.user!==undefined)
-  {
-    
-    next();
-
-  }
-  else
-  {
-
-  res.render('404',{user:req.session.user===undefined?"":req.session.user});
-  
-  }
-  });
-  
 router.post('/editprofile', editprofileController1.editprofile);
 
 router.get('/editprofile', function(req, res, next) {
