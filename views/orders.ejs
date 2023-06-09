@@ -52,12 +52,14 @@
                                     line-height: 1.5;
                                     margin: 0;  font-weight: bold;
             margin-bottom: 5px;">  user : <%= foundProduct.firstName %></p>
-                                  email : <%= foundProduct.email %></p>
+                                 <p> email : <%= foundProduct.email %></p>
+                                 <p>  Address1: <%= foundProduct.address %></p>
+                                 <p> Address2 :  <%= foundProduct.address2 %> </p> 
                                     <div class="container"> <br>
                                         They bought :
                                         <% product.item.forEach((orders) => { %>
                                             <h4><b>
-                                                 <p>  <br> <%= orders.productName %>  </p>
+                                                 <p>  <%= orders.productName %>  </p>
                                             </b></h4>
                                         <% }); %><p> Total price they paid was : <%= product.totalPrice %></p>
                                     </div>
