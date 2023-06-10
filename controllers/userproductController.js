@@ -1,7 +1,7 @@
 import Furniture from "../models/furniture.js";
-import Cart from '../models/cart.js';
-import Order from '../models/order.js';
-import User from '../models/user.js';
+import Cart from "../models/cart.js";
+import Order from "../models/order.js";
+import User from "../models/user.js";
 import nodemailer from "nodemailer";
 const userviewproduct = {
   userview: async (req, res) => {
@@ -36,7 +36,6 @@ const userviewproduct = {
       );
     }
 
-
     res.render("clientproduct", {
       product: products,
       highestPrice,
@@ -48,10 +47,11 @@ const userviewproduct = {
     const min = req.query.min;
     const max = req.query.max;
 
-
     try {
       // Use the min and max values to filter the products from the database
-      const products = await Furniture.find({ price: { $gte: min, $lte: max } });
+      const products = await Furniture.find({
+        price: { $gte: min, $lte: max },
+      });
       if (products) {
         products.forEach((product) => {
           if (product.photo && product.photo.length > 0) {
@@ -62,16 +62,16 @@ const userviewproduct = {
         });
       }
       res.json({ products });
-
     } catch (error) {
-      console.error('Error:', error);
-      res.status(500).json({ error: 'An error occurred while filtering products.' });
+      console.error("Error:", error);
+      res
+        .status(500)
+        .json({ error: "An error occurred while filtering products." });
     }
   },
 
-
   checkout: async (req, res) => {
-    console.log('hello');
+    console.log("hello");
     const cart = req.query.cart;
     const productlist = await Cart.findById({ _id: cart });
     const furniture = await Furniture.find();
@@ -84,17 +84,30 @@ const userviewproduct = {
           );
         }
       });
-      
 
-      res.render('checkout', { errors: '', user: req.session.user === undefined ? "" : req.session.user, cart: productlist ,furniture});
+      res.render("checkout", {
+        errors: "",
+        user: req.session.user === undefined ? "" : req.session.user,
+        cart: productlist,
+        furniture,
+      });
     }
-
   },
   order: async (req, res) => {
-
-
-    const { user_id, firstname, lastname, email, address, address2, addressadd, city, phone, apartment, cart } = req.body;
-    console.log('order detail');
+    const {
+      user_id,
+      firstname,
+      lastname,
+      email,
+      address,
+      address2,
+      addressadd,
+      city,
+      phone,
+      apartment,
+      cart,
+    } = req.body;
+    console.log("order detail");
     const productlist = await Cart.findById({ _id: cart });
     let errors = {};
     if (firstname.trim() === "") {
@@ -115,7 +128,6 @@ const userviewproduct = {
     const existingadd = await Order.findOne({ address: address });
     if (existingadd) {
       errors.address = "This address is already exisit!";
-
     }
     if (address2.trim() === "") {
       errors.address2 = "You must enter your address2!";
@@ -124,7 +136,6 @@ const userviewproduct = {
     const existingadd2 = await Order.findOne({ address2: address2 });
     if (existingadd2) {
       errors.address2 = "This address  is already exisit";
-
     }
     if (city.trim() === "") {
       errors.city = "You must enter your city!";
@@ -134,10 +145,21 @@ const userviewproduct = {
       errors.phone = "You must enter your phone number!";
     }
 
-
     if (Object.keys(errors).length > 0) {
-      // Return validation errors to the client
-      return res.render("checkout", { errors, user: req.session.user === undefined ? "" : req.session.user, cart: productlist});
+      const furniture = await Furniture.find();
+      furniture.forEach((product) => {
+        if (product.photo && product.photo.length > 0) {
+          product.photo = product.photo.map((photo) =>
+            photo.replace(/\\/g, "/").replace("public/", "/")
+          );
+        }
+      });
+      res.render("checkout", {
+        errors,
+        user: req.session.user === undefined ? "" : req.session.user,
+        cart: productlist,
+        furniture,
+      });
     }
 
     // Create an array to hold the item objects
@@ -150,7 +172,6 @@ const userviewproduct = {
         productName: item.productName,
         productPrice: item.productPrice,
         quantity: item.quantity || 0, // Default quantity to 0 if not provided
-       
       };
 
       // Push the item object to the items array
@@ -167,31 +188,33 @@ const userviewproduct = {
       city: city,
       phone: phone,
       Apartment: apartment || "",
-      totalPrice: productlist.totalPrice
+      totalPrice: productlist.totalPrice,
     });
     // Save the new order document to the database
     await newOrder.save();
-    await Cart.findByIdAndUpdate({ _id: cart }, { $set: { item: [], totalPrice: 0 } });
+    await Cart.findByIdAndUpdate(
+      { _id: cart },
+      { $set: { item: [], totalPrice: 0 } }
+    );
 
     userviewproduct.sendConfirmpassMail(firstname, email, newOrder._id);
-    console.log('sent email');
+    console.log("sent email");
 
     if (newOrder) {
-      console.log('Order saved:', newOrder);
+      console.log("Order saved:", newOrder);
       // Handle success and continue with your code
 
-      res.redirect('/')
+      res.redirect("/");
     }
   },
-
 
   sendConfirmpassMail: async (name, email, orderid) => {
     try {
       const transporter = nodemailer.createTransport({
-        service: 'Gmail',
+        service: "Gmail",
         auth: {
-          user: 'projectfrntr@gmail.com', // Sender Email
-          pass: 'szuzlstihutpziej',
+          user: "projectfrntr@gmail.com", // Sender Email
+          pass: "szuzlstihutpziej",
         },
       });
       const emailMessage = `Hello ${name},
@@ -205,27 +228,23 @@ const userviewproduct = {
         Best regards,
         Your Company`;
       const mailOptions = {
-        from: 'projectfrntr@gmail.com',
+        from: "projectfrntr@gmail.com",
         to: email,
-        subject: 'Order Confirmation',
+        subject: "Order Confirmation",
         text: emailMessage,
       };
 
       transporter.sendMail(mailOptions, (error) => {
         if (error) {
-          console.error('Error sending reset password email:', error);
+          console.error("Error sending reset password email:", error);
         } else {
-          console.log('Order Confrimtion email sent successfully!');
+          console.log("Order Confrimtion email sent successfully!");
         }
       });
     } catch (error) {
       console.log(error);
     }
-
-  }
-
-
-
+  },
 };
 
 export default userviewproduct;
