@@ -36,11 +36,14 @@ body {
   }
   
   .col-35,
-  .col-50,
   .col-65 {
     padding: 0 16px;
   }
   
+.col-50{
+  padding: 0 2px;
+}
+
   .container {
     background-color:transparent;
     padding: 5px 20px 15px 20px;

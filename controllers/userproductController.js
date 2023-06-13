@@ -109,6 +109,14 @@ const userviewproduct = {
     } = req.body;
     console.log("order detail");
     const productlist = await Cart.findById({ _id: cart });
+    const furniture = await Furniture.find();
+    furniture.forEach((product) => {
+      if (product.photo && product.photo.length > 0) {
+        product.photo = product.photo.map((photo) =>
+          photo.replace(/\\/g, "/").replace("public/", "/")
+        );
+      }
+    });
     let errors = {};
     if (firstname.trim() === "") {
       errors.firstname = "You must enter your first name!";
@@ -137,26 +145,26 @@ const userviewproduct = {
 
     if (phone.trim() === "") {
       errors.phone = "You must enter your phone number!";
+    }else if (!/^\d+$/.test(phone)) {
+      errors.phone =  "Phone number must contain only numbers!";
+    
+    }
+    else if (!/^\d{11}$/.test(phone)) {
+
+      errors.phone = "Phone number must be 11 digits!";
     }
     
+
+    
     if (Object.keys(errors).length > 0) {
-      const furniture = await Furniture.find();
-      furniture.forEach((product) => {
-        if (product.photo && product.photo.length > 0) {
-          product.photo = product.photo.map((photo) =>
-            photo.replace(/\\/g, "/").replace("public/", "/")
-          );
-        }
-      });
-      res.render("checkout", {
+       return res.render("checkout", {
         errors,
         user: req.session.user === undefined ? "" : req.session.user,
         cart: productlist,
         furniture,
       });
     }
-    else
-    {
+   
     // Create an array to hold the item objects
     const items = [];
     // Iterate through the productlist array
@@ -201,7 +209,7 @@ const userviewproduct = {
 
       res.redirect("/");
     }
-  }
+
   },
 
   sendConfirmpassMail: async (name, email, orderid) => {
