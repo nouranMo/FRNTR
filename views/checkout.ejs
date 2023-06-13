@@ -1,108 +1,95 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="../css/checkout.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../css/checkout.css">
 </head>
 <body>
-<div class="header">
-  <img src="../images/check2_2000x.webp" alt="">
-</div>
-<div class="row">
-  <div class="col-65">
-    <div class="container">
-      <form action="/user/order" method="POST">
-      
-        <div class="row">
-          <div class="col-50">
-            <h3>Shipping Address</h3>
-          
-              <input  type="hidden" name="user_id" value="<%=user._id%>">
+  <div class="header">
+    <img src="../images/check2_2000x.webp" alt="">
+  </div>
+  <div class="row">
+    <div class="col-65">
+      <div class="container">
+        <form action="/user/order" method="POST" id="myForm" onsubmit="validate(this)">
+          <div class="row">
+            <div class="col-50">
+              <h3>Shipping Address</h3>
+              <input type="hidden" name="user_id" value="<%=user._id%>">
               <div class="row">
                 <div class="col-50">
-                  <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+                  <label for="fname"><i class="fa fa-user"></i> First Name</label>
                   <input type="text" id="fname" name="firstname" value="<%=user.firstName%>">
-                  <div id="adr" class="err"><%= errors &&  errors.firstname  ? errors.firstname : '' %></div>
+                  <div id="fnameError" class="err"><%= errors && errors.firstname ? errors.firstname : '' %></div>
                 </div>
                 <div class="col-50">
-                  <label for="lname"><i class="fa fa-user"></i> Full Name</label>
+                  <label for="lname"><i class="fa fa-user"></i> Last Name</label>
                   <input type="text" id="lname" name="lastname" value="<%=user.lastName%>">
-                  <div id="adr" class="err"><%= errors &&  errors.lastname  ? errors.lastname : '' %></div>
+                  <div id="lnameError" class="err"><%= errors && errors.lastname ? errors.lastname : '' %></div>
                 </div>
               </div>
-
-         
-            <label for="email"><i class="fa fa-envelope"></i> Email</label>
-            <input type="text" id="email" name="email" placeholder="email"value="<%=user.email%>">
-            <div id="adr" class="err"><%= errors &&  errors.email  ?  errors.email : '' %></div>
-            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-            <input type="text" id="adr" name="address" placeholder="<%=user.address%>">
-            <div id="adr" class="err"><%= errors &&  errors.address  ?  errors.address  : '' %></div>
-            <label for="adr"><i class="fa fa-address-card-o"></i> Address2</label>
-            <input type="text" id="adr" name="address2" placeholder="<%=user.address2%>">
-            <div id="adr" class="err"><%= errors &&  errors.address2  ?  errors.address2  : '' %></div>
-            <label for="adr"><i class="fa fa-address-card-o"></i>  Additional Address</label>
-            <input type="text" id="adr" name="addressadd" placeholder="(Optional*)">
-            <label for="city"><i class="fa fa-institution"></i> City</label>
-            <input type="text" id="city" name="city" placeholder="">
-            <div id="adr" class="err"><%= errors &&  errors.city ?  errors.city : '' %></div>
-            <label for="phone"><i class="fa fa-phone"></i> Phone</label>
-            <input type="text" id="phone" name="phone" placeholder="">
-            <div id="adr" class="err"><%= errors &&  errors.phone  ?  errors.phone  : '' %></div>
-
-            <div class="row">
-              <div class="col-50">
-                <label for="state">Apartment</label>
-                <input type="text" id="state" name="apartment" placeholder="Apartment, suites">
-              </div>
-             
+              <label for="email"><i class="fa fa-envelope"></i> Email</label>
+              <input type="text" id="email" name="email" placeholder="email" value="<%=user.email%>">
+              <div id="emailError" class="err"></div>
+              <div id="emailErr" class="err"><%= errors && errors.email ? errors.email : '' %></div>
+              <label for="address"><i class="fa fa-address-card-o"></i> Address</label>
+              <input type="text" id="address" name="address" placeholder="<%=user.address%>">
+              <div id="addressError" class="err"></div>
+              <div id="addressErr" class="err"><%= errors && errors.address ? errors.address : '' %></div>
+              <label for="address2"><i class="fa fa-address-card-o"></i> Address2</label>
+              <input type="text" id="address2" name="address2" placeholder="<%=user.address2%>">
+              <div id="address2Error" class="err"></div>
+              <div id="address2Err" class="err"><%= errors && errors.address2 ? errors.address2 : '' %></div>
+              <label for="addressadd"><i class="fa fa-address-card-o"></i> Additional Address</label>
+              <input type="text" id="addressadd" name="addressadd" placeholder="(Optional*)">
+              <label for="city"><i class="fa fa-institution"></i> City</label>
+              <input type="text" id="city" name="city" placeholder="">
+              <div id="cityError" class="err"></div>
+              <div id="cityErr" class="err"><%= errors && errors.city ? errors.city : '' %></div>
+              <label for="phone"><i class="fa fa-phone"></i> Phone</label>
+              <input type="text" id="phone" name="phone" placeholder="">
+              <div id="phoneError" class="err"></div>
+              <div id="phoneErr" class="err"><%= errors && errors.phone ? errors.phone : '' %></div>
+              <label for="state">Apartment</label>
+              <input type="text" id="state" name="apartment" placeholder="Apartment, suites">
             </div>
           </div>
-
-        
-          
+          <label>
+            <input type="checkbox" checked="checked" name="sameadr" onclick="return false;"> Cash on Delivery
+          </label>
+          <input type="hidden" name="cart" value="<%=cart._id%>">
+          <input type="submit" value="Continue to checkout"  class="btn">
+        </form>
+      </div>
+    </div>
+    <div class="col-35">
+      <div class="container">
+        <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b><%=cart.item.length%></b></span></h4>
+        <% cart.item.forEach((items)=>{%>
+        <div class="prodcutlist" style="margin: 20px;">
+          <div class="imagee">
+            <% const findprod = furniture.find(furn=> furn.id===items.productId)%>
+            <% if (findprod && findprod.photo && findprod.photo.length > 0) { %>
+              <img src="<%= findprod.photo[0] %>" width="100px" height="100px" />
+            <% } %>
+          </div>
         </div>
-        <label>
-          <input type="checkbox" checked="checked" name="sameadr" onclick="return false;"> Cash on Delivery
-        </label>
-        <input type="hidden" name="cart" value="<%=cart._id%>">
-
-        <input type="submit" value="Continue to checkout" class="btn">
-        
-      </form>
+        <div class="innerdetail">
+          <% const findproduct = furniture.find(furn=> furn.id===items.productId)%>
+          <% if(findproduct && findproduct.offer){ %>
+            <div> <%=items.productName%></div><span class="price"><del><%= items.productPrice %> EGP</del>
+              <ins class="in" style="text-decoration: none; color: red;"><%= items.productPrice -(items.productPrice * (findproduct.offer)/100) %> EGP</ins></span>
+          <% } else { %>
+            <div><%=items.productName%></div><span class="price"><ins style="text-decoration: none;"><%= items.productPrice %> EGP</ins>
+          <% } %>
+        </div>
+        <% }) %>
+        <hr>
+        <p>Total <span class="price" style="color:black"><b><%=cart.totalPrice%>EGP</b></span></p>
+      </div>
     </div>
   </div>
-  <div class="col-35">
-    <div class="container">
-      <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b><%=cart.item.length%></b></span></h4>
-      <% cart.item.forEach((items)=>{%>
-      <div class ="prodcutlist" style="margin: 20px;">
-<div class="imagee">
-  <% const findprod = furniture.find(furn=> furn.id===items.productId)%>
-  <% if (findprod && findprod.photo && findprod.photo.length > 0) { %>
-    <img src="<%= findprod.photo[0] %>" width="100px" height="100px" />
-    <% } %>
-</div>
-
- </div>
-<div class="innerdetail">
-        <% const findproduct = furniture.find(furn=> furn.id===items.productId)%>
-        <%if(findproduct && findproduct.offer){%>
-       <div> <%=items.productName%></div><span class="price"><del><%= items.productPrice %> EGP</del>
-          <ins class="in" style="text-decoration: none; color: red;"><%= items.productPrice -(items.productPrice * (findproduct.offer)/100) %> EGP</ins></span>
-        <%} else {%>
-          <div><%=items.productName%></div><span class="price"><ins style="text-decoration: none;"><%= items.productPrice %> EGP</ins>
-    
-    <%}%>
-    </div>
-   
-    <%})%>
-      <hr>
-      <p>Total <span class="price" style="color:black"><b><%=cart.totalPrice%>EGP</b></span></p>
-    </div>
-  </div>
-</div>
-</form>
+  <script type="text/javascript" src="../js/checkout.js"></script>
 </body>
 </html>
