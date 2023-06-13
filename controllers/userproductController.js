@@ -125,18 +125,12 @@ const userviewproduct = {
     if (address.trim() === "") {
       errors.address = "You must enter your address!";
     }
-    const existingadd = await Order.findOne({ address: address });
-    if (existingadd) {
-      errors.address = "This address is already exisit!";
-    }
+    
     if (address2.trim() === "") {
       errors.address2 = "You must enter your address2!";
     }
 
-    const existingadd2 = await Order.findOne({ address2: address2 });
-    if (existingadd2) {
-      errors.address2 = "This address  is already exisit";
-    }
+    
     if (city.trim() === "") {
       errors.city = "You must enter your city!";
     }
@@ -144,7 +138,7 @@ const userviewproduct = {
     if (phone.trim() === "") {
       errors.phone = "You must enter your phone number!";
     }
-
+    
     if (Object.keys(errors).length > 0) {
       const furniture = await Furniture.find();
       furniture.forEach((product) => {
@@ -161,7 +155,8 @@ const userviewproduct = {
         furniture,
       });
     }
-
+    else
+    {
     // Create an array to hold the item objects
     const items = [];
     // Iterate through the productlist array
@@ -206,6 +201,7 @@ const userviewproduct = {
 
       res.redirect("/");
     }
+  }
   },
 
   sendConfirmpassMail: async (name, email, orderid) => {

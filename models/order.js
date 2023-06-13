@@ -26,8 +26,7 @@ const orderSchema = new mongoose.Schema({
   },
   address2: {
     type: String,
-    required: true,
-
+    required: false,
   },
 
   additionaladd: {
