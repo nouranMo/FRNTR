@@ -37,10 +37,10 @@
             <input type="text" id="email" name="email" placeholder="email"value="<%=user.email%>">
             <div id="adr" class="err"><%= errors &&  errors.email  ?  errors.email : '' %></div>
             <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-            <input type="text" id="adr" name="address" placeholder="542 W. 15th Street"value="<%=user.address%>">
+            <input type="text" id="adr" name="address" placeholder="<%=user.address%>">
             <div id="adr" class="err"><%= errors &&  errors.address  ?  errors.address  : '' %></div>
             <label for="adr"><i class="fa fa-address-card-o"></i> Address2</label>
-            <input type="text" id="adr" name="address2" placeholder="542 W. 15th Street"value="<%=user.address2%>">
+            <input type="text" id="adr" name="address2" placeholder="<%=user.address2%>">
             <div id="adr" class="err"><%= errors &&  errors.address2  ?  errors.address2  : '' %></div>
             <label for="adr"><i class="fa fa-address-card-o"></i>  Additional Address</label>
             <input type="text" id="adr" name="addressadd" placeholder="(Optional*)">
@@ -54,7 +54,7 @@
             <div class="row">
               <div class="col-50">
                 <label for="state">Apartment</label>
-                <input type="text" id="state" name="apartment" placeholder="Apartment,suites">
+                <input type="text" id="state" name="apartment" placeholder="Apartment, suites">
               </div>
              
             </div>
@@ -64,7 +64,7 @@
           
         </div>
         <label>
-          <input type="checkbox" checked="checked" name="sameadr"> Cash on Delivery
+          <input type="checkbox" checked="checked" name="sameadr" onclick="return false;"> Cash on Delivery
         </label>
         <input type="hidden" name="cart" value="<%=cart._id%>">
 
